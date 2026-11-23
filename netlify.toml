@@ -1,0 +1,32 @@
+[build]
+  publish = "."
+
+[[redirects]]
+  from = "/tarot"
+  to = "/index.html#tarot"
+  status = 302
+
+[[redirects]]
+  from = "/tarot.html"
+  to = "/index.html#tarot"
+  status = 302
+
+[[redirects]]
+  from = "/meihua"
+  to = "/index.html#meihua"
+  status = 302
+
+[[redirects]]
+  from = "/meihua.html"
+  to = "/index.html#meihua"
+  status = 302
+
+[[redirects]]
+  from = "/yijing"
+  to = "/index.html#yijing"
+  status = 302
+
+[[redirects]]
+  from = "/yijing.html"
+  to = "/index.html#yijing"
+  status = 302

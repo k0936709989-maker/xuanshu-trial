@@ -1230,6 +1230,16 @@
 
     // 預先載入大廳四之示範核驗結果（不重複寫入紀錄簿），切換過去即刻可見完整排盤與SOP鏈
     runBaziSop(true);
+
+    // 支援舊版 tarot-trial.netlify.app 路由（#tarot / #meihua / #yijing / #naming / #bazi）直接切換對應大廳
+    const initHash = (window.location.hash || "").replace(/^#/, "").toLowerCase();
+    if (initHash === "meihua") {
+      switchTab("yijing");
+      const mhBtn = document.querySelector('#yijingMethodTabs .seg-btn[data-method="meihua_numbers"]');
+      if (mhBtn) mhBtn.click();
+    } else if (["tarot", "yijing", "naming", "bazi", "journal"].includes(initHash)) {
+      switchTab(initHash);
+    }
   }
 
   document.addEventListener("DOMContentLoaded", bootstrap);
