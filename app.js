@@ -61,7 +61,7 @@
       mentorKey: () => "fubo",
     },
     bazi: {
-      headline: "四柱八字零誤差核驗 ＆ 雙窗物理隔離 17 條審核 SOP 控管中心",
+      headline: "四柱八字零誤差排盤｜雙窗隔離 17 條審核 SOP",
       lead: "落實產書與審書雙對話窗物理隔離、CP05 單一真值鎖（年份・門檻・好日子只算一次）及全 17 條責任歸屬追責矩陣。",
       mentorKey: () => "fubo",
     },
@@ -473,6 +473,17 @@
     `;
   }
 
+  function scrollResultOnMobile(containerId) {
+    if (window.innerWidth <= 980) {
+      const el = document.getElementById(containerId);
+      if (el) {
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 80);
+      }
+    }
+  }
+
   async function executeTarotReading(pickedIndices = null) {
     const q = document.getElementById("tarotQuestionInput").value.trim();
     const spreadId = document.getElementById("tarotSpreadSelect").value;
@@ -488,6 +499,7 @@
     if (res.ok) {
       document.getElementById("tarotFanStage").classList.add("hidden");
       renderTarotResult(res.data);
+      scrollResultOnMobile("tarotResultContainer");
     }
   }
 
@@ -650,6 +662,7 @@
       document.getElementById("throwOnceBtn").textContent = "逐爻親擲（第 1 爻）";
       document.getElementById("coinThrowsProgress").textContent = "已完成六擲起卦（可隨時重新逐爻親擲）";
       renderYijingResult(res.data);
+      scrollResultOnMobile("yijingResultContainer");
     }
   }
 
@@ -880,7 +893,10 @@
         fixed_char: state.namingMode === "baby" ? document.getElementById("nmFixedChar").value : "",
         fixed_pos: Number(document.getElementById("nmFixedPos").value),
       });
-      if (res.ok) renderPersonalNamingResult(res.data);
+      if (res.ok) {
+        renderPersonalNamingResult(res.data);
+        scrollResultOnMobile("namingResultContainer");
+      }
     } else {
       const res = await apiPost("/api/naming/company", {
         ...commonDates,
@@ -890,7 +906,10 @@
         grey_mode: state.namingMode === "grey_corp_org",
         existing_brand: document.getElementById("nmExistingBrand").value,
       });
-      if (res.ok) renderCompanyNamingResult(res.data);
+      if (res.ok) {
+        renderCompanyNamingResult(res.data);
+        scrollResultOnMobile("namingResultContainer");
+      }
     }
   }
 
@@ -1008,6 +1027,7 @@
         <p class="compliance-note">以上命理排盤與系統分析是提醒與建議，不是定論。</p>
       </div>
     `;
+    if (!isPreload) scrollResultOnMobile("baziSopResultContainer");
   }
 
   /* ==================== 大廳五：問事與命名紀錄簿 ==================== */

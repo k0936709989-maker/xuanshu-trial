@@ -1619,6 +1619,13 @@ html[data-theme="light"] .sanctuary-photo {
   .mentor-switch-row {
     grid-template-columns: 1fr;
   }
+  .pillars-4-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  .rules-17-grid {
+    grid-template-columns: 1fr;
+  }
   .sop-step-row {
     grid-template-columns: 1fr;
     gap: 6px;
