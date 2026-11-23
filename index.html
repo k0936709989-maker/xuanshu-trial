@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" data-theme="dark" data-bg="star-pavilion">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b0a08" />
+  <meta property="og:title" content="玄樞閣｜七日免驗證碼手機試用版" />
+  <meta property="og:description" content="點開即用免驗證碼（限期試用七日）・秘境塔羅直斷・太極易經六爻・八術零否決姓名學・雙窗17條審核SOP" />
+  <title>玄樞閣｜七日免驗證碼手機試用版・秘境塔羅・太極易經・八術姓名學與雙窗17條SOP</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23120f0b' stroke='%23c8a35a' stroke-width='3'/%3E%3Ccircle cx='32' cy='32' r='16' fill='none' stroke='%23e3c585' stroke-width='2'/%3E%3Cpolygon points='32,12 36,28 52,32 36,36 32,52 28,36 12,32 28,28' fill='%23c8a35a'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css?v=20261124c" />
+</head>
+<body>
+  <a href="#mainContent" class="skip-link">跳至主要內容</a>
+
+  <!-- 秘境動態星軌／羅盤／竹墨背景層 -->
+  <div class="sanctuary-backdrop" aria-hidden="true">
+    <div class="sanctuary-photo"></div>
+    <canvas id="celestialCanvas"></canvas>
+    <div class="sanctuary-vignette"></div>
+  </div>
+
+  <!-- 頂部導覽列 -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand-lockup">
+        <span class="brand-seal" aria-hidden="true">玄樞</span>
+        <div>
+          <div class="brand-title">玄樞閣・東方命理與西洋秘境問事館</div>
+          <div class="brand-sub">直白犀利解答・八術零否決命名・雙曆零誤差四柱</div>
+        </div>
+      </div>
+
+      <div class="topbar-controls">
+        <div class="bg-switcher" role="group" aria-label="秘境背景意境切換">
+          <span class="control-caption">秘境意境</span>
+          <button type="button" class="bg-pill active" data-bg-mode="star-pavilion">星軌觀星閣</button>
+          <button type="button" class="bg-pill" data-bg-mode="luopan-compass">太極羅經陣</button>
+          <button type="button" class="bg-pill" data-bg-mode="bamboo-ink">竹影玄墨齋</button>
+          <button type="button" class="bg-pill" data-bg-mode="xuan-paper">宣紙澄心堂</button>
+        </div>
+
+        <button type="button" class="gate-btn" id="openGateBtn" aria-haspopup="dialog">
+          <span class="status-dot" id="trialStatusDot" aria-hidden="true"></span>
+          <span id="trialBadgeText">七日免碼試用・手機分享</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 五大核心大廳導覽 -->
+    <nav class="hall-nav" aria-label="系統主功能切換">
+      <button type="button" class="hall-tab active" data-tab="tarot">
+        <span class="tab-kicker">TAROT SANCTUARY</span>
+        <span class="tab-name">秘境塔羅問事</span>
+      </button>
+      <button type="button" class="hall-tab" data-tab="yijing">
+        <span class="tab-kicker">I CHING ORACLE</span>
+        <span class="tab-name">太極易經六爻・梅花</span>
+      </button>
+      <button type="button" class="hall-tab" data-tab="naming">
+        <span class="tab-kicker">EIGHT-SCHOOL NAMING</span>
+        <span class="tab-name">八術姓名學全體系</span>
+      </button>
+      <button type="button" class="hall-tab" data-tab="bazi">
+        <span class="tab-kicker">BAZI &amp; 17-RULE SOP</span>
+        <span class="tab-name">四柱排盤・雙窗17條SOP</span>
+      </button>
+      <button type="button" class="hall-tab" data-tab="journal">
+        <span class="tab-kicker">READING ARCHIVE</span>
+        <span class="tab-name">問事與命名紀錄簿</span>
+      </button>
+    </nav>
+  </header>
+
+  <main id="mainContent" class="main-shell">
+    <!-- 頂部簡潔主標題列（符合單頁唯一 H1 階層規範） -->
+    <section class="hero-banner">
+      <div class="hero-copy">
+        <p class="eyebrow-tag">問題導向直球解析・拒絕艱深術語堆砌</p>
+        <h1 id="hallHeadline">秘境塔羅問事館｜針對你的問題直球拆解結果與原因</h1>
+        <p id="hallLead" class="hero-desc">
+          寫下你心裡最卡的一件事，系統自動辨識問型並配置最適牌陣，翻牌後直接告訴你成不成、為什麼、接下來怎麼做。
+        </p>
+      </div>
+      <div class="mentor-spotlight" id="heroMentorCard">
+        <img id="heroMentorImg" src="./assets/mentors/vera.webp" alt="駐館導師薇拉肖像" width="88" height="88" />
+        <div class="mentor-spotlight-text">
+          <div class="mentor-badge" id="heroMentorTitle">星夜秘境・首席塔羅導師</div>
+          <div class="mentor-name" id="heroMentorName">薇拉</div>
+          <p class="mentor-quote" id="heroMentorQuote">先把焦慮放下來，牌面已經把這件事最真實的底牌攤開了。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 大廳一：秘境塔羅問事館 ==================== -->
+    <section class="hall-panel active" id="panel-tarot" aria-labelledby="hallHeadline">
+      <div class="workspace-grid">
+        <!-- 左側：精簡三步提問區 -->
+        <aside class="composer-card">
+          <div class="step-label">STEP 01 · 選擇駐館解牌導師</div>
+          <div class="mentor-switch-row" id="tarotMentorRow">
+            <button type="button" class="mentor-chip active" data-mentor="vera">
+              <img src="./assets/mentors/vera.webp" alt="薇拉" width="42" height="42" />
+              <div>
+                <strong>薇拉</strong>
+                <span>關係真相直斷</span>
+              </div>
+            </button>
+            <button type="button" class="mentor-chip" data-mentor="rien">
+              <img src="./assets/mentors/rien.webp" alt="里恩" width="42" height="42" />
+              <div>
+                <strong>里恩</strong>
+                <span>利弊果斷止損</span>
+              </div>
+            </button>
+          </div>
+
+          <div class="step-label">STEP 02 · 寫下你想問的具體問題</div>
+          <label for="tarotQuestionInput" class="sr-only">塔羅占卜問題</label>
+          <textarea
+            id="tarotQuestionInput"
+            class="question-box"
+            rows="3"
+            placeholder="請直接寫下你想知道的事，例如：我們冷戰兩週了，他心裡還有我嗎？或：我該跳槽去新公司還是留原職？"
+          >我們冷戰兩週了，他心裡還有我嗎？接下來一個月會主動聯絡嗎？</textarea>
+
+          <div class="quick-prompts" aria-label="常見問事範例">
+            <button type="button" class="prompt-pill" data-q="我們冷戰兩週了，他心裡還有我嗎？">感情：他心裡還有我嗎</button>
+            <button type="button" class="prompt-pill" data-q="我該離職去新公司還是留在原本部門？">二選一：離職還是留任</button>
+            <button type="button" class="prompt-pill" data-q="對方提的這個合作案現在能不能簽？有沒有暗坑？">事業：合作案能不能簽</button>
+            <button type="button" class="prompt-pill" data-q="最近三個月我的正偏財運勢如何？哪裡容易漏財？">財運：近期三個月財運</button>
+          </div>
+
+          <!-- 漸進式揭露：進階牌陣預設收折，避免選項過多困擾客人 -->
+          <details class="advanced-drawer">
+            <summary>進階牌陣設定（預設由系統依問題自動配陣）</summary>
+            <div class="drawer-body">
+              <label for="tarotSpreadSelect" class="field-label">指定牌陣模式</label>
+              <select id="tarotSpreadSelect" class="select-input">
+                <option value="auto" selected>智慧辨識自動配陣（推薦）</option>
+                <option value="single_verdict">一劍定音・單牌直斷陣（1 張）</option>
+                <option value="three_core">因果破局・三牌核心陣（3 張）</option>
+                <option value="love_mirror_4">雙心映照・感情四牌陣（4 張）</option>
+                <option value="two_choice_5">雙路權衡・二選一五牌陣（5 張）</option>
+              </select>
+            </div>
+          </details>
+
+          <div class="action-stack">
+            <button type="button" class="btn-gold-primary" id="tarotShuffleDrawBtn">
+              靜心洗牌・立即開牌直斷
+            </button>
+            <button type="button" class="btn-ghost-gold" id="tarotManualFanBtn">
+              展開扇形牌桌親手選牌
+            </button>
+          </div>
+        </aside>
+
+        <!-- 右側：儀式牌桌 ＋ 直球白話解答卷軸 -->
+        <div class="stage-card">
+          <!-- 扇形互動選牌桌（點擊展開時浮現） -->
+          <div class="fan-ritual-box hidden" id="tarotFanStage">
+            <div class="fan-header">
+              <span id="fanPromptText">請默念問題，憑第一直覺點選牌背抽取</span>
+              <span class="fan-counter" id="fanCounterBadge">已選 0 張</span>
+            </div>
+            <div class="tarot-fan-row" id="tarotFanCards"></div>
+          </div>
+
+          <!-- 解讀結果呈現區 -->
+          <div id="tarotResultContainer" class="reading-result-area">
+            <div class="ritual-empty-state">
+              <div class="astrolabe-emblem" aria-hidden="true"></div>
+              <h2>牌桌已淨場就緒</h2>
+              <p>在左側確認你的問題後點擊「靜心洗牌・立即開牌直斷」，導師將先給出最直白的一句話結論，再逐張拆解背後原因與三步行動建議。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 大廳二：太極易經問事館 ==================== -->
+    <section class="hall-panel" id="panel-yijing" aria-labelledby="hallHeadline">
+      <div class="workspace-grid">
+        <aside class="composer-card">
+          <div class="step-label">STEP 01 · 選擇易學解卦宗師</div>
+          <div class="mentor-switch-row" id="yijingMentorRow">
+            <button type="button" class="mentor-chip active" data-mentor="fubo">
+              <img src="./assets/mentors/fubo.webp" alt="福伯" width="42" height="42" />
+              <div>
+                <strong>福伯</strong>
+                <span>京房鐵口直斷</span>
+              </div>
+            </button>
+            <button type="button" class="mentor-chip" data-mentor="meiniang">
+              <img src="./assets/mentors/meiniang.webp" alt="梅娘" width="42" height="42" />
+              <div>
+                <strong>梅娘</strong>
+                <span>梅花時機快慢</span>
+              </div>
+            </button>
+          </div>
+
+          <div class="step-label">STEP 02 · 輸入所問之事（一事一占最準）</div>
+          <label for="yijingQuestionInput" class="sr-only">易經占卜問題</label>
+          <textarea
+            id="yijingQuestionInput"
+            class="question-box"
+            rows="3"
+            placeholder="例如：這筆合夥開店的資金現在能不能投？對方帳目有沒有問題？"
+          >這份合夥開餐廳的合約現在能不能簽？有沒有隱藏風險？</textarea>
+
+          <div class="quick-prompts" aria-label="易經問事快捷範例">
+            <button type="button" class="prompt-pill yj-pill" data-q="這份合夥開餐廳的合約現在能不能簽？">合夥簽約吉凶</button>
+            <button type="button" class="prompt-pill yj-pill" data-q="這筆借出去的款項今年底前收得回來嗎？">欠款能否收回</button>
+            <button type="button" class="prompt-pill yj-pill" data-q="下半年換跑道自己接案創業時機成不成熟？">創業轉職時機</button>
+          </div>
+
+          <div class="step-label">STEP 03 · 選擇起卦儀式</div>
+          <div class="segmented-row" id="yijingMethodTabs">
+            <button type="button" class="seg-btn active" data-method="liuyao_coins">三枚古銅錢六擲（京房六爻）</button>
+            <button type="button" class="seg-btn" data-method="meihua_numbers">報三數靈動起卦（梅花易數）</button>
+          </div>
+
+          <!-- 銅錢親手擲爻小儀式盤 -->
+          <div id="coinThrowBox" class="coin-ritual-panel">
+            <div class="three-coins-row" id="threeCoinsVisual">
+              <div class="bronze-coin" data-face="yang"><span>乾隆通寶</span></div>
+              <div class="bronze-coin" data-face="yin"><span>滿文雲紋</span></div>
+              <div class="bronze-coin" data-face="yang"><span>乾隆通寶</span></div>
+            </div>
+            <div class="coin-progress-bar" id="coinThrowsProgress">尚未擲出（共需由初爻至上爻擲六次，亦可直接一鍵完成）</div>
+            <div class="coin-btn-group">
+              <button type="button" class="btn-ghost-gold" id="throwOnceBtn">逐爻親擲（第 1 爻）</button>
+              <button type="button" class="btn-gold-primary" id="castAllCoinsBtn">一鍵六擲直斷</button>
+            </div>
+          </div>
+
+          <!-- 梅花三數輸入區 -->
+          <div id="meihuaNumBox" class="meihua-panel hidden">
+            <div class="three-num-grid">
+              <div>
+                <label for="mhNum1" class="field-label">第一數（上卦）</label>
+                <input type="number" id="mhNum1" class="text-input mono-num" value="38" min="1" max="999" />
+              </div>
+              <div>
+                <label for="mhNum2" class="field-label">第二數（下卦）</label>
+                <input type="number" id="mhNum2" class="text-input mono-num" value="62" min="1" max="999" />
+              </div>
+              <div>
+                <label for="mhNum3" class="field-label">第三數（動爻）</label>
+                <input type="number" id="mhNum3" class="text-input mono-num" value="15" min="1" max="999" />
+              </div>
+            </div>
+            <button type="button" class="btn-gold-primary full-w" id="castMeihuaBtn">以數起卦・立即白話解斷</button>
+          </div>
+        </aside>
+
+        <div class="stage-card">
+          <div id="yijingResultContainer" class="reading-result-area">
+            <div class="ritual-empty-state">
+              <div class="bagua-emblem" aria-hidden="true">☰ ☷</div>
+              <h2>古法納甲六爻・全白話直球解卦</h2>
+              <p>不丟艱深爻辭讓你自己猜。系統底層嚴格運算月建、日辰、世應與六親用神，前台直接用大白話告訴你成敗關鍵與下一步對策。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 大廳三：八術姓名學全體系宗師館 ==================== -->
+    <section class="hall-panel" id="panel-naming" aria-labelledby="hallHeadline">
+      <!-- 四大命名場景切換器 -->
+      <div class="scenario-bar" role="tablist" aria-label="姓名學四大應用場景">
+        <button type="button" class="scenario-card active" data-nmode="baby">
+          <span class="sc-tag">SCENARIO 01</span>
+          <strong>新生兒・嬰兒取名</strong>
+          <small>含八字調候＋父母生肖防沖＋輩分字</small>
+        </button>
+        <button type="button" class="scenario-card" data-nmode="adult_rename">
+          <span class="sc-tag">SCENARIO 02</span>
+          <strong>成人改名・現名病灶診斷</strong>
+          <small>先拆現名卡關原因＋再給零否決新名</small>
+        </button>
+        <button type="button" class="scenario-card" data-nmode="company_brand">
+          <span class="sc-tag">SCENARIO 03</span>
+          <strong>公司行號・店面品牌命名</strong>
+          <small>15大行業五行＋全銜81數雙軌大吉</small>
+        </button>
+        <button type="button" class="scenario-card" data-nmode="grey_corp_org">
+          <span class="sc-tag">SCENARIO 04</span>
+          <strong>集團控股・組織會盟雙棲</strong>
+          <small>外正內霸・公司全銜與組織稱號雙吉</small>
+        </button>
+      </div>
+
+      <div class="workspace-grid">
+        <aside class="composer-card">
+          <div class="step-label" id="namingFormHeading">嬰兒取名資料輸入（自動精算零誤差四柱）</div>
+
+          <!-- 個人取名／改名專屬欄位 -->
+          <div id="personalNamingFields">
+            <div class="form-row-2">
+              <div>
+                <label for="nmSurname" class="field-label">姓氏（支援單複姓）</label>
+                <input type="text" id="nmSurname" class="text-input" value="陳" maxlength="2" />
+              </div>
+              <div>
+                <label for="nmGender" class="field-label">性別</label>
+                <select id="nmGender" class="select-input">
+                  <option value="M">男命（乾造）</option>
+                  <option value="F" selected>女命（坤造）</option>
+                </select>
+              </div>
+            </div>
+
+            <div id="adultCurrentNameWrap" class="hidden">
+              <label for="nmCurrentName" class="field-label">目前使用全名（支援全漢字 20,992 字即時病灶診斷）</label>
+              <input type="text" id="nmCurrentName" class="text-input" value="陳怡君" placeholder="例如：王志明、陳怡君" />
+            </div>
+
+            <div id="babyParentsWrap">
+              <div class="form-row-2">
+                <div>
+                  <label for="nmFatherYear" class="field-label">父親出生西元年（防沖檢核）</label>
+                  <input type="number" id="nmFatherYear" class="text-input mono-num" value="1992" min="1940" max="2015" />
+                </div>
+                <div>
+                  <label for="nmMotherYear" class="field-label">母親出生西元年（防沖檢核）</label>
+                  <input type="number" id="nmMotherYear" class="text-input mono-num" value="1994" min="1940" max="2015" />
+                </div>
+              </div>
+              <div class="form-row-2">
+                <div>
+                  <label for="nmFixedChar" class="field-label">固定輩分字（無則留空）</label>
+                  <input type="text" id="nmFixedChar" class="text-input" value="" maxlength="1" placeholder="選填單一字" />
+                </div>
+                <div>
+                  <label for="nmFixedPos" class="field-label">輩分字位置</label>
+                  <select id="nmFixedPos" class="select-input">
+                    <option value="1">名字第一字</option>
+                    <option value="2">名字第二字</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 公司／組織專屬欄位 -->
+          <div id="companyNamingFields" class="hidden">
+            <div class="form-group">
+              <label for="nmIndustry" class="field-label">所屬商業產業類別（15 大行業五行庫）</label>
+              <select id="nmIndustry" class="select-input"></select>
+            </div>
+            <div class="form-row-2">
+              <div>
+                <label for="nmSuffix" class="field-label">預計登記組織型態</label>
+                <select id="nmSuffix" class="select-input"></select>
+              </div>
+              <div>
+                <label for="nmFounderGender" class="field-label">負責人性別</label>
+                <select id="nmFounderGender" class="select-input">
+                  <option value="M" selected>男命（乾造）</option>
+                  <option value="F">女命（坤造）</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="nmExistingBrand" class="field-label">現有商號／候選店名體檢（選填，可留空）</label>
+              <input type="text" id="nmExistingBrand" class="text-input" value="" placeholder="例如：鑫發、宏達（輸入可同步診斷吉凶）" />
+            </div>
+          </div>
+
+          <!-- 共用生辰與出生地欄位 -->
+          <div class="step-label">當事人／負責人出生年月日時（真太陽時精算）</div>
+          <div class="form-row-3">
+            <div>
+              <label for="nmYear" class="field-label">西元年</label>
+              <input type="number" id="nmYear" class="text-input mono-num" value="2026" min="1930" max="2035" />
+            </div>
+            <div>
+              <label for="nmMonth" class="field-label">月</label>
+              <input type="number" id="nmMonth" class="text-input mono-num" value="8" min="1" max="12" />
+            </div>
+            <div>
+              <label for="nmDay" class="field-label">日</label>
+              <input type="number" id="nmDay" class="text-input mono-num" value="15" min="1" max="31" />
+            </div>
+          </div>
+          <div class="form-row-3">
+            <div>
+              <label for="nmHour" class="field-label">時（0–23）</label>
+              <input type="number" id="nmHour" class="text-input mono-num" value="9" min="0" max="23" />
+            </div>
+            <div>
+              <label for="nmMinute" class="field-label">分（0–59）</label>
+              <input type="number" id="nmMinute" class="text-input mono-num" value="30" min="0" max="59" />
+            </div>
+            <div>
+              <label for="nmCity" class="field-label">出生地經度</label>
+              <select id="nmCity" class="select-input"></select>
+            </div>
+          </div>
+
+          <button type="button" class="btn-gold-primary full-w" id="runNamingBtn">
+            啟動八術合一零否決遴選（前 5 首選＋5 備選）
+          </button>
+        </aside>
+
+        <div class="stage-card">
+          <div id="namingResultContainer" class="reading-result-area">
+            <div class="ritual-empty-state">
+              <div class="seal-emblem" aria-hidden="true">八術合參</div>
+              <h2>八大流派共同認可・零否決嚴選命名</h2>
+              <p>同時通過「零誤差四柱窮通調候、熊崎康熙五格81數、三才生剋、十二生肖與父母防沖、易經六十四卦、五音平仄、形家結構、洛書奇門」八關嚴審，絕不單憑筆畫湊字。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 大廳四：四柱排盤與十二角色 SOP 控管中心 ==================== -->
+    <section class="hall-panel" id="panel-bazi" aria-labelledby="hallHeadline">
+      <div class="workspace-grid">
+        <aside class="composer-card">
+          <div class="step-label">客戶生辰與目標命書產線設定</div>
+          <div class="form-row-3">
+            <div>
+              <label for="bzYear" class="field-label">出生年</label>
+              <input type="number" id="bzYear" class="text-input mono-num" value="1994" min="1930" max="2035" />
+            </div>
+            <div>
+              <label for="bzMonth" class="field-label">月</label>
+              <input type="number" id="bzMonth" class="text-input mono-num" value="6" min="1" max="12" />
+            </div>
+            <div>
+              <label for="bzDay" class="field-label">日</label>
+              <input type="number" id="bzDay" class="text-input mono-num" value="12" min="1" max="31" />
+            </div>
+          </div>
+          <div class="form-row-3">
+            <div>
+              <label for="bzHour" class="field-label">時（0–23）</label>
+              <input type="number" id="bzHour" class="text-input mono-num" value="10" min="0" max="23" />
+            </div>
+            <div>
+              <label for="bzMinute" class="field-label">分（0–59）</label>
+              <input type="number" id="bzMinute" class="text-input mono-num" value="1" min="0" max="59" />
+            </div>
+            <div>
+              <label for="bzGender" class="field-label">性別</label>
+              <select id="bzGender" class="select-input">
+                <option value="M" selected>男命（乾造）</option>
+                <option value="F">女命（坤造）</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="bzCity" class="field-label">出生地（真太陽時校正）</label>
+            <select id="bzCity" class="select-input"></select>
+          </div>
+
+          <div class="form-group">
+            <label for="bzBookLine" class="field-label">指定匯整轉譯命書線別</label>
+            <select id="bzBookLine" class="select-input">
+              <option value="八字命書（福伯直白線）" selected>八字命書（多術化入八字語彙・福伯直白線）</option>
+              <option value="西洋占星命書（薇拉星盤心理線）">西洋占星命書（多術化入星盤宮位相位・薇拉線）</option>
+              <option value="奇門論命命書（遁甲九宮決策線）">奇門論命命書（多術化入奇門終身局九宮・仙師線）</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="bzQuestion" class="field-label">客人核心提問定錨</label>
+            <input type="text" id="bzQuestion" class="text-input" value="未來三年事業財運突破口、買房時機與感情正緣窗口" />
+          </div>
+
+          <button type="button" class="btn-gold-primary full-w" id="runBaziSopBtn">
+            執行零誤差四柱核驗＋十二角色步步存檔鏈檢查
+          </button>
+        </aside>
+
+        <div class="stage-card">
+          <div id="baziSopResultContainer" class="reading-result-area"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 大廳五：問事與命名紀錄簿 ==================== -->
+    <section class="hall-panel" id="panel-journal" aria-labelledby="hallHeadline">
+      <div class="journal-shell">
+        <div class="journal-toolbar">
+          <div>
+            <h2>玄樞問事與命名封存紀錄簿</h2>
+            <p class="muted-note">每一次塔羅抽牌、易經擲爻、八術命名與四柱排盤皆自動封存於伺服器資料庫，點擊即可回看完整直斷報告。</p>
+          </div>
+          <button type="button" class="btn-ghost-gold" id="refreshJournalBtn">重新整理紀錄</button>
+        </div>
+        <div id="journalListContainer" class="journal-list"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 七日免驗證碼手機試用分享中心對話框 -->
+  <div class="modal-backdrop hidden" id="gateModal" role="dialog" aria-modal="true" aria-labelledby="gateModalTitle">
+    <div class="modal-card modal-share-card">
+      <div class="modal-head">
+        <h2 id="gateModalTitle">七日免驗證碼・手機直接試用分享中心</h2>
+        <button type="button" class="modal-close" id="closeGateBtn" aria-label="關閉視窗">關閉</button>
+      </div>
+      <div class="modal-body">
+        <div class="policy-banner" id="trialModalBanner">
+          <strong id="trialModalHeadline">免驗證碼開放中：點開網址即可直接在手機試用全部五大館</strong>
+          <p id="trialCountdownDetail">試用效期鎖定一週（共七日）：自 2026-11-24 起至 2026-11-30 23:59（台灣時間）止，屆滿後系統自動關閉試用權限。</p>
+        </div>
+
+        <div class="trial-share-grid">
+          <div class="qr-panel">
+            <div class="qr-frame" id="trialQrBox" aria-label="手機掃描開啟試用版 QR Code"></div>
+            <div class="qr-caption">手機相機直接掃描即開</div>
+          </div>
+          <div class="share-copy-panel">
+            <label for="shareInviteText" class="field-label">轉傳給老闆、主管或朋友客人的邀請文字與網址</label>
+            <textarea id="shareInviteText" class="question-box share-url-box" rows="4" readonly></textarea>
+            <div class="share-btn-row">
+              <button type="button" class="btn-gold-primary" id="nativeShareTrialBtn">手機一鍵分享（LINE・訊息）</button>
+              <button type="button" class="btn-ghost-gold" id="copyTrialLinkBtn">複製邀請文案與網址</button>
+            </div>
+            <div class="share-toast hidden" id="shareFeedbackMsg" role="status" aria-live="polite"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 七日試用期屆滿自動鎖定遮罩 -->
+  <div class="trial-expired-overlay hidden" id="trialExpiredOverlay" role="alertdialog" aria-modal="true" aria-labelledby="expiredTitle">
+    <div class="modal-card">
+      <div class="pos-kicker">TRIAL PERIOD ENDED</div>
+      <h2 id="expiredTitle" style="margin:6px 0 10px;font-family:var(--font-serif)">《玄樞閣》七日免驗證碼試用期已屆滿</h2>
+      <p class="plain-body">本連結為專屬一週免驗證碼體驗版（有效期間：2026 年 11 月 24 日至 2026 年 11 月 30 日 23:59 台灣時間，共七日）。試用期限已結束，如需開通正式商業授權版或延長測試，請聯繫專屬專案負責人。</p>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>玄樞閣（七日免驗證碼試用版・效期至 2026-11-30 23:59）｜全系統採直白問題導向解析・所有結果皆為提醒與建議，不是定論，亦不是投資或下注建議。</span>
+      <a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer">Created with Perplexity Computer</a>
+    </div>
+  </footer>
+
+  <script>
+    window.__API_BASE__ = "__PORT_8088__";
+  </script>
+  <script src="./assets/qrcode.js" defer></script>
+  <script src="./assets/lunar.js" defer></script>
+  <script src="./assets/standalone_engine.js?v=20261124e" defer></script>
+  <script src="./app.js?v=20261124e" defer></script>
+</body>
+</html>

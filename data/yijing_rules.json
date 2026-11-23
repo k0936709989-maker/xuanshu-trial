@@ -1,0 +1,4784 @@
+{
+  "schema": "LiuyaoMeihuaDigitalYijingNaming/128",
+  "version": "128.0.0",
+  "description": "補齊符號與規則庫為 0 之六爻 64 卦納甲全表、增刪卜易月破臨日建與代占六親矩陣、梅花易數體用旺相與失物規約、數字易經 64+36 數對與八星制化表、熊崎姓名學康熙部首折算與假成一規範。",
+  "liuyao": {
+    "six_spirits_by_day_stem": {
+      "甲乙": [
+        "青龍",
+        "朱雀",
+        "勾陳",
+        "螣蛇",
+        "白虎",
+        "玄武"
+      ],
+      "丙丁": [
+        "朱雀",
+        "勾陳",
+        "螣蛇",
+        "白虎",
+        "玄武",
+        "青龍"
+      ],
+      "戊": [
+        "勾陳",
+        "螣蛇",
+        "白虎",
+        "玄武",
+        "青龍",
+        "朱雀"
+      ],
+      "己": [
+        "螣蛇",
+        "白虎",
+        "玄武",
+        "青龍",
+        "朱雀",
+        "勾陳"
+      ],
+      "庚辛": [
+        "白虎",
+        "玄武",
+        "青龍",
+        "朱雀",
+        "勾陳",
+        "螣蛇"
+      ],
+      "壬癸": [
+        "玄武",
+        "青龍",
+        "朱雀",
+        "勾陳",
+        "螣蛇",
+        "白虎"
+      ]
+    },
+    "month_break_meets_day_branch_zengshan_ch75": {
+      "source": "野鶴老人《增刪卜易》卷二〈月破章〉及卷四第75章〈奴婢占〉（申月寅日占僕何日回，得風水渙之澤天夬：辰土子孫為用，申月子水長生為月休非破，寅木日沖暗動，九月戌日沖開應驗）",
+      "decision_tree": [
+        "1. 月破而臨日建（如申月寅日用爻為寅）：名『月破臨日建（填實有力）』，目下得日建生扶不破；若兼動爻化吉或原神生扶，出月／逢合日可成。",
+        "2. 月破靜爻無日建無動生、亦無傷剋：待出月、逢值日（實破填實）或逢六合日應驗；若休囚無氣又逢忌神動剋，則為『真破到底（FALSE）』。",
+        "3. 動而化回頭剋、化絕、化破：雖臨日建亦主先成後敗或半途生變（如父母動化財回頭剋、子孫動化父母回頭剋）。"
+      ]
+    },
+    "advancing_retreating_spirits": {
+      "進神（動化同類進一位，力增）": [
+        "亥化子",
+        "寅化卯",
+        "巳化午",
+        "申化酉",
+        "丑化辰",
+        "辰化未",
+        "未化戌"
+      ],
+      "退神（動化同類退一位，力減漸退）": [
+        "子化亥",
+        "卯化寅",
+        "午化巳",
+        "酉化申",
+        "戌化未",
+        "未化辰",
+        "辰化丑"
+      ]
+    },
+    "proxy_question_kinship_matrix": {
+      "gap_fixed": "LIUYAO_PROXY_RELATION_SELECTION_088",
+      "rule": "凡代人占問，必須先鎖定『搖卦者與事主之實際關係』再取用神，若未告知關係則回傳 UNKNOWN 要求補充，嚴禁一律拿世爻當事主：",
+      "mapping": {
+        "本人自占": "世爻為自己，應爻為對方／所求環境，再依事類取官鬼／妻財／父母／子孫。",
+        "父母代子女占": "以『子孫爻』為子女本體；占子女學業合約兼看父母爻，占子女求財看生助子孫或妻財與子孫之氣脈（不拿父母爻剋子孫當學業大吉，必分事體。）。",
+        "子女代父母占": "以『父母爻』為父母本體（如 093 子占父功名：官鬼動生父母為官生父吉路）。",
+        "配偶代另一半占": "男占妻以妻財為用，女占夫以官鬼為用（現代伴侶亦可以應爻參合用神）。",
+        "代兄弟姊妹／平輩摯友占": "以『兄弟爻』為事主本體。",
+        "主管代下屬／雇主代員工占": "以『子孫爻』或『妻財爻（僕役員工）』為用神。",
+        "無特定親屬之陌生客戶委託師傅代搖": "以『應爻』為求測事主本體。"
+      }
+    },
+    "najia_64_hexagrams": [
+      {
+        "palace": "乾宮",
+        "palace_element": "金",
+        "rank": "本宮卦(六純)",
+        "hexagram_name": "乾為天",
+        "upper_trigram": "乾",
+        "lower_trigram": "乾",
+        "shi_line": 6,
+        "ying_line": 3,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陽",
+            "najia": "甲子",
+            "element": "水",
+            "six_kin": "子孫",
+            "shi_ying": ""
+          },
+          {
+            "line": 2,
+            "yin_yang": "陽",
+            "najia": "甲寅",
+            "element": "木",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陽",
+            "najia": "甲辰",
+            "element": "土",
+            "six_kin": "父母",
+            "shi_ying": "應"
+          },
+          {
+            "line": 4,
+            "yin_yang": "陽",
+            "najia": "壬午",
+            "element": "火",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 5,
+            "yin_yang": "陽",
+            "najia": "壬申",
+            "element": "金",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陽",
+            "najia": "壬戌",
+            "element": "土",
+            "six_kin": "父母",
+            "shi_ying": "世"
+          }
+        ]
+      },
+      {
+        "palace": "乾宮",
+        "palace_element": "金",
+        "rank": "一世卦",
+        "hexagram_name": "天風姤",
+        "upper_trigram": "乾",
+        "lower_trigram": "巽",
+        "shi_line": 1,
+        "ying_line": 4,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陰",
+            "najia": "辛丑",
+            "element": "土",
+            "six_kin": "父母",
+            "shi_ying": "世"
+          },
+          {
+            "line": 2,
+            "yin_yang": "陽",
+            "najia": "辛亥",
+            "element": "水",
+            "six_kin": "子孫",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陽",
+            "najia": "辛酉",
+            "element": "金",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 4,
+            "yin_yang": "陽",
+            "najia": "壬午",
+            "element": "火",
+            "six_kin": "官鬼",
+            "shi_ying": "應"
+          },
+          {
+            "line": 5,
+            "yin_yang": "陽",
+            "najia": "壬申",
+            "element": "金",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陽",
+            "najia": "壬戌",
+            "element": "土",
+            "six_kin": "父母",
+            "shi_ying": ""
+          }
+        ]
+      },
+      {
+        "palace": "乾宮",
+        "palace_element": "金",
+        "rank": "二世卦",
+        "hexagram_name": "天山遯",
+        "upper_trigram": "乾",
+        "lower_trigram": "艮",
+        "shi_line": 2,
+        "ying_line": 5,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陰",
+            "najia": "丙辰",
+            "element": "土",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 2,
+            "yin_yang": "陰",
+            "najia": "丙午",
+            "element": "火",
+            "six_kin": "官鬼",
+            "shi_ying": "世"
+          },
+          {
+            "line": 3,
+            "yin_yang": "陽",
+            "najia": "丙申",
+            "element": "金",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 4,
+            "yin_yang": "陽",
+            "najia": "壬午",
+            "element": "火",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 5,
+            "yin_yang": "陽",
+            "najia": "壬申",
+            "element": "金",
+            "six_kin": "兄弟",
+            "shi_ying": "應"
+          },
+          {
+            "line": 6,
+            "yin_yang": "陽",
+            "najia": "壬戌",
+            "element": "土",
+            "six_kin": "父母",
+            "shi_ying": ""
+          }
+        ]
+      },
+      {
+        "palace": "乾宮",
+        "palace_element": "金",
+        "rank": "三世卦",
+        "hexagram_name": "天地否",
+        "upper_trigram": "乾",
+        "lower_trigram": "坤",
+        "shi_line": 3,
+        "ying_line": 6,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陰",
+            "najia": "乙未",
+            "element": "土",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 2,
+            "yin_yang": "陰",
+            "najia": "乙巳",
+            "element": "火",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陰",
+            "najia": "乙卯",
+            "element": "木",
+            "six_kin": "妻財",
+            "shi_ying": "世"
+          },
+          {
+            "line": 4,
+            "yin_yang": "陽",
+            "najia": "壬午",
+            "element": "火",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 5,
+            "yin_yang": "陽",
+            "najia": "壬申",
+            "element": "金",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陽",
+            "najia": "壬戌",
+            "element": "土",
+            "six_kin": "父母",
+            "shi_ying": "應"
+          }
+        ]
+      },
+      {
+        "palace": "乾宮",
+        "palace_element": "金",
+        "rank": "四世卦",
+        "hexagram_name": "風地觀",
+        "upper_trigram": "巽",
+        "lower_trigram": "坤",
+        "shi_line": 4,
+        "ying_line": 1,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陰",
+            "najia": "乙未",
+            "element": "土",
+            "six_kin": "父母",
+            "shi_ying": "應"
+          },
+          {
+            "line": 2,
+            "yin_yang": "陰",
+            "najia": "乙巳",
+            "element": "火",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陰",
+            "najia": "乙卯",
+            "element": "木",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          },
+          {
+            "line": 4,
+            "yin_yang": "陰",
+            "najia": "辛未",
+            "element": "土",
+            "six_kin": "父母",
+            "shi_ying": "世"
+          },
+          {
+            "line": 5,
+            "yin_yang": "陽",
+            "najia": "辛巳",
+            "element": "火",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陽",
+            "najia": "辛卯",
+            "element": "木",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          }
+        ]
+      },
+      {
+        "palace": "乾宮",
+        "palace_element": "金",
+        "rank": "五世卦",
+        "hexagram_name": "山地剝",
+        "upper_trigram": "艮",
+        "lower_trigram": "坤",
+        "shi_line": 5,
+        "ying_line": 2,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陰",
+            "najia": "乙未",
+            "element": "土",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 2,
+            "yin_yang": "陰",
+            "najia": "乙巳",
+            "element": "火",
+            "six_kin": "官鬼",
+            "shi_ying": "應"
+          },
+          {
+            "line": 3,
+            "yin_yang": "陰",
+            "najia": "乙卯",
+            "element": "木",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          },
+          {
+            "line": 4,
+            "yin_yang": "陰",
+            "najia": "丙戌",
+            "element": "土",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 5,
+            "yin_yang": "陰",
+            "najia": "丙子",
+            "element": "水",
+            "six_kin": "子孫",
+            "shi_ying": "世"
+          },
+          {
+            "line": 6,
+            "yin_yang": "陽",
+            "najia": "丙寅",
+            "element": "木",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          }
+        ]
+      },
+      {
+        "palace": "乾宮",
+        "palace_element": "金",
+        "rank": "遊魂卦",
+        "hexagram_name": "火地晉",
+        "upper_trigram": "離",
+        "lower_trigram": "坤",
+        "shi_line": 4,
+        "ying_line": 1,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陰",
+            "najia": "乙未",
+            "element": "土",
+            "six_kin": "父母",
+            "shi_ying": "應"
+          },
+          {
+            "line": 2,
+            "yin_yang": "陰",
+            "najia": "乙巳",
+            "element": "火",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陰",
+            "najia": "乙卯",
+            "element": "木",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          },
+          {
+            "line": 4,
+            "yin_yang": "陽",
+            "najia": "己酉",
+            "element": "金",
+            "six_kin": "兄弟",
+            "shi_ying": "世"
+          },
+          {
+            "line": 5,
+            "yin_yang": "陰",
+            "najia": "己未",
+            "element": "土",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陽",
+            "najia": "己巳",
+            "element": "火",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          }
+        ]
+      },
+      {
+        "palace": "乾宮",
+        "palace_element": "金",
+        "rank": "歸魂卦",
+        "hexagram_name": "火天大有",
+        "upper_trigram": "離",
+        "lower_trigram": "乾",
+        "shi_line": 3,
+        "ying_line": 6,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陽",
+            "najia": "甲子",
+            "element": "水",
+            "six_kin": "子孫",
+            "shi_ying": ""
+          },
+          {
+            "line": 2,
+            "yin_yang": "陽",
+            "najia": "甲寅",
+            "element": "木",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陽",
+            "najia": "甲辰",
+            "element": "土",
+            "six_kin": "父母",
+            "shi_ying": "世"
+          },
+          {
+            "line": 4,
+            "yin_yang": "陽",
+            "najia": "己酉",
+            "element": "金",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 5,
+            "yin_yang": "陰",
+            "najia": "己未",
+            "element": "土",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陽",
+            "najia": "己巳",
+            "element": "火",
+            "six_kin": "官鬼",
+            "shi_ying": "應"
+          }
+        ]
+      },
+      {
+        "palace": "坎宮",
+        "palace_element": "水",
+        "rank": "本宮卦(六純)",
+        "hexagram_name": "坎為水",
+        "upper_trigram": "坎",
+        "lower_trigram": "坎",
+        "shi_line": 6,
+        "ying_line": 3,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陰",
+            "najia": "戊寅",
+            "element": "木",
+            "six_kin": "子孫",
+            "shi_ying": ""
+          },
+          {
+            "line": 2,
+            "yin_yang": "陽",
+            "najia": "戊辰",
+            "element": "土",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陰",
+            "najia": "戊午",
+            "element": "火",
+            "six_kin": "妻財",
+            "shi_ying": "應"
+          },
+          {
+            "line": 4,
+            "yin_yang": "陰",
+            "najia": "戊申",
+            "element": "金",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 5,
+            "yin_yang": "陽",
+            "najia": "戊戌",
+            "element": "土",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陰",
+            "najia": "戊子",
+            "element": "水",
+            "six_kin": "兄弟",
+            "shi_ying": "世"
+          }
+        ]
+      },
+      {
+        "palace": "坎宮",
+        "palace_element": "水",
+        "rank": "一世卦",
+        "hexagram_name": "水澤節",
+        "upper_trigram": "坎",
+        "lower_trigram": "兌",
+        "shi_line": 1,
+        "ying_line": 4,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陽",
+            "najia": "丁巳",
+            "element": "火",
+            "six_kin": "妻財",
+            "shi_ying": "世"
+          },
+          {
+            "line": 2,
+            "yin_yang": "陽",
+            "najia": "丁卯",
+            "element": "木",
+            "six_kin": "子孫",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陰",
+            "najia": "丁丑",
+            "element": "土",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 4,
+            "yin_yang": "陰",
+            "najia": "戊申",
+            "element": "金",
+            "six_kin": "父母",
+            "shi_ying": "應"
+          },
+          {
+            "line": 5,
+            "yin_yang": "陽",
+            "najia": "戊戌",
+            "element": "土",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陰",
+            "najia": "戊子",
+            "element": "水",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          }
+        ]
+      },
+      {
+        "palace": "坎宮",
+        "palace_element": "水",
+        "rank": "二世卦",
+        "hexagram_name": "水雷屯",
+        "upper_trigram": "坎",
+        "lower_trigram": "震",
+        "shi_line": 2,
+        "ying_line": 5,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陽",
+            "najia": "庚子",
+            "element": "水",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 2,
+            "yin_yang": "陰",
+            "najia": "庚寅",
+            "element": "木",
+            "six_kin": "子孫",
+            "shi_ying": "世"
+          },
+          {
+            "line": 3,
+            "yin_yang": "陰",
+            "najia": "庚辰",
+            "element": "土",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 4,
+            "yin_yang": "陰",
+            "najia": "戊申",
+            "element": "金",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 5,
+            "yin_yang": "陽",
+            "najia": "戊戌",
+            "element": "土",
+            "six_kin": "官鬼",
+            "shi_ying": "應"
+          },
+          {
+            "line": 6,
+            "yin_yang": "陰",
+            "najia": "戊子",
+            "element": "水",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          }
+        ]
+      },
+      {
+        "palace": "坎宮",
+        "palace_element": "水",
+        "rank": "三世卦",
+        "hexagram_name": "水火既濟",
+        "upper_trigram": "坎",
+        "lower_trigram": "離",
+        "shi_line": 3,
+        "ying_line": 6,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陽",
+            "najia": "己卯",
+            "element": "木",
+            "six_kin": "子孫",
+            "shi_ying": ""
+          },
+          {
+            "line": 2,
+            "yin_yang": "陰",
+            "najia": "己丑",
+            "element": "土",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陽",
+            "najia": "己亥",
+            "element": "水",
+            "six_kin": "兄弟",
+            "shi_ying": "世"
+          },
+          {
+            "line": 4,
+            "yin_yang": "陰",
+            "najia": "戊申",
+            "element": "金",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 5,
+            "yin_yang": "陽",
+            "najia": "戊戌",
+            "element": "土",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陰",
+            "najia": "戊子",
+            "element": "水",
+            "six_kin": "兄弟",
+            "shi_ying": "應"
+          }
+        ]
+      },
+      {
+        "palace": "坎宮",
+        "palace_element": "水",
+        "rank": "四世卦",
+        "hexagram_name": "澤火革",
+        "upper_trigram": "兌",
+        "lower_trigram": "離",
+        "shi_line": 4,
+        "ying_line": 1,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陽",
+            "najia": "己卯",
+            "element": "木",
+            "six_kin": "子孫",
+            "shi_ying": "應"
+          },
+          {
+            "line": 2,
+            "yin_yang": "陰",
+            "najia": "己丑",
+            "element": "土",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陽",
+            "najia": "己亥",
+            "element": "水",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 4,
+            "yin_yang": "陽",
+            "najia": "丁亥",
+            "element": "水",
+            "six_kin": "兄弟",
+            "shi_ying": "世"
+          },
+          {
+            "line": 5,
+            "yin_yang": "陽",
+            "najia": "丁酉",
+            "element": "金",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陰",
+            "najia": "丁未",
+            "element": "土",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          }
+        ]
+      },
+      {
+        "palace": "坎宮",
+        "palace_element": "水",
+        "rank": "五世卦",
+        "hexagram_name": "雷火豐",
+        "upper_trigram": "震",
+        "lower_trigram": "離",
+        "shi_line": 5,
+        "ying_line": 2,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陽",
+            "najia": "己卯",
+            "element": "木",
+            "six_kin": "子孫",
+            "shi_ying": ""
+          },
+          {
+            "line": 2,
+            "yin_yang": "陰",
+            "najia": "己丑",
+            "element": "土",
+            "six_kin": "官鬼",
+            "shi_ying": "應"
+          },
+          {
+            "line": 3,
+            "yin_yang": "陽",
+            "najia": "己亥",
+            "element": "水",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 4,
+            "yin_yang": "陽",
+            "najia": "庚午",
+            "element": "火",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          },
+          {
+            "line": 5,
+            "yin_yang": "陰",
+            "najia": "庚申",
+            "element": "金",
+            "six_kin": "父母",
+            "shi_ying": "世"
+          },
+          {
+            "line": 6,
+            "yin_yang": "陰",
+            "najia": "庚戌",
+            "element": "土",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          }
+        ]
+      },
+      {
+        "palace": "坎宮",
+        "palace_element": "水",
+        "rank": "遊魂卦",
+        "hexagram_name": "地火明夷",
+        "upper_trigram": "坤",
+        "lower_trigram": "離",
+        "shi_line": 4,
+        "ying_line": 1,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陽",
+            "najia": "己卯",
+            "element": "木",
+            "six_kin": "子孫",
+            "shi_ying": "應"
+          },
+          {
+            "line": 2,
+            "yin_yang": "陰",
+            "najia": "己丑",
+            "element": "土",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陽",
+            "najia": "己亥",
+            "element": "水",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 4,
+            "yin_yang": "陰",
+            "najia": "癸丑",
+            "element": "土",
+            "six_kin": "官鬼",
+            "shi_ying": "世"
+          },
+          {
+            "line": 5,
+            "yin_yang": "陰",
+            "najia": "癸亥",
+            "element": "水",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陰",
+            "najia": "癸酉",
+            "element": "金",
+            "six_kin": "父母",
+            "shi_ying": ""
+          }
+        ]
+      },
+      {
+        "palace": "坎宮",
+        "palace_element": "水",
+        "rank": "歸魂卦",
+        "hexagram_name": "地水師",
+        "upper_trigram": "坤",
+        "lower_trigram": "坎",
+        "shi_line": 3,
+        "ying_line": 6,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陰",
+            "najia": "戊寅",
+            "element": "木",
+            "six_kin": "子孫",
+            "shi_ying": ""
+          },
+          {
+            "line": 2,
+            "yin_yang": "陽",
+            "najia": "戊辰",
+            "element": "土",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陰",
+            "najia": "戊午",
+            "element": "火",
+            "six_kin": "妻財",
+            "shi_ying": "世"
+          },
+          {
+            "line": 4,
+            "yin_yang": "陰",
+            "najia": "癸丑",
+            "element": "土",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 5,
+            "yin_yang": "陰",
+            "najia": "癸亥",
+            "element": "水",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陰",
+            "najia": "癸酉",
+            "element": "金",
+            "six_kin": "父母",
+            "shi_ying": "應"
+          }
+        ]
+      },
+      {
+        "palace": "艮宮",
+        "palace_element": "土",
+        "rank": "本宮卦(六純)",
+        "hexagram_name": "艮為山",
+        "upper_trigram": "艮",
+        "lower_trigram": "艮",
+        "shi_line": 6,
+        "ying_line": 3,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陰",
+            "najia": "丙辰",
+            "element": "土",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 2,
+            "yin_yang": "陰",
+            "najia": "丙午",
+            "element": "火",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陽",
+            "najia": "丙申",
+            "element": "金",
+            "six_kin": "子孫",
+            "shi_ying": "應"
+          },
+          {
+            "line": 4,
+            "yin_yang": "陰",
+            "najia": "丙戌",
+            "element": "土",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 5,
+            "yin_yang": "陰",
+            "najia": "丙子",
+            "element": "水",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陽",
+            "najia": "丙寅",
+            "element": "木",
+            "six_kin": "官鬼",
+            "shi_ying": "世"
+          }
+        ]
+      },
+      {
+        "palace": "艮宮",
+        "palace_element": "土",
+        "rank": "一世卦",
+        "hexagram_name": "山火賁",
+        "upper_trigram": "艮",
+        "lower_trigram": "離",
+        "shi_line": 1,
+        "ying_line": 4,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陽",
+            "najia": "己卯",
+            "element": "木",
+            "six_kin": "官鬼",
+            "shi_ying": "世"
+          },
+          {
+            "line": 2,
+            "yin_yang": "陰",
+            "najia": "己丑",
+            "element": "土",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陽",
+            "najia": "己亥",
+            "element": "水",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          },
+          {
+            "line": 4,
+            "yin_yang": "陰",
+            "najia": "丙戌",
+            "element": "土",
+            "six_kin": "兄弟",
+            "shi_ying": "應"
+          },
+          {
+            "line": 5,
+            "yin_yang": "陰",
+            "najia": "丙子",
+            "element": "水",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陽",
+            "najia": "丙寅",
+            "element": "木",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          }
+        ]
+      },
+      {
+        "palace": "艮宮",
+        "palace_element": "土",
+        "rank": "二世卦",
+        "hexagram_name": "山天大畜",
+        "upper_trigram": "艮",
+        "lower_trigram": "乾",
+        "shi_line": 2,
+        "ying_line": 5,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陽",
+            "najia": "甲子",
+            "element": "水",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          },
+          {
+            "line": 2,
+            "yin_yang": "陽",
+            "najia": "甲寅",
+            "element": "木",
+            "six_kin": "官鬼",
+            "shi_ying": "世"
+          },
+          {
+            "line": 3,
+            "yin_yang": "陽",
+            "najia": "甲辰",
+            "element": "土",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 4,
+            "yin_yang": "陰",
+            "najia": "丙戌",
+            "element": "土",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 5,
+            "yin_yang": "陰",
+            "najia": "丙子",
+            "element": "水",
+            "six_kin": "妻財",
+            "shi_ying": "應"
+          },
+          {
+            "line": 6,
+            "yin_yang": "陽",
+            "najia": "丙寅",
+            "element": "木",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          }
+        ]
+      },
+      {
+        "palace": "艮宮",
+        "palace_element": "土",
+        "rank": "三世卦",
+        "hexagram_name": "山澤損",
+        "upper_trigram": "艮",
+        "lower_trigram": "兌",
+        "shi_line": 3,
+        "ying_line": 6,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陽",
+            "najia": "丁巳",
+            "element": "火",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 2,
+            "yin_yang": "陽",
+            "najia": "丁卯",
+            "element": "木",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陰",
+            "najia": "丁丑",
+            "element": "土",
+            "six_kin": "兄弟",
+            "shi_ying": "世"
+          },
+          {
+            "line": 4,
+            "yin_yang": "陰",
+            "najia": "丙戌",
+            "element": "土",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 5,
+            "yin_yang": "陰",
+            "najia": "丙子",
+            "element": "水",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陽",
+            "najia": "丙寅",
+            "element": "木",
+            "six_kin": "官鬼",
+            "shi_ying": "應"
+          }
+        ]
+      },
+      {
+        "palace": "艮宮",
+        "palace_element": "土",
+        "rank": "四世卦",
+        "hexagram_name": "火澤睽",
+        "upper_trigram": "離",
+        "lower_trigram": "兌",
+        "shi_line": 4,
+        "ying_line": 1,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陽",
+            "najia": "丁巳",
+            "element": "火",
+            "six_kin": "父母",
+            "shi_ying": "應"
+          },
+          {
+            "line": 2,
+            "yin_yang": "陽",
+            "najia": "丁卯",
+            "element": "木",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陰",
+            "najia": "丁丑",
+            "element": "土",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 4,
+            "yin_yang": "陽",
+            "najia": "己酉",
+            "element": "金",
+            "six_kin": "子孫",
+            "shi_ying": "世"
+          },
+          {
+            "line": 5,
+            "yin_yang": "陰",
+            "najia": "己未",
+            "element": "土",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陽",
+            "najia": "己巳",
+            "element": "火",
+            "six_kin": "父母",
+            "shi_ying": ""
+          }
+        ]
+      },
+      {
+        "palace": "艮宮",
+        "palace_element": "土",
+        "rank": "五世卦",
+        "hexagram_name": "天澤履",
+        "upper_trigram": "乾",
+        "lower_trigram": "兌",
+        "shi_line": 5,
+        "ying_line": 2,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陽",
+            "najia": "丁巳",
+            "element": "火",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 2,
+            "yin_yang": "陽",
+            "najia": "丁卯",
+            "element": "木",
+            "six_kin": "官鬼",
+            "shi_ying": "應"
+          },
+          {
+            "line": 3,
+            "yin_yang": "陰",
+            "najia": "丁丑",
+            "element": "土",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 4,
+            "yin_yang": "陽",
+            "najia": "壬午",
+            "element": "火",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 5,
+            "yin_yang": "陽",
+            "najia": "壬申",
+            "element": "金",
+            "six_kin": "子孫",
+            "shi_ying": "世"
+          },
+          {
+            "line": 6,
+            "yin_yang": "陽",
+            "najia": "壬戌",
+            "element": "土",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          }
+        ]
+      },
+      {
+        "palace": "艮宮",
+        "palace_element": "土",
+        "rank": "遊魂卦",
+        "hexagram_name": "風澤中孚",
+        "upper_trigram": "巽",
+        "lower_trigram": "兌",
+        "shi_line": 4,
+        "ying_line": 1,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陽",
+            "najia": "丁巳",
+            "element": "火",
+            "six_kin": "父母",
+            "shi_ying": "應"
+          },
+          {
+            "line": 2,
+            "yin_yang": "陽",
+            "najia": "丁卯",
+            "element": "木",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陰",
+            "najia": "丁丑",
+            "element": "土",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 4,
+            "yin_yang": "陰",
+            "najia": "辛未",
+            "element": "土",
+            "six_kin": "兄弟",
+            "shi_ying": "世"
+          },
+          {
+            "line": 5,
+            "yin_yang": "陽",
+            "najia": "辛巳",
+            "element": "火",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陽",
+            "najia": "辛卯",
+            "element": "木",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          }
+        ]
+      },
+      {
+        "palace": "艮宮",
+        "palace_element": "土",
+        "rank": "歸魂卦",
+        "hexagram_name": "風山漸",
+        "upper_trigram": "巽",
+        "lower_trigram": "艮",
+        "shi_line": 3,
+        "ying_line": 6,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陰",
+            "najia": "丙辰",
+            "element": "土",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 2,
+            "yin_yang": "陰",
+            "najia": "丙午",
+            "element": "火",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陽",
+            "najia": "丙申",
+            "element": "金",
+            "six_kin": "子孫",
+            "shi_ying": "世"
+          },
+          {
+            "line": 4,
+            "yin_yang": "陰",
+            "najia": "辛未",
+            "element": "土",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 5,
+            "yin_yang": "陽",
+            "najia": "辛巳",
+            "element": "火",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陽",
+            "najia": "辛卯",
+            "element": "木",
+            "six_kin": "官鬼",
+            "shi_ying": "應"
+          }
+        ]
+      },
+      {
+        "palace": "震宮",
+        "palace_element": "木",
+        "rank": "本宮卦(六純)",
+        "hexagram_name": "震為雷",
+        "upper_trigram": "震",
+        "lower_trigram": "震",
+        "shi_line": 6,
+        "ying_line": 3,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陽",
+            "najia": "庚子",
+            "element": "水",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 2,
+            "yin_yang": "陰",
+            "najia": "庚寅",
+            "element": "木",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陰",
+            "najia": "庚辰",
+            "element": "土",
+            "six_kin": "妻財",
+            "shi_ying": "應"
+          },
+          {
+            "line": 4,
+            "yin_yang": "陽",
+            "najia": "庚午",
+            "element": "火",
+            "six_kin": "子孫",
+            "shi_ying": ""
+          },
+          {
+            "line": 5,
+            "yin_yang": "陰",
+            "najia": "庚申",
+            "element": "金",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陰",
+            "najia": "庚戌",
+            "element": "土",
+            "six_kin": "妻財",
+            "shi_ying": "世"
+          }
+        ]
+      },
+      {
+        "palace": "震宮",
+        "palace_element": "木",
+        "rank": "一世卦",
+        "hexagram_name": "雷地豫",
+        "upper_trigram": "震",
+        "lower_trigram": "坤",
+        "shi_line": 1,
+        "ying_line": 4,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陰",
+            "najia": "乙未",
+            "element": "土",
+            "six_kin": "妻財",
+            "shi_ying": "世"
+          },
+          {
+            "line": 2,
+            "yin_yang": "陰",
+            "najia": "乙巳",
+            "element": "火",
+            "six_kin": "子孫",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陰",
+            "najia": "乙卯",
+            "element": "木",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 4,
+            "yin_yang": "陽",
+            "najia": "庚午",
+            "element": "火",
+            "six_kin": "子孫",
+            "shi_ying": "應"
+          },
+          {
+            "line": 5,
+            "yin_yang": "陰",
+            "najia": "庚申",
+            "element": "金",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陰",
+            "najia": "庚戌",
+            "element": "土",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          }
+        ]
+      },
+      {
+        "palace": "震宮",
+        "palace_element": "木",
+        "rank": "二世卦",
+        "hexagram_name": "雷水解",
+        "upper_trigram": "震",
+        "lower_trigram": "坎",
+        "shi_line": 2,
+        "ying_line": 5,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陰",
+            "najia": "戊寅",
+            "element": "木",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 2,
+            "yin_yang": "陽",
+            "najia": "戊辰",
+            "element": "土",
+            "six_kin": "妻財",
+            "shi_ying": "世"
+          },
+          {
+            "line": 3,
+            "yin_yang": "陰",
+            "najia": "戊午",
+            "element": "火",
+            "six_kin": "子孫",
+            "shi_ying": ""
+          },
+          {
+            "line": 4,
+            "yin_yang": "陽",
+            "najia": "庚午",
+            "element": "火",
+            "six_kin": "子孫",
+            "shi_ying": ""
+          },
+          {
+            "line": 5,
+            "yin_yang": "陰",
+            "najia": "庚申",
+            "element": "金",
+            "six_kin": "官鬼",
+            "shi_ying": "應"
+          },
+          {
+            "line": 6,
+            "yin_yang": "陰",
+            "najia": "庚戌",
+            "element": "土",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          }
+        ]
+      },
+      {
+        "palace": "震宮",
+        "palace_element": "木",
+        "rank": "三世卦",
+        "hexagram_name": "雷風恆",
+        "upper_trigram": "震",
+        "lower_trigram": "巽",
+        "shi_line": 3,
+        "ying_line": 6,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陰",
+            "najia": "辛丑",
+            "element": "土",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          },
+          {
+            "line": 2,
+            "yin_yang": "陽",
+            "najia": "辛亥",
+            "element": "水",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陽",
+            "najia": "辛酉",
+            "element": "金",
+            "six_kin": "官鬼",
+            "shi_ying": "世"
+          },
+          {
+            "line": 4,
+            "yin_yang": "陽",
+            "najia": "庚午",
+            "element": "火",
+            "six_kin": "子孫",
+            "shi_ying": ""
+          },
+          {
+            "line": 5,
+            "yin_yang": "陰",
+            "najia": "庚申",
+            "element": "金",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陰",
+            "najia": "庚戌",
+            "element": "土",
+            "six_kin": "妻財",
+            "shi_ying": "應"
+          }
+        ]
+      },
+      {
+        "palace": "震宮",
+        "palace_element": "木",
+        "rank": "四世卦",
+        "hexagram_name": "地風升",
+        "upper_trigram": "坤",
+        "lower_trigram": "巽",
+        "shi_line": 4,
+        "ying_line": 1,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陰",
+            "najia": "辛丑",
+            "element": "土",
+            "six_kin": "妻財",
+            "shi_ying": "應"
+          },
+          {
+            "line": 2,
+            "yin_yang": "陽",
+            "najia": "辛亥",
+            "element": "水",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陽",
+            "najia": "辛酉",
+            "element": "金",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 4,
+            "yin_yang": "陰",
+            "najia": "癸丑",
+            "element": "土",
+            "six_kin": "妻財",
+            "shi_ying": "世"
+          },
+          {
+            "line": 5,
+            "yin_yang": "陰",
+            "najia": "癸亥",
+            "element": "水",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陰",
+            "najia": "癸酉",
+            "element": "金",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          }
+        ]
+      },
+      {
+        "palace": "震宮",
+        "palace_element": "木",
+        "rank": "五世卦",
+        "hexagram_name": "水風井",
+        "upper_trigram": "坎",
+        "lower_trigram": "巽",
+        "shi_line": 5,
+        "ying_line": 2,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陰",
+            "najia": "辛丑",
+            "element": "土",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          },
+          {
+            "line": 2,
+            "yin_yang": "陽",
+            "najia": "辛亥",
+            "element": "水",
+            "six_kin": "父母",
+            "shi_ying": "應"
+          },
+          {
+            "line": 3,
+            "yin_yang": "陽",
+            "najia": "辛酉",
+            "element": "金",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 4,
+            "yin_yang": "陰",
+            "najia": "戊申",
+            "element": "金",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 5,
+            "yin_yang": "陽",
+            "najia": "戊戌",
+            "element": "土",
+            "six_kin": "妻財",
+            "shi_ying": "世"
+          },
+          {
+            "line": 6,
+            "yin_yang": "陰",
+            "najia": "戊子",
+            "element": "水",
+            "six_kin": "父母",
+            "shi_ying": ""
+          }
+        ]
+      },
+      {
+        "palace": "震宮",
+        "palace_element": "木",
+        "rank": "遊魂卦",
+        "hexagram_name": "澤風大過",
+        "upper_trigram": "兌",
+        "lower_trigram": "巽",
+        "shi_line": 4,
+        "ying_line": 1,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陰",
+            "najia": "辛丑",
+            "element": "土",
+            "six_kin": "妻財",
+            "shi_ying": "應"
+          },
+          {
+            "line": 2,
+            "yin_yang": "陽",
+            "najia": "辛亥",
+            "element": "水",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陽",
+            "najia": "辛酉",
+            "element": "金",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 4,
+            "yin_yang": "陽",
+            "najia": "丁亥",
+            "element": "水",
+            "six_kin": "父母",
+            "shi_ying": "世"
+          },
+          {
+            "line": 5,
+            "yin_yang": "陽",
+            "najia": "丁酉",
+            "element": "金",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陰",
+            "najia": "丁未",
+            "element": "土",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          }
+        ]
+      },
+      {
+        "palace": "震宮",
+        "palace_element": "木",
+        "rank": "歸魂卦",
+        "hexagram_name": "澤雷隨",
+        "upper_trigram": "兌",
+        "lower_trigram": "震",
+        "shi_line": 3,
+        "ying_line": 6,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陽",
+            "najia": "庚子",
+            "element": "水",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 2,
+            "yin_yang": "陰",
+            "najia": "庚寅",
+            "element": "木",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陰",
+            "najia": "庚辰",
+            "element": "土",
+            "six_kin": "妻財",
+            "shi_ying": "世"
+          },
+          {
+            "line": 4,
+            "yin_yang": "陽",
+            "najia": "丁亥",
+            "element": "水",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 5,
+            "yin_yang": "陽",
+            "najia": "丁酉",
+            "element": "金",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陰",
+            "najia": "丁未",
+            "element": "土",
+            "six_kin": "妻財",
+            "shi_ying": "應"
+          }
+        ]
+      },
+      {
+        "palace": "巽宮",
+        "palace_element": "木",
+        "rank": "本宮卦(六純)",
+        "hexagram_name": "巽為風",
+        "upper_trigram": "巽",
+        "lower_trigram": "巽",
+        "shi_line": 6,
+        "ying_line": 3,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陰",
+            "najia": "辛丑",
+            "element": "土",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          },
+          {
+            "line": 2,
+            "yin_yang": "陽",
+            "najia": "辛亥",
+            "element": "水",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陽",
+            "najia": "辛酉",
+            "element": "金",
+            "six_kin": "官鬼",
+            "shi_ying": "應"
+          },
+          {
+            "line": 4,
+            "yin_yang": "陰",
+            "najia": "辛未",
+            "element": "土",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          },
+          {
+            "line": 5,
+            "yin_yang": "陽",
+            "najia": "辛巳",
+            "element": "火",
+            "six_kin": "子孫",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陽",
+            "najia": "辛卯",
+            "element": "木",
+            "six_kin": "兄弟",
+            "shi_ying": "世"
+          }
+        ]
+      },
+      {
+        "palace": "巽宮",
+        "palace_element": "木",
+        "rank": "一世卦",
+        "hexagram_name": "風天小畜",
+        "upper_trigram": "巽",
+        "lower_trigram": "乾",
+        "shi_line": 1,
+        "ying_line": 4,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陽",
+            "najia": "甲子",
+            "element": "水",
+            "six_kin": "父母",
+            "shi_ying": "世"
+          },
+          {
+            "line": 2,
+            "yin_yang": "陽",
+            "najia": "甲寅",
+            "element": "木",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陽",
+            "najia": "甲辰",
+            "element": "土",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          },
+          {
+            "line": 4,
+            "yin_yang": "陰",
+            "najia": "辛未",
+            "element": "土",
+            "six_kin": "妻財",
+            "shi_ying": "應"
+          },
+          {
+            "line": 5,
+            "yin_yang": "陽",
+            "najia": "辛巳",
+            "element": "火",
+            "six_kin": "子孫",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陽",
+            "najia": "辛卯",
+            "element": "木",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          }
+        ]
+      },
+      {
+        "palace": "巽宮",
+        "palace_element": "木",
+        "rank": "二世卦",
+        "hexagram_name": "風火家人",
+        "upper_trigram": "巽",
+        "lower_trigram": "離",
+        "shi_line": 2,
+        "ying_line": 5,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陽",
+            "najia": "己卯",
+            "element": "木",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 2,
+            "yin_yang": "陰",
+            "najia": "己丑",
+            "element": "土",
+            "six_kin": "妻財",
+            "shi_ying": "世"
+          },
+          {
+            "line": 3,
+            "yin_yang": "陽",
+            "najia": "己亥",
+            "element": "水",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 4,
+            "yin_yang": "陰",
+            "najia": "辛未",
+            "element": "土",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          },
+          {
+            "line": 5,
+            "yin_yang": "陽",
+            "najia": "辛巳",
+            "element": "火",
+            "six_kin": "子孫",
+            "shi_ying": "應"
+          },
+          {
+            "line": 6,
+            "yin_yang": "陽",
+            "najia": "辛卯",
+            "element": "木",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          }
+        ]
+      },
+      {
+        "palace": "巽宮",
+        "palace_element": "木",
+        "rank": "三世卦",
+        "hexagram_name": "風雷益",
+        "upper_trigram": "巽",
+        "lower_trigram": "震",
+        "shi_line": 3,
+        "ying_line": 6,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陽",
+            "najia": "庚子",
+            "element": "水",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 2,
+            "yin_yang": "陰",
+            "najia": "庚寅",
+            "element": "木",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陰",
+            "najia": "庚辰",
+            "element": "土",
+            "six_kin": "妻財",
+            "shi_ying": "世"
+          },
+          {
+            "line": 4,
+            "yin_yang": "陰",
+            "najia": "辛未",
+            "element": "土",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          },
+          {
+            "line": 5,
+            "yin_yang": "陽",
+            "najia": "辛巳",
+            "element": "火",
+            "six_kin": "子孫",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陽",
+            "najia": "辛卯",
+            "element": "木",
+            "six_kin": "兄弟",
+            "shi_ying": "應"
+          }
+        ]
+      },
+      {
+        "palace": "巽宮",
+        "palace_element": "木",
+        "rank": "四世卦",
+        "hexagram_name": "天雷無妄",
+        "upper_trigram": "乾",
+        "lower_trigram": "震",
+        "shi_line": 4,
+        "ying_line": 1,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陽",
+            "najia": "庚子",
+            "element": "水",
+            "six_kin": "父母",
+            "shi_ying": "應"
+          },
+          {
+            "line": 2,
+            "yin_yang": "陰",
+            "najia": "庚寅",
+            "element": "木",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陰",
+            "najia": "庚辰",
+            "element": "土",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          },
+          {
+            "line": 4,
+            "yin_yang": "陽",
+            "najia": "壬午",
+            "element": "火",
+            "six_kin": "子孫",
+            "shi_ying": "世"
+          },
+          {
+            "line": 5,
+            "yin_yang": "陽",
+            "najia": "壬申",
+            "element": "金",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陽",
+            "najia": "壬戌",
+            "element": "土",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          }
+        ]
+      },
+      {
+        "palace": "巽宮",
+        "palace_element": "木",
+        "rank": "五世卦",
+        "hexagram_name": "火雷噬嗑",
+        "upper_trigram": "離",
+        "lower_trigram": "震",
+        "shi_line": 5,
+        "ying_line": 2,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陽",
+            "najia": "庚子",
+            "element": "水",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 2,
+            "yin_yang": "陰",
+            "najia": "庚寅",
+            "element": "木",
+            "six_kin": "兄弟",
+            "shi_ying": "應"
+          },
+          {
+            "line": 3,
+            "yin_yang": "陰",
+            "najia": "庚辰",
+            "element": "土",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          },
+          {
+            "line": 4,
+            "yin_yang": "陽",
+            "najia": "己酉",
+            "element": "金",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 5,
+            "yin_yang": "陰",
+            "najia": "己未",
+            "element": "土",
+            "six_kin": "妻財",
+            "shi_ying": "世"
+          },
+          {
+            "line": 6,
+            "yin_yang": "陽",
+            "najia": "己巳",
+            "element": "火",
+            "six_kin": "子孫",
+            "shi_ying": ""
+          }
+        ]
+      },
+      {
+        "palace": "巽宮",
+        "palace_element": "木",
+        "rank": "遊魂卦",
+        "hexagram_name": "山雷頤",
+        "upper_trigram": "艮",
+        "lower_trigram": "震",
+        "shi_line": 4,
+        "ying_line": 1,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陽",
+            "najia": "庚子",
+            "element": "水",
+            "six_kin": "父母",
+            "shi_ying": "應"
+          },
+          {
+            "line": 2,
+            "yin_yang": "陰",
+            "najia": "庚寅",
+            "element": "木",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陰",
+            "najia": "庚辰",
+            "element": "土",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          },
+          {
+            "line": 4,
+            "yin_yang": "陰",
+            "najia": "丙戌",
+            "element": "土",
+            "six_kin": "妻財",
+            "shi_ying": "世"
+          },
+          {
+            "line": 5,
+            "yin_yang": "陰",
+            "najia": "丙子",
+            "element": "水",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陽",
+            "najia": "丙寅",
+            "element": "木",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          }
+        ]
+      },
+      {
+        "palace": "巽宮",
+        "palace_element": "木",
+        "rank": "歸魂卦",
+        "hexagram_name": "山風蠱",
+        "upper_trigram": "艮",
+        "lower_trigram": "巽",
+        "shi_line": 3,
+        "ying_line": 6,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陰",
+            "najia": "辛丑",
+            "element": "土",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          },
+          {
+            "line": 2,
+            "yin_yang": "陽",
+            "najia": "辛亥",
+            "element": "水",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陽",
+            "najia": "辛酉",
+            "element": "金",
+            "six_kin": "官鬼",
+            "shi_ying": "世"
+          },
+          {
+            "line": 4,
+            "yin_yang": "陰",
+            "najia": "丙戌",
+            "element": "土",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          },
+          {
+            "line": 5,
+            "yin_yang": "陰",
+            "najia": "丙子",
+            "element": "水",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陽",
+            "najia": "丙寅",
+            "element": "木",
+            "six_kin": "兄弟",
+            "shi_ying": "應"
+          }
+        ]
+      },
+      {
+        "palace": "離宮",
+        "palace_element": "火",
+        "rank": "本宮卦(六純)",
+        "hexagram_name": "離為火",
+        "upper_trigram": "離",
+        "lower_trigram": "離",
+        "shi_line": 6,
+        "ying_line": 3,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陽",
+            "najia": "己卯",
+            "element": "木",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 2,
+            "yin_yang": "陰",
+            "najia": "己丑",
+            "element": "土",
+            "six_kin": "子孫",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陽",
+            "najia": "己亥",
+            "element": "水",
+            "six_kin": "官鬼",
+            "shi_ying": "應"
+          },
+          {
+            "line": 4,
+            "yin_yang": "陽",
+            "najia": "己酉",
+            "element": "金",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          },
+          {
+            "line": 5,
+            "yin_yang": "陰",
+            "najia": "己未",
+            "element": "土",
+            "six_kin": "子孫",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陽",
+            "najia": "己巳",
+            "element": "火",
+            "six_kin": "兄弟",
+            "shi_ying": "世"
+          }
+        ]
+      },
+      {
+        "palace": "離宮",
+        "palace_element": "火",
+        "rank": "一世卦",
+        "hexagram_name": "火山旅",
+        "upper_trigram": "離",
+        "lower_trigram": "艮",
+        "shi_line": 1,
+        "ying_line": 4,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陰",
+            "najia": "丙辰",
+            "element": "土",
+            "six_kin": "子孫",
+            "shi_ying": "世"
+          },
+          {
+            "line": 2,
+            "yin_yang": "陰",
+            "najia": "丙午",
+            "element": "火",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陽",
+            "najia": "丙申",
+            "element": "金",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          },
+          {
+            "line": 4,
+            "yin_yang": "陽",
+            "najia": "己酉",
+            "element": "金",
+            "six_kin": "妻財",
+            "shi_ying": "應"
+          },
+          {
+            "line": 5,
+            "yin_yang": "陰",
+            "najia": "己未",
+            "element": "土",
+            "six_kin": "子孫",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陽",
+            "najia": "己巳",
+            "element": "火",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          }
+        ]
+      },
+      {
+        "palace": "離宮",
+        "palace_element": "火",
+        "rank": "二世卦",
+        "hexagram_name": "火風鼎",
+        "upper_trigram": "離",
+        "lower_trigram": "巽",
+        "shi_line": 2,
+        "ying_line": 5,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陰",
+            "najia": "辛丑",
+            "element": "土",
+            "six_kin": "子孫",
+            "shi_ying": ""
+          },
+          {
+            "line": 2,
+            "yin_yang": "陽",
+            "najia": "辛亥",
+            "element": "水",
+            "six_kin": "官鬼",
+            "shi_ying": "世"
+          },
+          {
+            "line": 3,
+            "yin_yang": "陽",
+            "najia": "辛酉",
+            "element": "金",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          },
+          {
+            "line": 4,
+            "yin_yang": "陽",
+            "najia": "己酉",
+            "element": "金",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          },
+          {
+            "line": 5,
+            "yin_yang": "陰",
+            "najia": "己未",
+            "element": "土",
+            "six_kin": "子孫",
+            "shi_ying": "應"
+          },
+          {
+            "line": 6,
+            "yin_yang": "陽",
+            "najia": "己巳",
+            "element": "火",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          }
+        ]
+      },
+      {
+        "palace": "離宮",
+        "palace_element": "火",
+        "rank": "三世卦",
+        "hexagram_name": "火水未濟",
+        "upper_trigram": "離",
+        "lower_trigram": "坎",
+        "shi_line": 3,
+        "ying_line": 6,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陰",
+            "najia": "戊寅",
+            "element": "木",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 2,
+            "yin_yang": "陽",
+            "najia": "戊辰",
+            "element": "土",
+            "six_kin": "子孫",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陰",
+            "najia": "戊午",
+            "element": "火",
+            "six_kin": "兄弟",
+            "shi_ying": "世"
+          },
+          {
+            "line": 4,
+            "yin_yang": "陽",
+            "najia": "己酉",
+            "element": "金",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          },
+          {
+            "line": 5,
+            "yin_yang": "陰",
+            "najia": "己未",
+            "element": "土",
+            "six_kin": "子孫",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陽",
+            "najia": "己巳",
+            "element": "火",
+            "six_kin": "兄弟",
+            "shi_ying": "應"
+          }
+        ]
+      },
+      {
+        "palace": "離宮",
+        "palace_element": "火",
+        "rank": "四世卦",
+        "hexagram_name": "山水蒙",
+        "upper_trigram": "艮",
+        "lower_trigram": "坎",
+        "shi_line": 4,
+        "ying_line": 1,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陰",
+            "najia": "戊寅",
+            "element": "木",
+            "six_kin": "父母",
+            "shi_ying": "應"
+          },
+          {
+            "line": 2,
+            "yin_yang": "陽",
+            "najia": "戊辰",
+            "element": "土",
+            "six_kin": "子孫",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陰",
+            "najia": "戊午",
+            "element": "火",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 4,
+            "yin_yang": "陰",
+            "najia": "丙戌",
+            "element": "土",
+            "six_kin": "子孫",
+            "shi_ying": "世"
+          },
+          {
+            "line": 5,
+            "yin_yang": "陰",
+            "najia": "丙子",
+            "element": "水",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陽",
+            "najia": "丙寅",
+            "element": "木",
+            "six_kin": "父母",
+            "shi_ying": ""
+          }
+        ]
+      },
+      {
+        "palace": "離宮",
+        "palace_element": "火",
+        "rank": "五世卦",
+        "hexagram_name": "風水渙",
+        "upper_trigram": "巽",
+        "lower_trigram": "坎",
+        "shi_line": 5,
+        "ying_line": 2,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陰",
+            "najia": "戊寅",
+            "element": "木",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 2,
+            "yin_yang": "陽",
+            "najia": "戊辰",
+            "element": "土",
+            "six_kin": "子孫",
+            "shi_ying": "應"
+          },
+          {
+            "line": 3,
+            "yin_yang": "陰",
+            "najia": "戊午",
+            "element": "火",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 4,
+            "yin_yang": "陰",
+            "najia": "辛未",
+            "element": "土",
+            "six_kin": "子孫",
+            "shi_ying": ""
+          },
+          {
+            "line": 5,
+            "yin_yang": "陽",
+            "najia": "辛巳",
+            "element": "火",
+            "six_kin": "兄弟",
+            "shi_ying": "世"
+          },
+          {
+            "line": 6,
+            "yin_yang": "陽",
+            "najia": "辛卯",
+            "element": "木",
+            "six_kin": "父母",
+            "shi_ying": ""
+          }
+        ]
+      },
+      {
+        "palace": "離宮",
+        "palace_element": "火",
+        "rank": "遊魂卦",
+        "hexagram_name": "天水訟",
+        "upper_trigram": "乾",
+        "lower_trigram": "坎",
+        "shi_line": 4,
+        "ying_line": 1,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陰",
+            "najia": "戊寅",
+            "element": "木",
+            "six_kin": "父母",
+            "shi_ying": "應"
+          },
+          {
+            "line": 2,
+            "yin_yang": "陽",
+            "najia": "戊辰",
+            "element": "土",
+            "six_kin": "子孫",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陰",
+            "najia": "戊午",
+            "element": "火",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 4,
+            "yin_yang": "陽",
+            "najia": "壬午",
+            "element": "火",
+            "six_kin": "兄弟",
+            "shi_ying": "世"
+          },
+          {
+            "line": 5,
+            "yin_yang": "陽",
+            "najia": "壬申",
+            "element": "金",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陽",
+            "najia": "壬戌",
+            "element": "土",
+            "six_kin": "子孫",
+            "shi_ying": ""
+          }
+        ]
+      },
+      {
+        "palace": "離宮",
+        "palace_element": "火",
+        "rank": "歸魂卦",
+        "hexagram_name": "天火同人",
+        "upper_trigram": "乾",
+        "lower_trigram": "離",
+        "shi_line": 3,
+        "ying_line": 6,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陽",
+            "najia": "己卯",
+            "element": "木",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 2,
+            "yin_yang": "陰",
+            "najia": "己丑",
+            "element": "土",
+            "six_kin": "子孫",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陽",
+            "najia": "己亥",
+            "element": "水",
+            "six_kin": "官鬼",
+            "shi_ying": "世"
+          },
+          {
+            "line": 4,
+            "yin_yang": "陽",
+            "najia": "壬午",
+            "element": "火",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 5,
+            "yin_yang": "陽",
+            "najia": "壬申",
+            "element": "金",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陽",
+            "najia": "壬戌",
+            "element": "土",
+            "six_kin": "子孫",
+            "shi_ying": "應"
+          }
+        ]
+      },
+      {
+        "palace": "坤宮",
+        "palace_element": "土",
+        "rank": "本宮卦(六純)",
+        "hexagram_name": "坤為地",
+        "upper_trigram": "坤",
+        "lower_trigram": "坤",
+        "shi_line": 6,
+        "ying_line": 3,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陰",
+            "najia": "乙未",
+            "element": "土",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 2,
+            "yin_yang": "陰",
+            "najia": "乙巳",
+            "element": "火",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陰",
+            "najia": "乙卯",
+            "element": "木",
+            "six_kin": "官鬼",
+            "shi_ying": "應"
+          },
+          {
+            "line": 4,
+            "yin_yang": "陰",
+            "najia": "癸丑",
+            "element": "土",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 5,
+            "yin_yang": "陰",
+            "najia": "癸亥",
+            "element": "水",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陰",
+            "najia": "癸酉",
+            "element": "金",
+            "six_kin": "子孫",
+            "shi_ying": "世"
+          }
+        ]
+      },
+      {
+        "palace": "坤宮",
+        "palace_element": "土",
+        "rank": "一世卦",
+        "hexagram_name": "地雷復",
+        "upper_trigram": "坤",
+        "lower_trigram": "震",
+        "shi_line": 1,
+        "ying_line": 4,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陽",
+            "najia": "庚子",
+            "element": "水",
+            "six_kin": "妻財",
+            "shi_ying": "世"
+          },
+          {
+            "line": 2,
+            "yin_yang": "陰",
+            "najia": "庚寅",
+            "element": "木",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陰",
+            "najia": "庚辰",
+            "element": "土",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 4,
+            "yin_yang": "陰",
+            "najia": "癸丑",
+            "element": "土",
+            "six_kin": "兄弟",
+            "shi_ying": "應"
+          },
+          {
+            "line": 5,
+            "yin_yang": "陰",
+            "najia": "癸亥",
+            "element": "水",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陰",
+            "najia": "癸酉",
+            "element": "金",
+            "six_kin": "子孫",
+            "shi_ying": ""
+          }
+        ]
+      },
+      {
+        "palace": "坤宮",
+        "palace_element": "土",
+        "rank": "二世卦",
+        "hexagram_name": "地澤臨",
+        "upper_trigram": "坤",
+        "lower_trigram": "兌",
+        "shi_line": 2,
+        "ying_line": 5,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陽",
+            "najia": "丁巳",
+            "element": "火",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 2,
+            "yin_yang": "陽",
+            "najia": "丁卯",
+            "element": "木",
+            "six_kin": "官鬼",
+            "shi_ying": "世"
+          },
+          {
+            "line": 3,
+            "yin_yang": "陰",
+            "najia": "丁丑",
+            "element": "土",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 4,
+            "yin_yang": "陰",
+            "najia": "癸丑",
+            "element": "土",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 5,
+            "yin_yang": "陰",
+            "najia": "癸亥",
+            "element": "水",
+            "six_kin": "妻財",
+            "shi_ying": "應"
+          },
+          {
+            "line": 6,
+            "yin_yang": "陰",
+            "najia": "癸酉",
+            "element": "金",
+            "six_kin": "子孫",
+            "shi_ying": ""
+          }
+        ]
+      },
+      {
+        "palace": "坤宮",
+        "palace_element": "土",
+        "rank": "三世卦",
+        "hexagram_name": "地天泰",
+        "upper_trigram": "坤",
+        "lower_trigram": "乾",
+        "shi_line": 3,
+        "ying_line": 6,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陽",
+            "najia": "甲子",
+            "element": "水",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          },
+          {
+            "line": 2,
+            "yin_yang": "陽",
+            "najia": "甲寅",
+            "element": "木",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陽",
+            "najia": "甲辰",
+            "element": "土",
+            "six_kin": "兄弟",
+            "shi_ying": "世"
+          },
+          {
+            "line": 4,
+            "yin_yang": "陰",
+            "najia": "癸丑",
+            "element": "土",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 5,
+            "yin_yang": "陰",
+            "najia": "癸亥",
+            "element": "水",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陰",
+            "najia": "癸酉",
+            "element": "金",
+            "six_kin": "子孫",
+            "shi_ying": "應"
+          }
+        ]
+      },
+      {
+        "palace": "坤宮",
+        "palace_element": "土",
+        "rank": "四世卦",
+        "hexagram_name": "雷天大壯",
+        "upper_trigram": "震",
+        "lower_trigram": "乾",
+        "shi_line": 4,
+        "ying_line": 1,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陽",
+            "najia": "甲子",
+            "element": "水",
+            "six_kin": "妻財",
+            "shi_ying": "應"
+          },
+          {
+            "line": 2,
+            "yin_yang": "陽",
+            "najia": "甲寅",
+            "element": "木",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陽",
+            "najia": "甲辰",
+            "element": "土",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 4,
+            "yin_yang": "陽",
+            "najia": "庚午",
+            "element": "火",
+            "six_kin": "父母",
+            "shi_ying": "世"
+          },
+          {
+            "line": 5,
+            "yin_yang": "陰",
+            "najia": "庚申",
+            "element": "金",
+            "six_kin": "子孫",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陰",
+            "najia": "庚戌",
+            "element": "土",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          }
+        ]
+      },
+      {
+        "palace": "坤宮",
+        "palace_element": "土",
+        "rank": "五世卦",
+        "hexagram_name": "澤天夬",
+        "upper_trigram": "兌",
+        "lower_trigram": "乾",
+        "shi_line": 5,
+        "ying_line": 2,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陽",
+            "najia": "甲子",
+            "element": "水",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          },
+          {
+            "line": 2,
+            "yin_yang": "陽",
+            "najia": "甲寅",
+            "element": "木",
+            "six_kin": "官鬼",
+            "shi_ying": "應"
+          },
+          {
+            "line": 3,
+            "yin_yang": "陽",
+            "najia": "甲辰",
+            "element": "土",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 4,
+            "yin_yang": "陽",
+            "najia": "丁亥",
+            "element": "水",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          },
+          {
+            "line": 5,
+            "yin_yang": "陽",
+            "najia": "丁酉",
+            "element": "金",
+            "six_kin": "子孫",
+            "shi_ying": "世"
+          },
+          {
+            "line": 6,
+            "yin_yang": "陰",
+            "najia": "丁未",
+            "element": "土",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          }
+        ]
+      },
+      {
+        "palace": "坤宮",
+        "palace_element": "土",
+        "rank": "遊魂卦",
+        "hexagram_name": "水天需",
+        "upper_trigram": "坎",
+        "lower_trigram": "乾",
+        "shi_line": 4,
+        "ying_line": 1,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陽",
+            "najia": "甲子",
+            "element": "水",
+            "six_kin": "妻財",
+            "shi_ying": "應"
+          },
+          {
+            "line": 2,
+            "yin_yang": "陽",
+            "najia": "甲寅",
+            "element": "木",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陽",
+            "najia": "甲辰",
+            "element": "土",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 4,
+            "yin_yang": "陰",
+            "najia": "戊申",
+            "element": "金",
+            "six_kin": "子孫",
+            "shi_ying": "世"
+          },
+          {
+            "line": 5,
+            "yin_yang": "陽",
+            "najia": "戊戌",
+            "element": "土",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陰",
+            "najia": "戊子",
+            "element": "水",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          }
+        ]
+      },
+      {
+        "palace": "坤宮",
+        "palace_element": "土",
+        "rank": "歸魂卦",
+        "hexagram_name": "水地比",
+        "upper_trigram": "坎",
+        "lower_trigram": "坤",
+        "shi_line": 3,
+        "ying_line": 6,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陰",
+            "najia": "乙未",
+            "element": "土",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 2,
+            "yin_yang": "陰",
+            "najia": "乙巳",
+            "element": "火",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陰",
+            "najia": "乙卯",
+            "element": "木",
+            "six_kin": "官鬼",
+            "shi_ying": "世"
+          },
+          {
+            "line": 4,
+            "yin_yang": "陰",
+            "najia": "戊申",
+            "element": "金",
+            "six_kin": "子孫",
+            "shi_ying": ""
+          },
+          {
+            "line": 5,
+            "yin_yang": "陽",
+            "najia": "戊戌",
+            "element": "土",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陰",
+            "najia": "戊子",
+            "element": "水",
+            "six_kin": "妻財",
+            "shi_ying": "應"
+          }
+        ]
+      },
+      {
+        "palace": "兌宮",
+        "palace_element": "金",
+        "rank": "本宮卦(六純)",
+        "hexagram_name": "兌為澤",
+        "upper_trigram": "兌",
+        "lower_trigram": "兌",
+        "shi_line": 6,
+        "ying_line": 3,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陽",
+            "najia": "丁巳",
+            "element": "火",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 2,
+            "yin_yang": "陽",
+            "najia": "丁卯",
+            "element": "木",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陰",
+            "najia": "丁丑",
+            "element": "土",
+            "six_kin": "父母",
+            "shi_ying": "應"
+          },
+          {
+            "line": 4,
+            "yin_yang": "陽",
+            "najia": "丁亥",
+            "element": "水",
+            "six_kin": "子孫",
+            "shi_ying": ""
+          },
+          {
+            "line": 5,
+            "yin_yang": "陽",
+            "najia": "丁酉",
+            "element": "金",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陰",
+            "najia": "丁未",
+            "element": "土",
+            "six_kin": "父母",
+            "shi_ying": "世"
+          }
+        ]
+      },
+      {
+        "palace": "兌宮",
+        "palace_element": "金",
+        "rank": "一世卦",
+        "hexagram_name": "澤水困",
+        "upper_trigram": "兌",
+        "lower_trigram": "坎",
+        "shi_line": 1,
+        "ying_line": 4,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陰",
+            "najia": "戊寅",
+            "element": "木",
+            "six_kin": "妻財",
+            "shi_ying": "世"
+          },
+          {
+            "line": 2,
+            "yin_yang": "陽",
+            "najia": "戊辰",
+            "element": "土",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陰",
+            "najia": "戊午",
+            "element": "火",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 4,
+            "yin_yang": "陽",
+            "najia": "丁亥",
+            "element": "水",
+            "six_kin": "子孫",
+            "shi_ying": "應"
+          },
+          {
+            "line": 5,
+            "yin_yang": "陽",
+            "najia": "丁酉",
+            "element": "金",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陰",
+            "najia": "丁未",
+            "element": "土",
+            "six_kin": "父母",
+            "shi_ying": ""
+          }
+        ]
+      },
+      {
+        "palace": "兌宮",
+        "palace_element": "金",
+        "rank": "二世卦",
+        "hexagram_name": "澤地萃",
+        "upper_trigram": "兌",
+        "lower_trigram": "坤",
+        "shi_line": 2,
+        "ying_line": 5,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陰",
+            "najia": "乙未",
+            "element": "土",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 2,
+            "yin_yang": "陰",
+            "najia": "乙巳",
+            "element": "火",
+            "six_kin": "官鬼",
+            "shi_ying": "世"
+          },
+          {
+            "line": 3,
+            "yin_yang": "陰",
+            "najia": "乙卯",
+            "element": "木",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          },
+          {
+            "line": 4,
+            "yin_yang": "陽",
+            "najia": "丁亥",
+            "element": "水",
+            "six_kin": "子孫",
+            "shi_ying": ""
+          },
+          {
+            "line": 5,
+            "yin_yang": "陽",
+            "najia": "丁酉",
+            "element": "金",
+            "six_kin": "兄弟",
+            "shi_ying": "應"
+          },
+          {
+            "line": 6,
+            "yin_yang": "陰",
+            "najia": "丁未",
+            "element": "土",
+            "six_kin": "父母",
+            "shi_ying": ""
+          }
+        ]
+      },
+      {
+        "palace": "兌宮",
+        "palace_element": "金",
+        "rank": "三世卦",
+        "hexagram_name": "澤山咸",
+        "upper_trigram": "兌",
+        "lower_trigram": "艮",
+        "shi_line": 3,
+        "ying_line": 6,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陰",
+            "najia": "丙辰",
+            "element": "土",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 2,
+            "yin_yang": "陰",
+            "najia": "丙午",
+            "element": "火",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陽",
+            "najia": "丙申",
+            "element": "金",
+            "six_kin": "兄弟",
+            "shi_ying": "世"
+          },
+          {
+            "line": 4,
+            "yin_yang": "陽",
+            "najia": "丁亥",
+            "element": "水",
+            "six_kin": "子孫",
+            "shi_ying": ""
+          },
+          {
+            "line": 5,
+            "yin_yang": "陽",
+            "najia": "丁酉",
+            "element": "金",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陰",
+            "najia": "丁未",
+            "element": "土",
+            "six_kin": "父母",
+            "shi_ying": "應"
+          }
+        ]
+      },
+      {
+        "palace": "兌宮",
+        "palace_element": "金",
+        "rank": "四世卦",
+        "hexagram_name": "水山蹇",
+        "upper_trigram": "坎",
+        "lower_trigram": "艮",
+        "shi_line": 4,
+        "ying_line": 1,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陰",
+            "najia": "丙辰",
+            "element": "土",
+            "six_kin": "父母",
+            "shi_ying": "應"
+          },
+          {
+            "line": 2,
+            "yin_yang": "陰",
+            "najia": "丙午",
+            "element": "火",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陽",
+            "najia": "丙申",
+            "element": "金",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 4,
+            "yin_yang": "陰",
+            "najia": "戊申",
+            "element": "金",
+            "six_kin": "兄弟",
+            "shi_ying": "世"
+          },
+          {
+            "line": 5,
+            "yin_yang": "陽",
+            "najia": "戊戌",
+            "element": "土",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陰",
+            "najia": "戊子",
+            "element": "水",
+            "six_kin": "子孫",
+            "shi_ying": ""
+          }
+        ]
+      },
+      {
+        "palace": "兌宮",
+        "palace_element": "金",
+        "rank": "五世卦",
+        "hexagram_name": "地山謙",
+        "upper_trigram": "坤",
+        "lower_trigram": "艮",
+        "shi_line": 5,
+        "ying_line": 2,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陰",
+            "najia": "丙辰",
+            "element": "土",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 2,
+            "yin_yang": "陰",
+            "najia": "丙午",
+            "element": "火",
+            "six_kin": "官鬼",
+            "shi_ying": "應"
+          },
+          {
+            "line": 3,
+            "yin_yang": "陽",
+            "najia": "丙申",
+            "element": "金",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 4,
+            "yin_yang": "陰",
+            "najia": "癸丑",
+            "element": "土",
+            "six_kin": "父母",
+            "shi_ying": ""
+          },
+          {
+            "line": 5,
+            "yin_yang": "陰",
+            "najia": "癸亥",
+            "element": "水",
+            "six_kin": "子孫",
+            "shi_ying": "世"
+          },
+          {
+            "line": 6,
+            "yin_yang": "陰",
+            "najia": "癸酉",
+            "element": "金",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          }
+        ]
+      },
+      {
+        "palace": "兌宮",
+        "palace_element": "金",
+        "rank": "遊魂卦",
+        "hexagram_name": "雷山小過",
+        "upper_trigram": "震",
+        "lower_trigram": "艮",
+        "shi_line": 4,
+        "ying_line": 1,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陰",
+            "najia": "丙辰",
+            "element": "土",
+            "six_kin": "父母",
+            "shi_ying": "應"
+          },
+          {
+            "line": 2,
+            "yin_yang": "陰",
+            "najia": "丙午",
+            "element": "火",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陽",
+            "najia": "丙申",
+            "element": "金",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 4,
+            "yin_yang": "陽",
+            "najia": "庚午",
+            "element": "火",
+            "six_kin": "官鬼",
+            "shi_ying": "世"
+          },
+          {
+            "line": 5,
+            "yin_yang": "陰",
+            "najia": "庚申",
+            "element": "金",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陰",
+            "najia": "庚戌",
+            "element": "土",
+            "six_kin": "父母",
+            "shi_ying": ""
+          }
+        ]
+      },
+      {
+        "palace": "兌宮",
+        "palace_element": "金",
+        "rank": "歸魂卦",
+        "hexagram_name": "雷澤歸妹",
+        "upper_trigram": "震",
+        "lower_trigram": "兌",
+        "shi_line": 3,
+        "ying_line": 6,
+        "lines_bottom_to_top": [
+          {
+            "line": 1,
+            "yin_yang": "陽",
+            "najia": "丁巳",
+            "element": "火",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 2,
+            "yin_yang": "陽",
+            "najia": "丁卯",
+            "element": "木",
+            "six_kin": "妻財",
+            "shi_ying": ""
+          },
+          {
+            "line": 3,
+            "yin_yang": "陰",
+            "najia": "丁丑",
+            "element": "土",
+            "six_kin": "父母",
+            "shi_ying": "世"
+          },
+          {
+            "line": 4,
+            "yin_yang": "陽",
+            "najia": "庚午",
+            "element": "火",
+            "six_kin": "官鬼",
+            "shi_ying": ""
+          },
+          {
+            "line": 5,
+            "yin_yang": "陰",
+            "najia": "庚申",
+            "element": "金",
+            "six_kin": "兄弟",
+            "shi_ying": ""
+          },
+          {
+            "line": 6,
+            "yin_yang": "陰",
+            "najia": "庚戌",
+            "element": "土",
+            "six_kin": "父母",
+            "shi_ying": "應"
+          }
+        ]
+      }
+    ]
+  },
+  "meihua_yishu": {
+    "casting_time_policy": "年月日時數起卦以農曆為準（年取地支序數 1..12，月取農曆月數，日取農曆日數，時取時支序數 1..12）；遇農曆閏月並列『作本月數』與『十五日後作次月數』雙候選；23:00–00:00 並列晚子與次日早子；純乾／純坤逢六爻動參《梅花易數》卷一乾坤用九用六與辭象並觀規約。",
+    "ti_yong_seasonal_strength": {
+      "春（寅卯月）": "木旺、火相、水休、金囚、土死（辰月土旺金相火休木囚水死）",
+      "夏（巳午月）": "火旺、土相、木休、水囚、金死（未月土旺金相火休木囚水死）",
+      "秋（申酉月）": "金旺、水相、土休、火囚、木死（戌月土旺金相火休木囚水死）",
+      "冬（亥子月）": "水旺、木相、金休、土囚、火死（丑月土旺金相火休木囚水死）"
+    },
+    "lost_item_five_relations_093_098": {
+      "用生體": "物易尋回，多在近處或熟人助尋",
+      "體用比和": "物未遠失，遲速間可尋得",
+      "體剋用": "可尋但費力周折，遲而後得",
+      "體生用": "物氣外洩，難尋或已耗散",
+      "用剋體": "大不易尋，勿強追耗損"
+    }
+  },
+  "digital_yijing": {
+    "strict_guardrails": [
+      "1. 只對原始序列保留全數位（含 0 與 5）做相鄰讀取，嚴禁刪 0 刪 5 跨接偽造八星。",
+      "2. 區分號碼載體：手機門號看日常人際金流互動；車牌看行車動線與情緒節奏；身分證字號為先天固定參考（不可改，僅作流年分段提醒，禁止恐嚇改運）。",
+      "3. 尾數三碼（含 0/5 結尾）權重最高：結尾見絕命（12/21/69/96/48/84/37/73）、五鬼（18/81/79/97/36/63/24/42）或 0 結尾（如 X0、X00），標示『留存與收尾需設硬性風控紀律』。"
+    ],
+    "neutralization_chains_reference": {
+      "絕命化解候選": "後接『天醫』（如 213、694、849：大膽投入後有正財制度回收）",
+      "六煞化解候選": "後接『延年』（如 619、478、387：以理性紀律收束人際情緒）",
+      "禍害化解候選": "後接『生氣＋延年』或『生氣＋天醫』（如 714、9867：口才服務轉為貴人與業績）",
+      "五鬼化解候選": "傳統需『生氣＋天醫＋延年』連環（如 814919 體系，單一星難全制；專案將此列為流派參考而非必然保證）"
+    },
+    "pairs_64_eight_stars": {
+      "13": {
+        "star": "天醫",
+        "energy_rank_1_strongest": 1,
+        "nature": "吉",
+        "domain": "正財業績、良緣正婚、貴人醫療、成果轉化"
+      },
+      "31": {
+        "star": "天醫",
+        "energy_rank_1_strongest": 1,
+        "nature": "吉",
+        "domain": "正財業績、良緣正婚、貴人醫療、成果轉化"
+      },
+      "68": {
+        "star": "天醫",
+        "energy_rank_1_strongest": 2,
+        "nature": "吉",
+        "domain": "正財業績、良緣正婚、貴人醫療、成果轉化"
+      },
+      "86": {
+        "star": "天醫",
+        "energy_rank_1_strongest": 2,
+        "nature": "吉",
+        "domain": "正財業績、良緣正婚、貴人醫療、成果轉化"
+      },
+      "49": {
+        "star": "天醫",
+        "energy_rank_1_strongest": 3,
+        "nature": "吉",
+        "domain": "正財業績、良緣正婚、貴人醫療、成果轉化"
+      },
+      "94": {
+        "star": "天醫",
+        "energy_rank_1_strongest": 3,
+        "nature": "吉",
+        "domain": "正財業績、良緣正婚、貴人醫療、成果轉化"
+      },
+      "27": {
+        "star": "天醫",
+        "energy_rank_1_strongest": 4,
+        "nature": "吉",
+        "domain": "正財業績、良緣正婚、貴人醫療、成果轉化"
+      },
+      "72": {
+        "star": "天醫",
+        "energy_rank_1_strongest": 4,
+        "nature": "吉",
+        "domain": "正財業績、良緣正婚、貴人醫療、成果轉化"
+      },
+      "19": {
+        "star": "延年",
+        "energy_rank_1_strongest": 1,
+        "nature": "吉",
+        "domain": "專業主導、守財抗壓、責任紀律（19/91 過強女命或高壓職須防過勞固執）"
+      },
+      "91": {
+        "star": "延年",
+        "energy_rank_1_strongest": 1,
+        "nature": "吉",
+        "domain": "專業主導、守財抗壓、責任紀律（19/91 過強女命或高壓職須防過勞固執）"
+      },
+      "78": {
+        "star": "延年",
+        "energy_rank_1_strongest": 2,
+        "nature": "吉",
+        "domain": "專業主導、守財抗壓、責任紀律（19/91 過強女命或高壓職須防過勞固執）"
+      },
+      "87": {
+        "star": "延年",
+        "energy_rank_1_strongest": 2,
+        "nature": "吉",
+        "domain": "專業主導、守財抗壓、責任紀律（19/91 過強女命或高壓職須防過勞固執）"
+      },
+      "34": {
+        "star": "延年",
+        "energy_rank_1_strongest": 3,
+        "nature": "吉",
+        "domain": "專業主導、守財抗壓、責任紀律（19/91 過強女命或高壓職須防過勞固執）"
+      },
+      "43": {
+        "star": "延年",
+        "energy_rank_1_strongest": 3,
+        "nature": "吉",
+        "domain": "專業主導、守財抗壓、責任紀律（19/91 過強女命或高壓職須防過勞固執）"
+      },
+      "26": {
+        "star": "延年",
+        "energy_rank_1_strongest": 4,
+        "nature": "吉",
+        "domain": "專業主導、守財抗壓、責任紀律（19/91 過強女命或高壓職須防過勞固執）"
+      },
+      "62": {
+        "star": "延年",
+        "energy_rank_1_strongest": 4,
+        "nature": "吉",
+        "domain": "專業主導、守財抗壓、責任紀律（19/91 過強女命或高壓職須防過勞固執）"
+      },
+      "14": {
+        "star": "生氣",
+        "energy_rank_1_strongest": 1,
+        "nature": "吉",
+        "domain": "貴人轉機、樂觀人脈、隨緣豁達（單見無天醫延年則留財企圖心較弱）"
+      },
+      "41": {
+        "star": "生氣",
+        "energy_rank_1_strongest": 1,
+        "nature": "吉",
+        "domain": "貴人轉機、樂觀人脈、隨緣豁達（單見無天醫延年則留財企圖心較弱）"
+      },
+      "67": {
+        "star": "生氣",
+        "energy_rank_1_strongest": 2,
+        "nature": "吉",
+        "domain": "貴人轉機、樂觀人脈、隨緣豁達（單見無天醫延年則留財企圖心較弱）"
+      },
+      "76": {
+        "star": "生氣",
+        "energy_rank_1_strongest": 2,
+        "nature": "吉",
+        "domain": "貴人轉機、樂觀人脈、隨緣豁達（單見無天醫延年則留財企圖心較弱）"
+      },
+      "39": {
+        "star": "生氣",
+        "energy_rank_1_strongest": 3,
+        "nature": "吉",
+        "domain": "貴人轉機、樂觀人脈、隨緣豁達（單見無天醫延年則留財企圖心較弱）"
+      },
+      "93": {
+        "star": "生氣",
+        "energy_rank_1_strongest": 3,
+        "nature": "吉",
+        "domain": "貴人轉機、樂觀人脈、隨緣豁達（單見無天醫延年則留財企圖心較弱）"
+      },
+      "28": {
+        "star": "生氣",
+        "energy_rank_1_strongest": 4,
+        "nature": "吉",
+        "domain": "貴人轉機、樂觀人脈、隨緣豁達（單見無天醫延年則留財企圖心較弱）"
+      },
+      "82": {
+        "star": "生氣",
+        "energy_rank_1_strongest": 4,
+        "nature": "吉",
+        "domain": "貴人轉機、樂觀人脈、隨緣豁達（單見無天醫延年則留財企圖心較弱）"
+      },
+      "11": {
+        "star": "伏位",
+        "energy_rank_1_strongest": 1,
+        "nature": "平（延續前星）",
+        "domain": "保守等待、被動蓄勢、固定薪資、思慮遲疑"
+      },
+      "22": {
+        "star": "伏位",
+        "energy_rank_1_strongest": 1,
+        "nature": "平（延續前星）",
+        "domain": "保守等待、被動蓄勢、固定薪資、思慮遲疑"
+      },
+      "88": {
+        "star": "伏位",
+        "energy_rank_1_strongest": 2,
+        "nature": "平（延續前星）",
+        "domain": "保守等待、被動蓄勢、固定薪資、思慮遲疑"
+      },
+      "99": {
+        "star": "伏位",
+        "energy_rank_1_strongest": 2,
+        "nature": "平（延續前星）",
+        "domain": "保守等待、被動蓄勢、固定薪資、思慮遲疑"
+      },
+      "66": {
+        "star": "伏位",
+        "energy_rank_1_strongest": 3,
+        "nature": "平（延續前星）",
+        "domain": "保守等待、被動蓄勢、固定薪資、思慮遲疑"
+      },
+      "77": {
+        "star": "伏位",
+        "energy_rank_1_strongest": 3,
+        "nature": "平（延續前星）",
+        "domain": "保守等待、被動蓄勢、固定薪資、思慮遲疑"
+      },
+      "33": {
+        "star": "伏位",
+        "energy_rank_1_strongest": 4,
+        "nature": "平（延續前星）",
+        "domain": "保守等待、被動蓄勢、固定薪資、思慮遲疑"
+      },
+      "44": {
+        "star": "伏位",
+        "energy_rank_1_strongest": 4,
+        "nature": "平（延續前星）",
+        "domain": "保守等待、被動蓄勢、固定薪資、思慮遲疑"
+      },
+      "12": {
+        "star": "絕命",
+        "energy_rank_1_strongest": 1,
+        "nature": "凶（高波動）",
+        "domain": "重情敢衝、投資大起大落、極端決斷、官司契約破口（得天醫收尾可轉開創財）"
+      },
+      "21": {
+        "star": "絕命",
+        "energy_rank_1_strongest": 1,
+        "nature": "凶（高波動）",
+        "domain": "重情敢衝、投資大起大落、極端決斷、官司契約破口（得天醫收尾可轉開創財）"
+      },
+      "69": {
+        "star": "絕命",
+        "energy_rank_1_strongest": 2,
+        "nature": "凶（高波動）",
+        "domain": "重情敢衝、投資大起大落、極端決斷、官司契約破口（得天醫收尾可轉開創財）"
+      },
+      "96": {
+        "star": "絕命",
+        "energy_rank_1_strongest": 2,
+        "nature": "凶（高波動）",
+        "domain": "重情敢衝、投資大起大落、極端決斷、官司契約破口（得天醫收尾可轉開創財）"
+      },
+      "48": {
+        "star": "絕命",
+        "energy_rank_1_strongest": 3,
+        "nature": "凶（高波動）",
+        "domain": "重情敢衝、投資大起大落、極端決斷、官司契約破口（得天醫收尾可轉開創財）"
+      },
+      "84": {
+        "star": "絕命",
+        "energy_rank_1_strongest": 3,
+        "nature": "凶（高波動）",
+        "domain": "重情敢衝、投資大起大落、極端決斷、官司契約破口（得天醫收尾可轉開創財）"
+      },
+      "37": {
+        "star": "絕命",
+        "energy_rank_1_strongest": 4,
+        "nature": "凶（高波動）",
+        "domain": "重情敢衝、投資大起大落、極端決斷、官司契約破口（得天醫收尾可轉開創財）"
+      },
+      "73": {
+        "star": "絕命",
+        "energy_rank_1_strongest": 4,
+        "nature": "凶（高波動）",
+        "domain": "重情敢衝、投資大起大落、極端決斷、官司契約破口（得天醫收尾可轉開創財）"
+      },
+      "18": {
+        "star": "五鬼",
+        "energy_rank_1_strongest": 1,
+        "nature": "凶（多變思維）",
+        "domain": "創意鬼才、熬夜異動、猜忌突變、偏門外務（得生氣＋天醫＋延年三吉鏈可化才華為產值）"
+      },
+      "81": {
+        "star": "五鬼",
+        "energy_rank_1_strongest": 1,
+        "nature": "凶（多變思維）",
+        "domain": "創意鬼才、熬夜異動、猜忌突變、偏門外務（得生氣＋天醫＋延年三吉鏈可化才華為產值）"
+      },
+      "79": {
+        "star": "五鬼",
+        "energy_rank_1_strongest": 2,
+        "nature": "凶（多變思維）",
+        "domain": "創意鬼才、熬夜異動、猜忌突變、偏門外務（得生氣＋天醫＋延年三吉鏈可化才華為產值）"
+      },
+      "97": {
+        "star": "五鬼",
+        "energy_rank_1_strongest": 2,
+        "nature": "凶（多變思維）",
+        "domain": "創意鬼才、熬夜異動、猜忌突變、偏門外務（得生氣＋天醫＋延年三吉鏈可化才華為產值）"
+      },
+      "36": {
+        "star": "五鬼",
+        "energy_rank_1_strongest": 3,
+        "nature": "凶（多變思維）",
+        "domain": "創意鬼才、熬夜異動、猜忌突變、偏門外務（得生氣＋天醫＋延年三吉鏈可化才華為產值）"
+      },
+      "63": {
+        "star": "五鬼",
+        "energy_rank_1_strongest": 3,
+        "nature": "凶（多變思維）",
+        "domain": "創意鬼才、熬夜異動、猜忌突變、偏門外務（得生氣＋天醫＋延年三吉鏈可化才華為產值）"
+      },
+      "24": {
+        "star": "五鬼",
+        "energy_rank_1_strongest": 4,
+        "nature": "凶（多變思維）",
+        "domain": "創意鬼才、熬夜異動、猜忌突變、偏門外務（得生氣＋天醫＋延年三吉鏈可化才華為產值）"
+      },
+      "42": {
+        "star": "五鬼",
+        "energy_rank_1_strongest": 4,
+        "nature": "凶（多變思維）",
+        "domain": "創意鬼才、熬夜異動、猜忌突變、偏門外務（得生氣＋天醫＋延年三吉鏈可化才華為產值）"
+      },
+      "16": {
+        "star": "六煞",
+        "energy_rank_1_strongest": 1,
+        "nature": "凶（情緒人際）",
+        "domain": "細膩公關、美業服務、爛桃花糾葛、情緒鬱結腸胃皮膚負荷（得延年收束可守界）"
+      },
+      "61": {
+        "star": "六煞",
+        "energy_rank_1_strongest": 1,
+        "nature": "凶（情緒人際）",
+        "domain": "細膩公關、美業服務、爛桃花糾葛、情緒鬱結腸胃皮膚負荷（得延年收束可守界）"
+      },
+      "47": {
+        "star": "六煞",
+        "energy_rank_1_strongest": 2,
+        "nature": "凶（情緒人際）",
+        "domain": "細膩公關、美業服務、爛桃花糾葛、情緒鬱結腸胃皮膚負荷（得延年收束可守界）"
+      },
+      "74": {
+        "star": "六煞",
+        "energy_rank_1_strongest": 2,
+        "nature": "凶（情緒人際）",
+        "domain": "細膩公關、美業服務、爛桃花糾葛、情緒鬱結腸胃皮膚負荷（得延年收束可守界）"
+      },
+      "38": {
+        "star": "六煞",
+        "energy_rank_1_strongest": 3,
+        "nature": "凶（情緒人際）",
+        "domain": "細膩公關、美業服務、爛桃花糾葛、情緒鬱結腸胃皮膚負荷（得延年收束可守界）"
+      },
+      "83": {
+        "star": "六煞",
+        "energy_rank_1_strongest": 3,
+        "nature": "凶（情緒人際）",
+        "domain": "細膩公關、美業服務、爛桃花糾葛、情緒鬱結腸胃皮膚負荷（得延年收束可守界）"
+      },
+      "29": {
+        "star": "六煞",
+        "energy_rank_1_strongest": 4,
+        "nature": "凶（情緒人際）",
+        "domain": "細膩公關、美業服務、爛桃花糾葛、情緒鬱結腸胃皮膚負荷（得延年收束可守界）"
+      },
+      "92": {
+        "star": "六煞",
+        "energy_rank_1_strongest": 4,
+        "nature": "凶（情緒人際）",
+        "domain": "細膩公關、美業服務、爛桃花糾葛、情緒鬱結腸胃皮膚負荷（得延年收束可守界）"
+      },
+      "17": {
+        "star": "禍害",
+        "energy_rank_1_strongest": 1,
+        "nature": "凶（口舌消耗）",
+        "domain": "口才教學業務、言語爭執、小人耗損、呼吸支氣管疲勞（得生氣＋延年可轉專業講師口才）"
+      },
+      "71": {
+        "star": "禍害",
+        "energy_rank_1_strongest": 1,
+        "nature": "凶（口舌消耗）",
+        "domain": "口才教學業務、言語爭執、小人耗損、呼吸支氣管疲勞（得生氣＋延年可轉專業講師口才）"
+      },
+      "89": {
+        "star": "禍害",
+        "energy_rank_1_strongest": 2,
+        "nature": "凶（口舌消耗）",
+        "domain": "口才教學業務、言語爭執、小人耗損、呼吸支氣管疲勞（得生氣＋延年可轉專業講師口才）"
+      },
+      "98": {
+        "star": "禍害",
+        "energy_rank_1_strongest": 2,
+        "nature": "凶（口舌消耗）",
+        "domain": "口才教學業務、言語爭執、小人耗損、呼吸支氣管疲勞（得生氣＋延年可轉專業講師口才）"
+      },
+      "46": {
+        "star": "禍害",
+        "energy_rank_1_strongest": 3,
+        "nature": "凶（口舌消耗）",
+        "domain": "口才教學業務、言語爭執、小人耗損、呼吸支氣管疲勞（得生氣＋延年可轉專業講師口才）"
+      },
+      "64": {
+        "star": "禍害",
+        "energy_rank_1_strongest": 3,
+        "nature": "凶（口舌消耗）",
+        "domain": "口才教學業務、言語爭執、小人耗損、呼吸支氣管疲勞（得生氣＋延年可轉專業講師口才）"
+      },
+      "23": {
+        "star": "禍害",
+        "energy_rank_1_strongest": 4,
+        "nature": "凶（口舌消耗）",
+        "domain": "口才教學業務、言語爭執、小人耗損、呼吸支氣管疲勞（得生氣＋延年可轉專業講師口才）"
+      },
+      "32": {
+        "star": "禍害",
+        "energy_rank_1_strongest": 4,
+        "nature": "凶（口舌消耗）",
+        "domain": "口才教學業務、言語爭執、小人耗損、呼吸支氣管疲勞（得生氣＋延年可轉專業講師口才）"
+      }
+    },
+    "pairs_36_zero_and_five": {
+      "00": "雙零純隱伏空滯：能量高度潛藏、停滯觀望或長期凍結，不可歸入八星伏位。",
+      "01": "0 在前（01）表前期醞釀被動、暗中籌備；0 在後（10）表該數位能量被吸納、隱藏、被動等待或資產凍結（如 A0B 夾零：將 AB 原星轉為隱性、延遲、暗財／暗耗或手術靜養象，保留 0 位不直接等同無 0 之 AB）",
+      "02": "0 在前（02）表前期醞釀被動、暗中籌備；0 在後（20）表該數位能量被吸納、隱藏、被動等待或資產凍結（如 A0B 夾零：將 AB 原星轉為隱性、延遲、暗財／暗耗或手術靜養象，保留 0 位不直接等同無 0 之 AB）",
+      "03": "0 在前（03）表前期醞釀被動、暗中籌備；0 在後（30）表該數位能量被吸納、隱藏、被動等待或資產凍結（如 A0B 夾零：將 AB 原星轉為隱性、延遲、暗財／暗耗或手術靜養象，保留 0 位不直接等同無 0 之 AB）",
+      "04": "0 在前（04）表前期醞釀被動、暗中籌備；0 在後（40）表該數位能量被吸納、隱藏、被動等待或資產凍結（如 A0B 夾零：將 AB 原星轉為隱性、延遲、暗財／暗耗或手術靜養象，保留 0 位不直接等同無 0 之 AB）",
+      "05": "零五／五零由隱轉顯或由顯入隱：先藏後露（05）或表面張揚實則落空（50），嚴禁消去當無物。",
+      "06": "0 在前（06）表前期醞釀被動、暗中籌備；0 在後（60）表該數位能量被吸納、隱藏、被動等待或資產凍結（如 A0B 夾零：將 AB 原星轉為隱性、延遲、暗財／暗耗或手術靜養象，保留 0 位不直接等同無 0 之 AB）",
+      "07": "0 在前（07）表前期醞釀被動、暗中籌備；0 在後（70）表該數位能量被吸納、隱藏、被動等待或資產凍結（如 A0B 夾零：將 AB 原星轉為隱性、延遲、暗財／暗耗或手術靜養象，保留 0 位不直接等同無 0 之 AB）",
+      "08": "0 在前（08）表前期醞釀被動、暗中籌備；0 在後（80）表該數位能量被吸納、隱藏、被動等待或資產凍結（如 A0B 夾零：將 AB 原星轉為隱性、延遲、暗財／暗耗或手術靜養象，保留 0 位不直接等同無 0 之 AB）",
+      "09": "0 在前（09）表前期醞釀被動、暗中籌備；0 在後（90）表該數位能量被吸納、隱藏、被動等待或資產凍結（如 A0B 夾零：將 AB 原星轉為隱性、延遲、暗財／暗耗或手術靜養象，保留 0 位不直接等同無 0 之 AB）",
+      "10": "0 在前（01）表前期醞釀被動、暗中籌備；0 在後（10）表該數位能量被吸納、隱藏、被動等待或資產凍結（如 A0B 夾零：將 AB 原星轉為隱性、延遲、暗財／暗耗或手術靜養象，保留 0 位不直接等同無 0 之 AB）",
+      "15": "5 在前（51）表主動強化起手；5 在後（15）表該數位趨勢外顯公開（如 A5B 夾五：將 AB 原星特質顯性放大、公開化與加速，保留 5 位區分於一般 AB）",
+      "20": "0 在前（02）表前期醞釀被動、暗中籌備；0 在後（20）表該數位能量被吸納、隱藏、被動等待或資產凍結（如 A0B 夾零：將 AB 原星轉為隱性、延遲、暗財／暗耗或手術靜養象，保留 0 位不直接等同無 0 之 AB）",
+      "25": "5 在前（52）表主動強化起手；5 在後（25）表該數位趨勢外顯公開（如 A5B 夾五：將 AB 原星特質顯性放大、公開化與加速，保留 5 位區分於一般 AB）",
+      "30": "0 在前（03）表前期醞釀被動、暗中籌備；0 在後（30）表該數位能量被吸納、隱藏、被動等待或資產凍結（如 A0B 夾零：將 AB 原星轉為隱性、延遲、暗財／暗耗或手術靜養象，保留 0 位不直接等同無 0 之 AB）",
+      "35": "5 在前（53）表主動強化起手；5 在後（35）表該數位趨勢外顯公開（如 A5B 夾五：將 AB 原星特質顯性放大、公開化與加速，保留 5 位區分於一般 AB）",
+      "40": "0 在前（04）表前期醞釀被動、暗中籌備；0 在後（40）表該數位能量被吸納、隱藏、被動等待或資產凍結（如 A0B 夾零：將 AB 原星轉為隱性、延遲、暗財／暗耗或手術靜養象，保留 0 位不直接等同無 0 之 AB）",
+      "45": "5 在前（54）表主動強化起手；5 在後（45）表該數位趨勢外顯公開（如 A5B 夾五：將 AB 原星特質顯性放大、公開化與加速，保留 5 位區分於一般 AB）",
+      "50": "零五／五零由隱轉顯或由顯入隱：先藏後露（05）或表面張揚實則落空（50），嚴禁消去當無物。",
+      "51": "5 在前（51）表主動強化起手；5 在後（15）表該數位趨勢外顯公開（如 A5B 夾五：將 AB 原星特質顯性放大、公開化與加速，保留 5 位區分於一般 AB）",
+      "52": "5 在前（52）表主動強化起手；5 在後（25）表該數位趨勢外顯公開（如 A5B 夾五：將 AB 原星特質顯性放大、公開化與加速，保留 5 位區分於一般 AB）",
+      "53": "5 在前（53）表主動強化起手；5 在後（35）表該數位趨勢外顯公開（如 A5B 夾五：將 AB 原星特質顯性放大、公開化與加速，保留 5 位區分於一般 AB）",
+      "54": "5 在前（54）表主動強化起手；5 在後（45）表該數位趨勢外顯公開（如 A5B 夾五：將 AB 原星特質顯性放大、公開化與加速，保留 5 位區分於一般 AB）",
+      "55": "雙五純顯化倍增：中宮凸顯、壓力與曝光同步放大，須視前後相鄰數字定吉凶方向。",
+      "56": "5 在前（56）表主動強化起手；5 在後（65）表該數位趨勢外顯公開（如 A5B 夾五：將 AB 原星特質顯性放大、公開化與加速，保留 5 位區分於一般 AB）",
+      "57": "5 在前（57）表主動強化起手；5 在後（75）表該數位趨勢外顯公開（如 A5B 夾五：將 AB 原星特質顯性放大、公開化與加速，保留 5 位區分於一般 AB）",
+      "58": "5 在前（58）表主動強化起手；5 在後（85）表該數位趨勢外顯公開（如 A5B 夾五：將 AB 原星特質顯性放大、公開化與加速，保留 5 位區分於一般 AB）",
+      "59": "5 在前（59）表主動強化起手；5 在後（95）表該數位趨勢外顯公開（如 A5B 夾五：將 AB 原星特質顯性放大、公開化與加速，保留 5 位區分於一般 AB）",
+      "60": "0 在前（06）表前期醞釀被動、暗中籌備；0 在後（60）表該數位能量被吸納、隱藏、被動等待或資產凍結（如 A0B 夾零：將 AB 原星轉為隱性、延遲、暗財／暗耗或手術靜養象，保留 0 位不直接等同無 0 之 AB）",
+      "65": "5 在前（56）表主動強化起手；5 在後（65）表該數位趨勢外顯公開（如 A5B 夾五：將 AB 原星特質顯性放大、公開化與加速，保留 5 位區分於一般 AB）",
+      "70": "0 在前（07）表前期醞釀被動、暗中籌備；0 在後（70）表該數位能量被吸納、隱藏、被動等待或資產凍結（如 A0B 夾零：將 AB 原星轉為隱性、延遲、暗財／暗耗或手術靜養象，保留 0 位不直接等同無 0 之 AB）",
+      "75": "5 在前（57）表主動強化起手；5 在後（75）表該數位趨勢外顯公開（如 A5B 夾五：將 AB 原星特質顯性放大、公開化與加速，保留 5 位區分於一般 AB）",
+      "80": "0 在前（08）表前期醞釀被動、暗中籌備；0 在後（80）表該數位能量被吸納、隱藏、被動等待或資產凍結（如 A0B 夾零：將 AB 原星轉為隱性、延遲、暗財／暗耗或手術靜養象，保留 0 位不直接等同無 0 之 AB）",
+      "85": "5 在前（58）表主動強化起手；5 在後（85）表該數位趨勢外顯公開（如 A5B 夾五：將 AB 原星特質顯性放大、公開化與加速，保留 5 位區分於一般 AB）",
+      "90": "0 在前（09）表前期醞釀被動、暗中籌備；0 在後（90）表該數位能量被吸納、隱藏、被動等待或資產凍結（如 A0B 夾零：將 AB 原星轉為隱性、延遲、暗財／暗耗或手術靜養象，保留 0 位不直接等同無 0 之 AB）",
+      "95": "5 在前（59）表主動強化起手；5 在後（95）表該數位趨勢外顯公開（如 A5B 夾五：將 AB 原星特質顯性放大、公開化與加速，保留 5 位區分於一般 AB）"
+    }
+  },
+  "naming_kumazaki_and_taiwan_synthesis": {
+    "kangxi_radical_stroke_rules": {
+      "warning": "五格筆畫一律依《康熙字典》原部首本義計算，嚴禁直接使用現代電腦字型（新細明體／微軟正黑體）表面筆畫。",
+      "radical_overrides": {
+        "氵（三點水，水部）": 4,
+        "扌（提手旁，手部）": 4,
+        "忄（豎心旁，心部）": 4,
+        "犭（反犬旁，犬部）": 4,
+        "礻（示字旁，示部）": 5,
+        "王（斜玉旁，玉部，如瑜瑞琪璋玲珍珀）": 5,
+        "艹（草字頭，艸部，如芳芸芝茗茹茵）": 6,
+        "衤（衣字旁，衣部，如裕祺裴）": 6,
+        "月（肉部旁，如育宥勝朋胡肚脈，注意『明朗期朝朔望』屬日月之月仍為 4 畫。）": 6,
+        "辶（走之底，辵部，如達道遠逸進連迎）": 7,
+        "左阝（阜部，如陳陸陶陽院陪陵）": 8,
+        "右阝（邑部，如鄭郭鄧邱邦郁邵郎）": 7,
+        "數字漢字本義筆畫": {
+          "一": 1,
+          "二": 2,
+          "三": 3,
+          "四": 4,
+          "五": 5,
+          "六": 6,
+          "七": 7,
+          "八": 8,
+          "九": 9,
+          "十": 10,
+          "百": 6,
+          "千": 3,
+          "萬": 15
+        }
+      }
+    },
+    "five_grids_formula_and_jia_cheng_yi": {
+      "複姓複名（姓 S1+S2，名 G1+G2）": {
+        "天格": "S1+S2",
+        "人格": "S2+G1",
+        "地格": "G1+G2",
+        "總格": "S1+S2+G1+G2",
+        "外格": "S1+G2"
+      },
+      "單姓複名（姓 S1，名 G1+G2）": {
+        "天格": "S1+1（添一數）",
+        "人格": "S1+G1",
+        "地格": "G1+G2",
+        "總格": "S1+G1+G2",
+        "外格": "G2+1"
+      },
+      "單姓單名（姓 S1，名 G1 — 熊崎 p.69–70 假成一雙軌）": {
+        "天格": "S1+1",
+        "人格": "S1+G1",
+        "地格": "G1+1（單名添一）",
+        "總格": "S1+G1（實字總和，不加假一。）",
+        "外格雙軌": "並列①熊崎通行『外格固定作 2 畫（天添 1 + 地添 1 = 2）』與 ②『總格減人格加 2』，且明標單名外格為形式補數。"
+      }
+    },
+    "three_talents_wuxing_by_tail_digit": {
+      "1_2": "木（1陽木、2陰木）",
+      "3_4": "火（3陽火、4陰火）",
+      "5_6": "土（5陽土、6陰土）",
+      "7_8": "金（7陽金、8陰金）",
+      "9_0": "水（9陽水、0陰水）",
+      "rule": "天格—人格—地格三才五行以相生順暢（如木火土、水木火、土金水、金水木、火土金）及比和為吉，嚴避人格受天格與地格雙重夾剋。"
+    },
+    "kumazaki_81_numbers": {
+      "1": {
+        "rating": "大吉",
+        "meaning": "太極之數，萬物開泰，富貴榮達"
+      },
+      "2": {
+        "rating": "凶",
+        "meaning": "一身孤節，動搖不安，進退失據"
+      },
+      "3": {
+        "rating": "大吉",
+        "meaning": "根深蒂固，蒸蒸日上，如意吉祥"
+      },
+      "4": {
+        "rating": "凶",
+        "meaning": "坎坷前途，苦難折磨，孤獨破敗"
+      },
+      "5": {
+        "rating": "大吉",
+        "meaning": "陰陽和合，福祿長壽，生意興隆"
+      },
+      "6": {
+        "rating": "大吉",
+        "meaning": "安穩餘慶，天德地祥，富貴榮華"
+      },
+      "7": {
+        "rating": "吉",
+        "meaning": "剛毅果斷，獨立權威，勇往直前"
+      },
+      "8": {
+        "rating": "吉",
+        "meaning": "意志剛健，勤勉發展，克難有成"
+      },
+      "9": {
+        "rating": "凶",
+        "meaning": "興盡凶始，窮乏困苦，浮沉不定"
+      },
+      "10": {
+        "rating": "凶",
+        "meaning": "萬事終局，烏雲蔽月，徒勞無功"
+      },
+      "11": {
+        "rating": "大吉",
+        "meaning": "旱苗逢雨，萬物更新，穩健著實"
+      },
+      "12": {
+        "rating": "凶",
+        "meaning": "薄弱無力，孤立無援，外祥內苦"
+      },
+      "13": {
+        "rating": "大吉",
+        "meaning": "才藝多能，智謀奇略，忍柔必勝"
+      },
+      "14": {
+        "rating": "凶",
+        "meaning": "忍得苦難，家緣薄弱，浮沉破敗"
+      },
+      "15": {
+        "rating": "大吉",
+        "meaning": "福壽圓滿，德高望重，興家聚財"
+      },
+      "16": {
+        "rating": "大吉",
+        "meaning": "厚重載德，眾望所歸，反凶化吉"
+      },
+      "17": {
+        "rating": "吉",
+        "meaning": "剛強突破，權威剛毅，宜守柔和"
+      },
+      "18": {
+        "rating": "吉",
+        "meaning": "有志竟成，鐵石心腸，內外有運"
+      },
+      "19": {
+        "rating": "凶",
+        "meaning": "多難風雲，才高障重，內外不和"
+      },
+      "20": {
+        "rating": "凶",
+        "meaning": "非業破運，進退維谷，厄難疊至"
+      },
+      "21": {
+        "rating": "大吉",
+        "meaning": "明月光照，獨立權威，首領之數（女命須配溫和三才）"
+      },
+      "22": {
+        "rating": "凶",
+        "meaning": "秋草逢霜，懷才不遇，中途挫折"
+      },
+      "23": {
+        "rating": "大吉",
+        "meaning": "旭日東昇，壯麗果敢，功名顯達（女命須參三才柔順）"
+      },
+      "24": {
+        "rating": "大吉",
+        "meaning": "家門餘慶，白手成家，財源廣進"
+      },
+      "25": {
+        "rating": "吉",
+        "meaning": "資性英敏，剛毅果斷，講信修睦"
+      },
+      "26": {
+        "rating": "半吉半凶",
+        "meaning": "變怪奇異，英雄波瀾，歷難成大業"
+      },
+      "27": {
+        "rating": "半吉半凶",
+        "meaning": "增长中折，自我剛強，宜慎口舌誹謗"
+      },
+      "28": {
+        "rating": "凶",
+        "meaning": "闊水浮萍，豪氣生離，遭難動盪"
+      },
+      "29": {
+        "rating": "大吉",
+        "meaning": "智謀兼備，財力歸集，奏功受福（防慾望過高）"
+      },
+      "30": {
+        "rating": "半吉半凶",
+        "meaning": "浮沉不定，吉凶難分，投機起伏"
+      },
+      "31": {
+        "rating": "大吉",
+        "meaning": "智勇得志，心想事成，統領眾人"
+      },
+      "32": {
+        "rating": "大吉",
+        "meaning": "僥倖多望，池中之龍，貴人提攜"
+      },
+      "33": {
+        "rating": "大吉",
+        "meaning": "家門隆昌，才德開展，威震天下（女命須看八字中和）"
+      },
+      "34": {
+        "rating": "凶",
+        "meaning": "破家亡身，見識短小，災難不絕"
+      },
+      "35": {
+        "rating": "大吉",
+        "meaning": "溫和平靜，優雅發展，文藝保守吉"
+      },
+      "36": {
+        "rating": "半吉半凶",
+        "meaning": "波瀾重疊，俠義捨己，動極思靜"
+      },
+      "37": {
+        "rating": "大吉",
+        "meaning": "權威顯達，吉人天相，誠信得眾"
+      },
+      "38": {
+        "rating": "半吉",
+        "meaning": "磨鐵成針，技藝學問可成，統御力較弱"
+      },
+      "39": {
+        "rating": "大吉",
+        "meaning": "富貴榮華，光明坦途，藏險於順宜知止"
+      },
+      "40": {
+        "rating": "半吉半凶",
+        "meaning": "退安吉而進取險，智謀浮沉"
+      },
+      "41": {
+        "rating": "大吉",
+        "meaning": "德望高大，膽識才謀，名利雙收"
+      },
+      "42": {
+        "rating": "半吉半凶",
+        "meaning": "十藝九不成，博學多能宜專精一業"
+      },
+      "43": {
+        "rating": "半吉半凶",
+        "meaning": "雨夜之花，外祥內散，防財來財去"
+      },
+      "44": {
+        "rating": "凶",
+        "meaning": "煩悶逆境，破家暗藏，難遂心願"
+      },
+      "45": {
+        "rating": "大吉",
+        "meaning": "新生泰運，順風揚帆，智謀兼備"
+      },
+      "46": {
+        "rating": "凶",
+        "meaning": "羅網繫身，載寶沉舟，孤苦飄零"
+      },
+      "47": {
+        "rating": "大吉",
+        "meaning": "花開之象，禎祥吉慶，權威進取"
+      },
+      "48": {
+        "rating": "大吉",
+        "meaning": "青松立鶴，智謀兼備，顧問師表吉"
+      },
+      "49": {
+        "rating": "半吉半凶",
+        "meaning": "吉凶難分，轉變不定，全賴三才定奪"
+      },
+      "50": {
+        "rating": "半吉半凶",
+        "meaning": "一成一敗，先吉後憂，宜急流勇退"
+      },
+      "51": {
+        "rating": "半吉",
+        "meaning": "盛衰交加，穩健可保平安，忌急進"
+      },
+      "52": {
+        "rating": "大吉",
+        "meaning": "卓識達眼，先見之明，功業可成"
+      },
+      "53": {
+        "rating": "半吉半凶",
+        "meaning": "外華內憂，先盛後衰，宜實事求是"
+      },
+      "54": {
+        "rating": "凶",
+        "meaning": "石上栽花，多難悲運，難望成功"
+      },
+      "55": {
+        "rating": "半吉半凶",
+        "meaning": "外美內苦，吉極生凶，宜守中道"
+      },
+      "56": {
+        "rating": "凶",
+        "meaning": "浪裡行舟，歷盡艱辛，晚景防損"
+      },
+      "57": {
+        "rating": "吉",
+        "meaning": "寒雪青松，先苦後甘，百折不撓"
+      },
+      "58": {
+        "rating": "半吉",
+        "meaning": "先苦後甘，浮沉多端，晚運漸亨"
+      },
+      "59": {
+        "rating": "凶",
+        "meaning": "寒蟬悲風，意志薄弱，車輪無毅"
+      },
+      "60": {
+        "rating": "凶",
+        "meaning": "無謀爭奇，黑暗無光，搖動不安"
+      },
+      "61": {
+        "rating": "大吉",
+        "meaning": "牡丹芙蓉，名利雙收，須防傲慢內爭"
+      },
+      "62": {
+        "rating": "凶",
+        "meaning": "基礎虛弱，漸入衰敗，知足守份"
+      },
+      "63": {
+        "rating": "大吉",
+        "meaning": "舟歸平海，富貴榮華，萬事化育"
+      },
+      "64": {
+        "rating": "凶",
+        "meaning": "骨肉分離，沉浮破敗，徒勞無功"
+      },
+      "65": {
+        "rating": "大吉",
+        "meaning": "富貴長壽，巨流歸海，家運隆昌"
+      },
+      "66": {
+        "rating": "凶",
+        "meaning": "岩頭步馬，進退維谷，內外不和"
+      },
+      "67": {
+        "rating": "大吉",
+        "meaning": "利路亨通，長輩提攜，萬事無礙"
+      },
+      "68": {
+        "rating": "大吉",
+        "meaning": "興家立業，思慮周詳，發明順遂"
+      },
+      "69": {
+        "rating": "凶",
+        "meaning": "非業停滯，搖擺不安，病難困苦"
+      },
+      "70": {
+        "rating": "凶",
+        "meaning": "殘菊逢霜，寂寞空虛，貧困阻滯"
+      },
+      "71": {
+        "rating": "半吉",
+        "meaning": "石上金花，內外勞心，守成可安"
+      },
+      "72": {
+        "rating": "凶",
+        "meaning": "未雨綢繆，先甜後苦，防得而復失"
+      },
+      "73": {
+        "rating": "半吉",
+        "meaning": "志高力微，晚景安泰，自然吉慶"
+      },
+      "74": {
+        "rating": "凶",
+        "meaning": "殘花經雨，坐食山空，無謀難成"
+      },
+      "75": {
+        "rating": "半吉",
+        "meaning": "守者可安，進取多損，忌貪急功"
+      },
+      "76": {
+        "rating": "凶",
+        "meaning": "傾覆離散，內外破耗，勞而無功"
+      },
+      "77": {
+        "rating": "半吉",
+        "meaning": "先吉後凶或先苦後甘，忌依賴他人"
+      },
+      "78": {
+        "rating": "半吉",
+        "meaning": "晚景淒涼或守中平安，中吉後衰宜惜福"
+      },
+      "79": {
+        "rating": "凶",
+        "meaning": "雲頭望月，身疲力盡，信譽受損"
+      },
+      "80": {
+        "rating": "凶",
+        "meaning": "遁世歸隱，數極轉空，知足清修免災"
+      },
+      "81": {
+        "rating": "大吉",
+        "meaning": "還本歸元，同 1 數開泰大吉"
+      }
+    }
+  }
+}
