@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./styles.css?v=20261124f" />
+  <link rel="stylesheet" href="./styles.css?v=20261124g" />
 </head>
 <body>
   <a href="#mainContent" class="skip-link">跳至主要內容</a>
@@ -163,9 +163,24 @@
         <div class="stage-card">
           <!-- 扇形互動選牌桌（點擊展開時浮現） -->
           <div class="fan-ritual-box hidden" id="tarotFanStage">
-            <div class="fan-header">
-              <span id="fanPromptText">請默念問題，憑第一直覺點選牌背抽取</span>
-              <span class="fan-counter" id="fanCounterBadge">已選 0 張</span>
+            <div class="fan-sticky-head">
+              <div class="fan-header">
+                <span id="fanPromptText">請默念問題，憑第一直覺點選牌背抽取</span>
+                <span class="fan-counter" id="fanCounterBadge">已選 0 張</span>
+              </div>
+              <div class="fan-toolbar" role="group" aria-label="選牌桌面陳列模式">
+                <div class="fan-mode-pills">
+                  <button type="button" class="fan-mode-btn" data-fan-layout="grid15" aria-pressed="false">一屏全覽 15 張</button>
+                  <button type="button" class="fan-mode-btn" data-fan-layout="swipe15" aria-pressed="false">扇形橫滑 15 張</button>
+                  <button type="button" class="fan-mode-btn" data-fan-layout="full78" aria-pressed="false">全副展開 78 張</button>
+                </div>
+                <button type="button" class="fan-reshuffle-btn" id="fanReshuffleBtn">重新洗牌</button>
+              </div>
+              <div class="fan-swipe-nav hidden" id="fanSwipeNav">
+                <button type="button" class="fan-pan-btn" id="fanPanLeftBtn" aria-label="牌桌往左滑動">◀ 往左看牌</button>
+                <span class="fan-swipe-tip">可左右滑動牌面或點兩側按鈕</span>
+                <button type="button" class="fan-pan-btn" id="fanPanRightBtn" aria-label="牌桌往右滑動">往右看牌 ▶</button>
+              </div>
             </div>
             <div class="tarot-fan-row" id="tarotFanCards"></div>
           </div>
@@ -469,7 +484,7 @@
             <select id="bzBookLine" class="select-input">
               <option value="八字命書（福伯直白線）" selected>八字命書（多術化入八字語彙・福伯直白線）</option>
               <option value="西洋占星命書（薇拉星盤心理線）">西洋占星命書（多術化入星盤宮位相位・薇拉線）</option>
-              <option value="奇門論命命書（遁甲九宮決策線）">奇門論命命書（多術化入奇門終身局九宮・仙師線）</option>
+              <option value="奇門論命命書（遁甲九宮決策線）">奇門論命命書（多術化入奇門終身局九宮・陣先生線）</option>
             </select>
           </div>
 
@@ -557,7 +572,7 @@
   </script>
   <script src="./assets/qrcode.js" defer></script>
   <script src="./assets/lunar.js" defer></script>
-  <script src="./assets/standalone_engine.js?v=20261124f" defer></script>
-  <script src="./app.js?v=20261124f" defer></script>
+  <script src="./assets/standalone_engine.js?v=20261124g" defer></script>
+  <script src="./app.js?v=20261124g" defer></script>
 </body>
 </html>

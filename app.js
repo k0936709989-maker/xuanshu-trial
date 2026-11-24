@@ -16,6 +16,9 @@
     coinThrows: [],
     fanTargetCount: 4,
     fanPickedIndices: [],
+    fanDeckOrder: [],
+    fanLayout: window.innerWidth <= 768 ? "grid15" : "swipe15",
+    fanLayoutUserChosen: false,
     mentors: {
       vera: {
         name: "薇拉",
@@ -357,7 +360,10 @@
   }
 
   /* ==================== 78 張黑曜鎏金雕刻塔羅 SVG 渲染器 ==================== */
-  function renderTarotBackSVG() {
+  function renderTarotBackSVG(slotLabel = "") {
+    const labelMarkup = slotLabel
+      ? `<text x="60" y="25" text-anchor="middle" fill="#e3c585" font-size="11" font-weight="600" font-family="JetBrains Mono, monospace">${esc(slotLabel)}</text>`
+      : `<circle cx="60" cy="34" r="4" fill="#c8a35a" fill-opacity="0.6"/>`;
     return `
       <svg viewBox="0 0 120 200" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <rect x="2" y="2" width="116" height="196" rx="8" fill="#13100b" stroke="#c8a35a" stroke-width="1.6"/>
@@ -365,7 +371,7 @@
         <circle cx="60" cy="100" r="32" fill="none" stroke="#c8a35a" stroke-width="1.1"/>
         <circle cx="60" cy="100" r="20" fill="none" stroke="#c8a35a" stroke-opacity="0.55" stroke-width="0.8"/>
         <path d="M60 58 L66 94 L102 100 L66 106 L60 142 L54 106 L18 100 L54 94 Z" fill="#c8a35a" fill-opacity="0.22" stroke="#c8a35a" stroke-width="0.9"/>
-        <circle cx="60" cy="34" r="4" fill="#c8a35a" fill-opacity="0.6"/>
+        ${labelMarkup}
         <circle cx="60" cy="166" r="4" fill="#c8a35a" fill-opacity="0.6"/>
       </svg>`;
   }
@@ -503,6 +509,106 @@
     }
   }
 
+  function shuffleDeck78() {
+    const arr = Array.from({ length: 78 }, (_, idx) => idx);
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const tmp = arr[i];
+      arr[i] = arr[j];
+      arr[j] = tmp;
+    }
+    return arr;
+  }
+
+  function syncFanModeUI() {
+    const row = document.getElementById("tarotFanCards");
+    const swipeNav = document.getElementById("fanSwipeNav");
+    if (!row) return;
+
+    row.classList.remove("layout-grid15", "layout-swipe15", "layout-full78");
+    row.classList.add(`layout-${state.fanLayout}`);
+
+    document.querySelectorAll(".fan-mode-btn").forEach((btn) => {
+      const isAct = btn.dataset.fanLayout === state.fanLayout;
+      btn.classList.toggle("active", isAct);
+      btn.setAttribute("aria-pressed", isAct ? "true" : "false");
+    });
+
+    if (swipeNav) {
+      swipeNav.classList.toggle("hidden", state.fanLayout !== "swipe15");
+    }
+  }
+
+  function renderManualFanCards() {
+    const row = document.getElementById("tarotFanCards");
+    const counter = document.getElementById("fanCounterBadge");
+    if (!row || !counter) return;
+
+    syncFanModeUI();
+    counter.textContent = `已選 ${state.fanPickedIndices.length} / ${state.fanTargetCount} 張`;
+
+    const totalCards = state.fanLayout === "full78" ? 78 : 15;
+    row.innerHTML = "";
+
+    for (let i = 0; i < totalCards; i++) {
+      const deckVal = state.fanDeckOrder[i];
+      const slotNo = String(i + 1).padStart(2, "0");
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "fan-card-slot";
+      btn.setAttribute("aria-label", `抽取第 ${i + 1} 號秘境牌卡`);
+
+      if (state.fanLayout === "swipe15") {
+        const deg = (i - 7) * 2.1;
+        const yOff = Math.abs(i - 7) * 1.8;
+        btn.style.transform = `rotate(${deg}deg) translateY(${yOff}px)`;
+      } else {
+        btn.style.transform = "";
+      }
+
+      const pickedOrder = state.fanPickedIndices.indexOf(deckVal);
+      btn.innerHTML = renderTarotBackSVG(slotNo);
+      if (pickedOrder !== -1) {
+        btn.classList.add("picked");
+        btn.setAttribute("aria-pressed", "true");
+        const badge = document.createElement("span");
+        badge.className = "fan-pick-badge";
+        badge.textContent = `第 ${pickedOrder + 1} 張`;
+        btn.appendChild(badge);
+      } else {
+        btn.setAttribute("aria-pressed", "false");
+      }
+
+      btn.addEventListener("click", () => {
+        if (state.fanPickedIndices.includes(deckVal)) return;
+        if (state.fanPickedIndices.length >= state.fanTargetCount) return;
+
+        state.fanPickedIndices.push(deckVal);
+        const ord = state.fanPickedIndices.length;
+        btn.classList.add("picked");
+        btn.setAttribute("aria-pressed", "true");
+        const badge = document.createElement("span");
+        badge.className = "fan-pick-badge";
+        badge.textContent = `第 ${ord} 張`;
+        btn.appendChild(badge);
+
+        counter.textContent = `已選 ${ord} / ${state.fanTargetCount} 張`;
+        if (ord === state.fanTargetCount) {
+          setTimeout(() => executeTarotReading(state.fanPickedIndices.slice()), 260);
+        }
+      });
+      row.appendChild(btn);
+    }
+
+    if (state.fanLayout === "swipe15") {
+      requestAnimationFrame(() => {
+        if (row.scrollWidth > row.clientWidth) {
+          row.scrollLeft = Math.round((row.scrollWidth - row.clientWidth) / 2);
+        }
+      });
+    }
+  }
+
   function openManualFan() {
     const spreadSel = document.getElementById("tarotSpreadSelect").value;
     const q = document.getElementById("tarotQuestionInput").value;
@@ -518,33 +624,20 @@
 
     state.fanTargetCount = needed;
     state.fanPickedIndices = [];
-    const stage = document.getElementById("tarotFanStage");
-    const row = document.getElementById("tarotFanCards");
-    const counter = document.getElementById("fanCounterBadge");
-    document.getElementById("fanPromptText").textContent = `請默念問題，憑直覺點選 ${needed} 張牌卡翻開解答`;
-    counter.textContent = `已選 0 / ${needed} 張`;
-    stage.classList.remove("hidden");
+    state.fanDeckOrder = shuffleDeck78();
+    if (!state.fanLayoutUserChosen) {
+      state.fanLayout = window.innerWidth <= 768 ? "grid15" : "swipe15";
+    }
 
-    row.innerHTML = "";
-    for (let i = 0; i < 15; i++) {
-      const deg = (i - 7) * 2.4;
-      const yOff = Math.abs(i - 7) * 2.2;
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "fan-card-slot";
-      btn.setAttribute("aria-label", `抽取第 ${i + 1} 張秘境牌卡`);
-      btn.style.transform = `rotate(${deg}deg) translateY(${yOff}px)`;
-      btn.innerHTML = renderTarotBackSVG();
-      btn.addEventListener("click", () => {
-        if (state.fanPickedIndices.length >= state.fanTargetCount) return;
-        btn.classList.add("picked");
-        state.fanPickedIndices.push(i * 5 + 1);
-        counter.textContent = `已選 ${state.fanPickedIndices.length} / ${state.fanTargetCount} 張`;
-        if (state.fanPickedIndices.length === state.fanTargetCount) {
-          setTimeout(() => executeTarotReading(state.fanPickedIndices), 260);
-        }
-      });
-      row.appendChild(btn);
+    const stage = document.getElementById("tarotFanStage");
+    document.getElementById("fanPromptText").textContent = `請默念問題，憑直覺點選 ${needed} 張牌卡翻開解答`;
+    stage.classList.remove("hidden");
+    renderManualFanCards();
+
+    if (window.innerWidth <= 980) {
+      setTimeout(() => {
+        stage.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 60);
     }
   }
 
@@ -1136,9 +1229,54 @@
       });
     });
 
-    // 塔羅抽牌按鈕
+    // 塔羅抽牌按鈕與選牌桌面控制
     document.getElementById("tarotShuffleDrawBtn").addEventListener("click", () => executeTarotReading(null));
     document.getElementById("tarotManualFanBtn").addEventListener("click", openManualFan);
+    document.querySelectorAll(".fan-mode-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const nextMode = btn.dataset.fanLayout;
+        if (!nextMode || state.fanLayout === nextMode) return;
+        state.fanLayout = nextMode;
+        state.fanLayoutUserChosen = true;
+        if (nextMode !== "full78") {
+          // 若在 78 張模式已選了超過前 15 張以外的牌，切換模式時保留新牌池對應或重置未完成選擇
+          const visibleSet = new Set(state.fanDeckOrder.slice(0, 15));
+          if (state.fanPickedIndices.some((v) => !visibleSet.has(v))) {
+            state.fanPickedIndices = [];
+          }
+        }
+        renderManualFanCards();
+      });
+    });
+    const reshuffleBtn = document.getElementById("fanReshuffleBtn");
+    if (reshuffleBtn) {
+      reshuffleBtn.addEventListener("click", () => {
+        state.fanDeckOrder = shuffleDeck78();
+        state.fanPickedIndices = [];
+        renderManualFanCards();
+      });
+    }
+    const panLeftBtn = document.getElementById("fanPanLeftBtn");
+    const panRightBtn = document.getElementById("fanPanRightBtn");
+    if (panLeftBtn && panRightBtn) {
+      panLeftBtn.addEventListener("click", () => {
+        const row = document.getElementById("tarotFanCards");
+        if (row) row.scrollBy({ left: -180, behavior: "smooth" });
+      });
+      panRightBtn.addEventListener("click", () => {
+        const row = document.getElementById("tarotFanCards");
+        if (row) row.scrollBy({ left: 180, behavior: "smooth" });
+      });
+    }
+    window.addEventListener("resize", () => {
+      const stage = document.getElementById("tarotFanStage");
+      if (!stage || stage.classList.contains("hidden") || state.fanLayoutUserChosen) return;
+      const autoMode = window.innerWidth <= 768 ? "grid15" : "swipe15";
+      if (state.fanLayout !== autoMode) {
+        state.fanLayout = autoMode;
+        renderManualFanCards();
+      }
+    });
 
     // 易經起卦模式切換
     document.querySelectorAll("#yijingMethodTabs .seg-btn").forEach((b) => {

@@ -460,6 +460,7 @@ html[data-theme="light"] .sanctuary-photo {
 
 .composer-card,
 .stage-card {
+  min-width: 0;
   background: var(--bg-surface-1);
   border: 1px solid var(--neutral-line);
   border-radius: var(--radius-lg);
@@ -687,6 +688,8 @@ html[data-theme="light"] .sanctuary-photo {
 
 /* ==================== 扇形塔羅選牌桌與 3D 牌卡 ==================== */
 .fan-ritual-box {
+  min-width: 0;
+  max-width: 100%;
   padding: 18px;
   margin-bottom: 20px;
   border-radius: var(--radius-md);
@@ -694,60 +697,229 @@ html[data-theme="light"] .sanctuary-photo {
   border: 1px solid var(--gold-line);
 }
 
+.fan-sticky-head {
+  position: sticky;
+  top: 66px;
+  z-index: 12;
+  background: var(--bg-surface-2);
+  padding-bottom: 8px;
+  margin-bottom: 6px;
+  border-bottom: 1px solid var(--neutral-line);
+}
+
 .fan-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 14px;
-  font-size: 0.86rem;
-  color: var(--text-muted);
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  font-size: 0.88rem;
+  color: var(--text-main);
+  font-weight: 500;
 }
 
 .fan-counter {
-  padding: 3px 10px;
+  padding: 4px 12px;
   border-radius: 999px;
   background: var(--gold-soft);
+  border: 1px solid var(--gold-line);
   color: var(--gold-solid);
   font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.fan-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.fan-mode-pills {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.fan-mode-btn,
+.fan-reshuffle-btn,
+.fan-pan-btn {
+  min-height: 36px;
+  padding: 5px 11px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--neutral-line);
+  background: var(--bg-surface-3);
+  color: var(--text-main);
+  font-family: var(--font-sans);
   font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.18s ease, background 0.18s ease, color 0.18s ease;
+}
+
+.fan-mode-btn:hover,
+.fan-reshuffle-btn:hover,
+.fan-pan-btn:hover {
+  border-color: var(--gold-solid);
+}
+
+.fan-mode-btn.active {
+  background: var(--gold-solid);
+  border-color: var(--gold-solid);
+  color: var(--btn-primary-fg);
+}
+
+.fan-swipe-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 8px;
+  padding-top: 6px;
+}
+
+.fan-pan-btn {
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.fan-swipe-tip {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.35;
 }
 
 .tarot-fan-row {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* 模式一：扇形橫滑 15 張（桌機置中展開，手機可順暢左右滑動且絕不撐破外框） */
+.tarot-fan-row.layout-swipe15 {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-end;
-  padding: 16px 8px 8px;
+  padding: 24px 18px 26px;
   overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x pan-y;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
   gap: 0;
 }
 
-.fan-card-slot {
+.tarot-fan-row.layout-swipe15 .fan-card-slot {
+  flex: 0 0 auto;
   width: 68px;
   height: 112px;
-  margin-left: -22px;
+  margin-left: -20px;
+}
+
+.tarot-fan-row.layout-swipe15 .fan-card-slot:first-child {
+  margin-left: auto;
+}
+
+.tarot-fan-row.layout-swipe15 .fan-card-slot:last-child {
+  margin-right: auto;
+}
+
+/* 模式二：一屏全覽 15 張（5 欄 × 3 列整齊攤開，免左右滑動即看完全部） */
+.tarot-fan-row.layout-grid15 {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px 8px;
+  padding: 10px 2px 6px;
+  overflow: visible;
+  justify-items: center;
+}
+
+.tarot-fan-row.layout-grid15 .fan-card-slot {
+  width: 100%;
+  max-width: 78px;
+  height: auto;
+  aspect-ratio: 120 / 200;
+  margin: 0;
+}
+
+/* 模式三：全副展開 78 張（完整 78 張洗牌陳列，零橫向溢出） */
+.tarot-fan-row.layout-full78 {
+  display: grid;
+  grid-template-columns: repeat(13, minmax(0, 1fr));
+  gap: 8px 6px;
+  padding: 10px 2px 6px;
+  overflow: visible;
+}
+
+.tarot-fan-row.layout-full78 .fan-card-slot {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 120 / 200;
+  margin: 0;
+}
+
+.fan-card-slot {
   border-radius: 7px;
-  border: 1px solid var(--gold-solid);
+  border: 1px solid #c8a35a;
   background: #14110c;
-  box-shadow: -4px 4px 12px rgba(0, 0, 0, 0.55);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.52);
   cursor: pointer;
   position: relative;
-  transition: transform 0.26s var(--ease-out-expo), border-color 0.2s ease;
+  transition: transform 0.24s var(--ease-out-expo), border-color 0.2s ease, box-shadow 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
-.fan-card-slot:first-child {
-  margin-left: 0;
-}
-.fan-card-slot:hover {
-  transform: translateY(-16px) scale(1.06) !important;
+
+.tarot-fan-row.layout-swipe15 .fan-card-slot:hover {
+  transform: translateY(-14px) scale(1.05) !important;
   z-index: 10;
 }
+
+.tarot-fan-row.layout-grid15 .fan-card-slot:hover,
+.tarot-fan-row.layout-full78 .fan-card-slot:hover {
+  transform: translateY(-4px);
+  border-color: #e3c585;
+  z-index: 5;
+}
+
 .fan-card-slot.picked {
-  transform: translateY(-22px) !important;
-  border-color: #7ed1a4;
-  opacity: 0.45;
+  border: 2px solid #7ed1a4;
+  box-shadow: 0 0 0 2px rgba(126, 209, 164, 0.28), 0 6px 14px rgba(0, 0, 0, 0.6);
+  z-index: 8;
+}
+
+.tarot-fan-row.layout-swipe15 .fan-card-slot.picked {
+  transform: translateY(-18px) !important;
+}
+
+.tarot-fan-row.layout-grid15 .fan-card-slot.picked,
+.tarot-fan-row.layout-full78 .fan-card-slot.picked {
+  transform: translateY(-4px) !important;
+}
+
+.fan-pick-badge {
+  position: absolute;
+  inset: auto 4px 6px 4px;
+  padding: 2px 4px;
+  border-radius: 4px;
+  background: #0f291c;
+  border: 1px solid #7ed1a4;
+  color: #a6f4c5;
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: center;
   pointer-events: none;
 }
 
@@ -1562,7 +1734,7 @@ html[data-theme="light"] .sanctuary-photo {
   .hero-banner,
   .workspace-grid,
   .hexagram-compare-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
   .scenario-bar {
     grid-template-columns: 1fr 1fr;
@@ -1640,6 +1812,61 @@ html[data-theme="light"] .sanctuary-photo {
   }
   .control-caption {
     display: none;
+  }
+
+  /* 手機版親手選牌：預設 5 欄 × 3 列一屏全覽；切換扇形橫滑時於框內順暢左右滑動，絕不撐破外框 */
+  .fan-ritual-box {
+    padding: 14px 12px;
+  }
+  .fan-sticky-head {
+    top: 0;
+  }
+  .fan-header {
+    font-size: 0.84rem;
+  }
+  .fan-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .fan-mode-pills {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 5px;
+    width: 100%;
+  }
+  .fan-mode-btn {
+    padding: 6px 4px;
+    font-size: 0.74rem;
+    text-align: center;
+    white-space: nowrap;
+  }
+  .fan-reshuffle-btn {
+    width: 100%;
+    text-align: center;
+  }
+  .tarot-fan-row.layout-grid15 {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 8px 6px;
+    padding: 8px 0 4px;
+  }
+  .tarot-fan-row.layout-full78 {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 7px 5px;
+    padding: 8px 0 4px;
+  }
+  .tarot-fan-row.layout-swipe15 {
+    padding: 20px 14px 24px;
+  }
+  .tarot-fan-row.layout-swipe15 .fan-card-slot {
+    width: 64px;
+    height: 106px;
+    margin-left: -18px;
+  }
+  .tarot-fan-row.layout-swipe15 .fan-card-slot:first-child {
+    margin-left: 4px;
+  }
+  .tarot-fan-row.layout-swipe15 .fan-card-slot:last-child {
+    margin-right: 4px;
   }
 }
 
