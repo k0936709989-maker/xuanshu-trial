@@ -19,30 +19,32 @@
     fanDeckOrder: [],
     fanLayout: window.innerWidth <= 768 ? "grid15" : "swipe15",
     fanLayoutUserChosen: false,
+    lastTarotContext: null,
+    lastYijingContext: null,
     mentors: {
       vera: {
         name: "薇拉",
-        title: "星夜秘境・首席塔羅導師",
+        title: "星夜秘境・關係心理深層解讀師",
         avatar: "./assets/mentors/vera.webp",
-        opener: "先把焦慮放下來，牌面已經把這件事最真實的底牌攤開了。",
+        opener: "對方沒說出口的防衛、猶豫與心軟，牌面都已經替你映出來了，我們慢慢把心結拆開。",
       },
       rien: {
         name: "里恩",
-        title: "星軌樞機・冷冽決策占卜師",
+        title: "星軌樞機・商業博弈與冷靜止損決策師",
         avatar: "./assets/mentors/rien.webp",
-        opener: "我們不談空泛的安慰，直接看這件事的籌碼、代價與勝算。",
+        opener: "先別管情緒甘不甘心，我們直接攤開籌碼、沉沒成本與十四天內的停損底線。",
       },
       meiniang: {
         name: "梅娘",
-        title: "澄心書院・梅花易數名師",
+        title: "澄心書院・梅花易數靈動觀時名師",
         avatar: "./assets/mentors/meiniang.webp?v=20261124h",
-        opener: "萬事起心即有數，卦氣已經把眼前的順逆節奏映出來了。",
+        opener: "萬事起心即有數，本卦看起頭、互卦看中段暗流、變卦看落點快慢，節奏已經映在眼前了。",
       },
       fubo: {
         name: "福伯",
-        title: "玄樞宗師・京房六爻與八字大家",
+        title: "巷尾九間・京房納甲六爻與實務直斷大家",
         avatar: "./assets/mentors/fubo.webp",
-        opener: "坐下來喝口茶，不用看那些難懂的卦名，我直接講重點給你聽。",
+        opener: "來，坐下來喝口熱茶，不用管那些拗口卦詞，合約能不能簽、錢收不收得回來，福伯直接講明白。",
       },
     },
   };
@@ -186,6 +188,7 @@
   const VISITOR_ID = resolveVisitorId();
   let useStandalone = Boolean(
     window.__FORCE_STANDALONE__ ||
+    (window.XuanshuStandalone && !window.__USE_BACKEND_API__) ||
     (window.location && /\.github\.io$/i.test(window.location.hostname || ""))
   );
 
@@ -424,8 +427,8 @@
   }
 
   function badgeClassFromText(txt) {
-    if (txt.includes("暫緩") || txt.includes("阻力")) return "warn";
-    if (txt.includes("條件") || txt.includes("先磨") || txt.includes("相當")) return "caution";
+    if (/(暫緩|阻力|防衛|撤回|收手|受制|耗體)/.test(txt)) return "warn";
+    if (/(條件|先磨|相當|拉鋸|緩步|分期|試探)/.test(txt)) return "caution";
     return "good";
   }
 
@@ -446,6 +449,14 @@
             <h3>《${esc(c.name_zh)}》</h3>
             <span class="ori-tag">${esc(c.orientation)}</span>
           </div>
+          ${
+            c.mentor_lens_note
+              ? `<div class="mentor-lens-box">
+                  <div class="mentor-lens-kicker">${esc(c.mentor_lens_title || `${data.mentor.name}專屬眉批`)}</div>
+                  <p class="mentor-lens-text">${esc(c.mentor_lens_note)}</p>
+                </div>`
+              : ""
+          }
           <div class="sharp-quote">${esc(c.sharp_one_liner)}</div>
           <p class="plain-body">${esc(c.plain_explanation)}</p>
         </article>`
@@ -453,14 +464,17 @@
       .join("");
 
     const actionsHtml = data.three_actions.map((a) => `<li>${esc(a)}</li>`).join("");
+    const closingHtml = data.mentor_closing_tip
+      ? `<div class="mentor-closing-banner">${esc(data.mentor_closing_tip)}</div>`
+      : "";
 
     box.innerHTML = `
       <div class="verdict-hero-card">
         <div class="verdict-top-meta">
           <span class="status-pill ${bCls}">${esc(data.verdict_badge)}</span>
-          <span class="spread-caption">導師：${esc(data.mentor.name)} ｜ 自動配陣：${esc(data.spread.name)}</span>
+          <span class="spread-caption">導師：${esc(data.mentor.name)}（${esc(data.mentor.chip_tag || data.mentor.title)}）｜ 配陣：${esc(data.spread.name)}</span>
         </div>
-        <h2>照你問的，一句話直球結論</h2>
+        <h2>照你問的，${esc(data.mentor.name)}直球結論</h2>
         <p class="verdict-direct-text">${esc(data.direct_verdict)}</p>
       </div>
 
@@ -474,6 +488,7 @@
       <div class="action-box">
         <h3>你接下來最該做的三件事</h3>
         <ol class="action-list">${actionsHtml}</ol>
+        ${closingHtml}
         <p class="compliance-note">${esc(data.compliance_footer)}</p>
       </div>
     `;
@@ -490,22 +505,36 @@
     }
   }
 
-  async function executeTarotReading(pickedIndices = null) {
-    const q = document.getElementById("tarotQuestionInput").value.trim();
-    const spreadId = document.getElementById("tarotSpreadSelect").value;
+  async function executeTarotReading(pickedIndices = null, lockedContext = null) {
+    const q = lockedContext ? lockedContext.question : document.getElementById("tarotQuestionInput").value.trim();
+    const spreadId = lockedContext ? lockedContext.spread_id : document.getElementById("tarotSpreadSelect").value;
     const box = document.getElementById("tarotResultContainer");
-    box.innerHTML = `<div class="ritual-empty-state"><h2>正在洗牌對焦你的問題並拆解底牌...</h2></div>`;
+    if (!lockedContext) {
+      box.innerHTML = `<div class="ritual-empty-state"><h2>正在洗牌對焦你的問題並拆解底牌...</h2></div>`;
+    }
 
     const res = await apiPost("/api/tarot", {
       question: q,
       mentor_id: state.tarotMentor,
       spread_id: spreadId,
       selected_indices: pickedIndices,
+      locked_state: lockedContext ? lockedContext.locked_state : null,
+      skip_journal: Boolean(lockedContext),
     });
     if (res.ok) {
       document.getElementById("tarotFanStage").classList.add("hidden");
+      state.lastTarotContext = {
+        question: res.data.question,
+        spread_id: res.data.spread.id,
+        locked_state: {
+          card_slots: res.data.drawn_cards.map((c) => c.card_slot_index),
+          orientations: res.data.drawn_cards.map((c) => c.is_upright),
+        },
+      };
       renderTarotResult(res.data);
-      scrollResultOnMobile("tarotResultContainer");
+      if (!lockedContext) {
+        scrollResultOnMobile("tarotResultContainer");
+      }
     }
   }
 
@@ -664,11 +693,53 @@
       .join("");
   }
 
+  function renderHuHexLines(huBitsStr) {
+    const bits = Array.from(String(huBitsStr || "111111"));
+    const labels = ["初爻", "二爻", "三爻", "四爻", "五爻", "上爻"];
+    const origins = ["取本二爻", "取本三爻", "取本四爻", "取本三爻", "取本四爻", "取本五爻"];
+    return bits
+      .map((b, idx) => {
+        const isYang = b === "1";
+        const cls = isYang ? "yang" : "yin";
+        const bars = isYang ? `<span></span>` : `<span></span><span></span>`;
+        return `
+          <div class="hex-line-row">
+            <span class="mono-num" style="width:92px">${labels[idx]}・互象</span>
+            <div class="hex-bar-visual ${cls}">${bars}</div>
+            <span style="width:64px;text-align:right;color:var(--text-muted)">${origins[idx]}</span>
+          </div>`;
+      })
+      .join("");
+  }
+
   function renderYijingResult(data) {
     const box = document.getElementById("yijingResultContainer");
     const bCls = badgeClassFromText(data.verdict_badge);
     const movHtml = data.moving_plain_notes.map((m) => `<li>${esc(m)}</li>`).join("");
     const actHtml = data.three_actions.map((a) => `<li>${esc(a)}</li>`).join("");
+    const huHex = data.hu_hexagram || {
+      name: data.ben_hexagram.name,
+      palace: data.ben_hexagram.palace,
+      rating: data.ben_hexagram.rating,
+      plain_meaning: data.ben_hexagram.plain_meaning,
+      bits_bottom_to_top: data.ben_hexagram.bits_bottom_to_top || "111111",
+      composition_note: "下互取本卦二三四爻・上互取本卦三四五爻",
+    };
+
+    const tiYongMeta = data.meihua_ti_yong
+      ? ` ｜ 梅花體用：體卦${esc(data.meihua_ti_yong.ti_gua || data.meihua_ti_yong.ti_trigram)}（${esc(data.meihua_ti_yong.ti_wx || data.meihua_ti_yong.position)}）・用卦${esc(data.meihua_ti_yong.yong_gua || data.meihua_ti_yong.ben_yong_trigram)}${data.meihua_ti_yong.yong_wx ? `（${esc(data.meihua_ti_yong.yong_wx)}）` : ""}・${esc(data.meihua_ti_yong.relation || data.meihua_ti_yong.ben_relation)}`
+      : "";
+
+    const movingLensItems = data.lines_bottom_to_top
+      .filter((l) => l.is_moving && l.mentor_lens_note)
+      .map((l) => l.mentor_lens_note);
+    const fallbackLensItems = data.lines_bottom_to_top
+      .filter((l) => l.mentor_lens_note)
+      .map((l) => l.mentor_lens_note);
+    const yijingLensLabel = data.mentor && data.mentor.id === "meiniang"
+      ? "梅娘・本互變氣機與應期眉批"
+      : "福伯・納甲世應與合約風控眉批";
+    const yijingLensText = (movingLensItems.length ? movingLensItems : fallbackLensItems).join(" ｜ ") || data.shi_ying_plain || "";
 
     const proRows = data.lines_bottom_to_top
       .slice()
@@ -681,30 +752,49 @@
             <td>${esc(l.six_kin)}${l.shi_ying ? `（${esc(l.shi_ying)}）` : ""}</td>
             <td>${esc(l.najia)}（${esc(l.element)}）</td>
             <td>${esc(l.throw_label)}</td>
-            <td>${esc(l.status_plain)}</td>
+            <td>${esc(l.status_plain)}${l.mentor_lens_note ? `<div class="table-mentor-note">${esc(l.mentor_lens_note)}</div>` : ""}</td>
           </tr>`
       )
       .join("");
+
+    const closingHtml = data.mentor_closing_tip
+      ? `<div class="mentor-closing-banner">${esc(data.mentor_closing_tip)}</div>`
+      : "";
 
     box.innerHTML = `
       <div class="verdict-hero-card">
         <div class="verdict-top-meta">
           <span class="status-pill ${bCls}">${esc(data.verdict_badge)}</span>
-          <span class="spread-caption">宗師：${esc(data.mentor.name)} ｜ ${esc(data.method_label)} ｜ ${esc(data.casting_pillars.month_gz)}月 ${esc(data.casting_pillars.day_gz)}日</span>
+          <span class="spread-caption">宗師：${esc(data.mentor.name)}（${esc(data.mentor.chip_tag || data.mentor.title)}）｜ ${esc(data.method_label)} ｜ ${esc(data.casting_pillars.month_gz)}月 ${esc(data.casting_pillars.day_gz)}日</span>
         </div>
-        <h2>照你問的，一句話直球結論</h2>
+        <h2>照你問的，${esc(data.mentor.name)}直球結論</h2>
         <p class="verdict-direct-text">${esc(data.direct_verdict)}</p>
       </div>
 
-      <div class="hexagram-compare-grid">
+      <div class="hexagram-flow-ribbon" aria-label="本卦互卦變卦三段演進">
+        <span class="flow-step">本卦《${esc(data.ben_hexagram.name)}》</span>
+        <span class="flow-arrow" aria-hidden="true">→</span>
+        <span class="flow-step">互卦《${esc(huHex.name)}》</span>
+        <span class="flow-arrow" aria-hidden="true">→</span>
+        <span class="flow-step">變卦《${esc(data.bian_hexagram.name)}》</span>
+        <span class="flow-meta">（世爻在第${data.ben_hexagram.shi_line}爻・應爻在第${data.ben_hexagram.ying_line}爻${tiYongMeta}）</span>
+      </div>
+
+      <div class="hexagram-compare-grid three-stage">
         <div class="hex-box">
-          <div class="pos-kicker">當下局勢本卦・${esc(data.ben_hexagram.palace)}</div>
+          <div class="pos-kicker">起點現況本卦・${esc(data.ben_hexagram.palace)}</div>
           <h3 style="margin:4px 0;font-family:var(--font-serif)">《${esc(data.ben_hexagram.name)}》（${esc(data.ben_hexagram.rating)}）</h3>
           <p class="plain-body">${esc(data.ben_hexagram.plain_meaning)}</p>
           <div class="hex-lines-stack">${renderHexLines(data.lines_bottom_to_top, false)}</div>
         </div>
+        <div class="hex-box hex-box-hu">
+          <div class="pos-kicker">中段藏象互卦・${esc(huHex.palace)}</div>
+          <h3 style="margin:4px 0;font-family:var(--font-serif)">《${esc(huHex.name)}》（${esc(huHex.rating)}）</h3>
+          <p class="plain-body">${esc(huHex.plain_meaning)}<br/><small style="color:var(--text-muted)">${esc(huHex.composition_note)}</small></p>
+          <div class="hex-lines-stack">${renderHuHexLines(huHex.bits_bottom_to_top)}</div>
+        </div>
         <div class="hex-box">
-          <div class="pos-kicker">最終演變結局卦・${esc(data.bian_hexagram.palace)}</div>
+          <div class="pos-kicker">最終演變變卦・${esc(data.bian_hexagram.palace)}</div>
           <h3 style="margin:4px 0;font-family:var(--font-serif)">《${esc(data.bian_hexagram.name)}》（${esc(data.bian_hexagram.rating)}）</h3>
           <p class="plain-body">${esc(data.bian_hexagram.plain_meaning)}</p>
           <div class="hex-lines-stack">${renderHexLines(data.lines_bottom_to_top, true)}</div>
@@ -712,7 +802,11 @@
       </div>
 
       <div class="action-box">
-        <h3>為什麼這樣判（白話拆解轉折關鍵）</h3>
+        <h3>${esc(data.mentor.name)}斷卦視角拆解（動爻眉批與局勢因果）</h3>
+        <div class="mentor-lens-box" style="margin-bottom:12px">
+          <span class="mentor-lens-tag">${esc(yijingLensLabel)}</span>
+          <p class="mentor-lens-text">${esc(yijingLensText)}</p>
+        </div>
         <ul class="action-list">${movHtml}</ul>
       </div>
 
@@ -720,13 +814,14 @@
         <h3>應期時間點與三步具體對策</h3>
         <p class="plain-body" style="margin-bottom:10px">${esc(data.timing_window)}</p>
         <ol class="action-list">${actHtml}</ol>
+        ${closingHtml}
         <details class="advanced-drawer" style="margin-top:14px">
-          <summary>展開京房納甲六爻專業細盤（世應・六親・六神・旺衰）</summary>
+          <summary>展開京房納甲六爻專業細盤（由上爻至初爻・世應・六親・六神・旺衰）</summary>
           <div class="drawer-body" style="overflow-x:auto">
             <table style="width:100%;border-collapse:collapse;font-size:0.8rem;text-align:left">
               <thead>
                 <tr style="border-bottom:1px solid var(--gold-line);color:var(--gold-solid)">
-                  <th>爻位</th><th>六神</th><th>六親世應</th><th>納甲五行</th><th>陰陽動靜</th><th>月日旺衰</th>
+                  <th>爻位</th><th>六神</th><th>六親世應</th><th>納甲五行</th><th>陰陽動靜</th><th>月日旺衰與宗師眉批</th>
                 </tr>
               </thead>
               <tbody>${proRows}</tbody>
@@ -738,24 +833,36 @@
     `;
   }
 
-  async function submitYijing(throwsArr = null, numsArr = null) {
-    const q = document.getElementById("yijingQuestionInput").value.trim();
+  async function submitYijing(throwsArr = null, numsArr = null, lockedContext = null) {
+    const q = lockedContext ? lockedContext.question : document.getElementById("yijingQuestionInput").value.trim();
+    const methodUsed = lockedContext ? lockedContext.method : state.yijingMethod;
     const box = document.getElementById("yijingResultContainer");
-    box.innerHTML = `<div class="ritual-empty-state"><h2>正在排定納甲世應與月建日辰...</h2></div>`;
+    if (!lockedContext) {
+      box.innerHTML = `<div class="ritual-empty-state"><h2>正在排定納甲世應、互卦與月建日辰...</h2></div>`;
+    }
 
     const res = await apiPost("/api/yijing", {
       question: q,
-      method: state.yijingMethod,
+      method: methodUsed,
       mentor_id: state.yijingMentor,
-      coin_throws: throwsArr,
-      numbers: numsArr,
+      coin_throws: lockedContext ? lockedContext.coin_throws : throwsArr,
+      numbers: lockedContext ? lockedContext.numbers : numsArr,
+      skip_journal: Boolean(lockedContext),
     });
     if (res.ok) {
       state.coinThrows = [];
+      state.lastYijingContext = {
+        question: res.data.question,
+        method: res.data.method,
+        coin_throws: res.data.lines_bottom_to_top.map((l) => l.throw_value ?? l.throw_val),
+        numbers: methodUsed === "meihua_numbers" ? (lockedContext ? lockedContext.numbers : numsArr) : null,
+      };
       document.getElementById("throwOnceBtn").textContent = "逐爻親擲（第 1 爻）";
       document.getElementById("coinThrowsProgress").textContent = "已完成六擲起卦（可隨時重新逐爻親擲）";
       renderYijingResult(res.data);
-      scrollResultOnMobile("yijingResultContainer");
+      if (!lockedContext) {
+        scrollResultOnMobile("yijingResultContainer");
+      }
     }
   }
 
@@ -833,11 +940,15 @@
     if (data.current_name_diagnosis) {
       const d = data.current_name_diagnosis;
       const items = d.plain_diagnosis.map((x) => `<li>${esc(x)}</li>`).join("");
+      const pa = d.phonetic_audit;
+      const phoneticMeta = pa
+        ? ` ｜ 國語音調：${esc(pa.syllables_with_tone.join(" "))}（${esc(pa.ping_ze_pattern)}）`
+        : "";
       diagBlock = `
         <div class="verdict-hero-card">
           <div class="verdict-top-meta">
             <span class="status-pill ${d.valid ? "good" : "warn"}">現名「${esc(d.name)}」八術體檢：${d.total_score} 分</span>
-            <span class="spread-caption">康熙筆畫：${esc(d.strokes_breakdown)} ｜ 三才：${esc(d.five_grids.三才.combo)}（${esc(d.five_grids.三才.rating)}）</span>
+            <span class="spread-caption">康熙筆畫：${esc(d.strokes_breakdown)} ｜ 三才：${esc(d.five_grids.三才.combo)}（${esc(d.five_grids.三才.rating)}）${phoneticMeta}</span>
           </div>
           <h2>現用姓名病灶白話診斷</h2>
           <ul class="action-list">${items}</ul>
@@ -899,11 +1010,15 @@
     let diagHtml = "";
     if (data.existing_brand_diagnosis) {
       const d = data.existing_brand_diagnosis;
+      const pa = d.phonetic_audit;
+      const phoneticMeta = pa
+        ? ` ｜ 國語音調：${esc(pa.syllables_with_tone.join(" "))}（${esc(pa.ping_ze_pattern)}・${pa.duplicate_syllable_detected ? "含同音疊音" : "異音清晰"}）`
+        : "";
       diagHtml = `
         <div class="verdict-hero-card">
           <div class="verdict-top-meta">
             <span class="status-pill ${d.valid ? "good" : "warn"}">現有商號「${esc(d.name)}」體檢：${d.total_score} 分</span>
-            <span class="spread-caption">核心筆畫 ${esc(d.strokes_breakdown)} 畫（${esc(d.core_81.rating)}）</span>
+            <span class="spread-caption">核心筆畫 ${esc(d.strokes_breakdown)} 畫（${esc(d.core_81.rating)}）${phoneticMeta}</span>
           </div>
           <h2>現有商號八術吉凶直斷</h2>
           <ul class="action-list">${d.plain_diagnosis.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
@@ -1202,18 +1317,26 @@
     // 塔羅導師切換
     document.querySelectorAll("#tarotMentorRow .mentor-chip").forEach((chip) => {
       chip.addEventListener("click", () => {
+        const prevMentor = state.tarotMentor;
         state.tarotMentor = chip.dataset.mentor;
         document.querySelectorAll("#tarotMentorRow .mentor-chip").forEach((c) => c.classList.toggle("active", c === chip));
         updateMentorBanner(state.tarotMentor);
+        if (prevMentor !== state.tarotMentor && state.lastTarotContext) {
+          executeTarotReading(null, state.lastTarotContext);
+        }
       });
     });
 
     // 易經導師切換
     document.querySelectorAll("#yijingMentorRow .mentor-chip").forEach((chip) => {
       chip.addEventListener("click", () => {
+        const prevMentor = state.yijingMentor;
         state.yijingMentor = chip.dataset.mentor;
         document.querySelectorAll("#yijingMentorRow .mentor-chip").forEach((c) => c.classList.toggle("active", c === chip));
         updateMentorBanner(state.yijingMentor);
+        if (prevMentor !== state.yijingMentor && state.lastYijingContext) {
+          submitYijing(null, null, state.lastYijingContext);
+        }
       });
     });
 
@@ -1369,7 +1492,11 @@
     const openPortraitModal = () => {
       if (!portraitModal) return;
       const heroImg = document.getElementById("heroMentorImg");
-      document.getElementById("mentorPortraitFullImg").src = heroImg.src;
+      const rawSrc = heroImg ? heroImg.getAttribute("src") || heroImg.src : "";
+      const fullSrc = rawSrc.includes("meiniang")
+        ? "./assets/mentors/meiniang_full.webp?v=20261124k"
+        : heroImg.src;
+      document.getElementById("mentorPortraitFullImg").src = fullSrc;
       document.getElementById("mentorPortraitFullImg").alt = heroImg.alt;
       document.getElementById("mentorPortraitRole").textContent = document.getElementById("heroMentorTitle").textContent;
       document.getElementById("mentorPortraitName").textContent = document.getElementById("heroMentorName").textContent;

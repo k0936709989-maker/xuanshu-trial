@@ -71,34 +71,42 @@
     vera: {
       id: "vera",
       name: "薇拉",
-      title: "星夜秘境・首席塔羅導師",
+      title: "星夜秘境・關係心理塔羅師",
+      chip_tag: "關係心理・對方潛台詞",
       avatar: "./assets/mentors/vera.webp",
-      specialty: "感情關係真相、對方內心戲、直覺盲點拆解",
-      opener: "先把焦慮放下來，牌面已經把這件事最真實的底牌攤開了。",
+      specialty: "曖昧拉扯、伴侶冷戰、復合評估、人際潛台詞與內耗盲點拆解",
+      hook: "他沒回你的那句話，薇拉替你從牌底讀出來。",
+      opener: "先把緊繃的呼吸放慢下來，牌面已經把你們之間沒說破的那層窗戶紙輕輕掀開了。",
     },
     rien: {
       id: "rien",
       name: "里恩",
-      title: "星軌樞機・冷冽決策占卜師",
+      title: "星軌樞機・冷冽商業決策師",
+      chip_tag: "商業二選一・籌碼停損",
       avatar: "./assets/mentors/rien.webp",
-      specialty: "二選一決策、轉職創業、合作利弊與止損判斷",
-      opener: "我們不談空泛的安慰，直接看這件事的籌碼、代價與勝算。",
+      specialty: "二選一抉擇、轉職留任、合夥談判、籌碼報酬比與停損出場判斷",
+      hook: "別拿時間賭機率，里恩只幫你算這局該贏還是該停損。",
+      opener: "我們省去空泛的安慰，直接攤開這件事的籌碼分布、隱藏代價與實際勝率。",
     },
     meiniang: {
       id: "meiniang",
       name: "梅娘",
-      title: "澄心書院・梅花易數名師",
+      title: "澄心書院・敦煌靈動梅花名師",
+      chip_tag: "應期快慢進退・靈動觀時",
       avatar: "./assets/mentors/meiniang.webp?v=20261124h",
-      specialty: "時機快慢、事情成敗走向、人際進退分寸",
-      opener: "萬事起心即有數，卦氣已經把眼前的順逆節奏映出來了。",
+      specialty: "應期快慢、本互變三段順逆節奏、合作火候與人際進退分寸",
+      hook: "事有快慢、氣有順逆，梅娘為你點破最對的那個時辰。",
+      opener: "萬事起心即有數，卦氣已經把眼前的順逆節奏與轉折時點映在卦裡了。",
     },
     fubo: {
       id: "fubo",
       name: "福伯",
-      title: "玄樞宗師・京房六爻與八字大家",
+      title: "玄樞茶桌・京房納甲六爻宗師",
+      chip_tag: "買賣合約家宅・茶桌直斷",
       avatar: "./assets/mentors/fubo.webp",
-      specialty: "重大財官決策、合約暗坑、家庭事業硬核直斷",
-      opener: "坐下來喝口茶，不用看那些難懂的卦名，我直接講重點給你聽。",
+      specialty: "買房置產、店面選址、合約暗坑、股東帳目與重大財官家宅直斷",
+      hook: "簽字掏錢前先坐下來喝口茶，福伯幫你把暗坑看清楚。",
+      opener: "坐下來喝口熱茶，那些文謅謅的卦辭不用自己猜，我直接把這盤裡誰佔上風、哪裡有坑講給你聽。",
     },
   };
 
@@ -133,18 +141,28 @@
     },
   };
 
+  // 標準由下而上經卦位元定義：bit[0]=初爻（最下爻）, bit[1]=二爻（中爻）, bit[2]=三爻（最上爻）
   const TRIGRAM_BITS_TO_NAME = {
     "111": ["乾", "天", "金", 1],
-    "011": ["兌", "澤", "金", 2],
+    "110": ["兌", "澤", "金", 2],
     "101": ["離", "火", "火", 3],
-    "001": ["震", "雷", "木", 4],
-    "110": ["巽", "風", "木", 5],
+    "100": ["震", "雷", "木", 4],
+    "011": ["巽", "風", "木", 5],
     "010": ["坎", "水", "水", 6],
-    "100": ["艮", "山", "土", 7],
+    "001": ["艮", "山", "土", 7],
     "000": ["坤", "地", "土", 8],
   };
-  const NUM_TO_TRIGRAM_BITS = { 1: "111", 2: "011", 3: "101", 4: "001", 5: "110", 6: "010", 7: "100", 8: "000" };
-  const BANNED_WORDS = ["注定", "必然", "無法改變", "一定會", "劫數", "絕對", "百分之百", "保證"];
+  const NUM_TO_TRIGRAM_BITS = {
+    1: "111",
+    2: "110",
+    3: "101",
+    4: "100",
+    5: "011",
+    6: "010",
+    7: "001",
+    8: "000",
+  };
+  const BANNED_WORDS = ["注定", "必然", "無法改變", "一定會", "劫數", "絕對", "百分之百", "百分百", "保證", "改運", "阿伯", "會倒", "所求不易", "勿強求"];
 
   const FEMALE_HARSH_NUMS = new Set([21, 23, 26, 28, 33, 39]);
   const PLAIN_ELEMENTAL_SKIP = new Set(["木", "水", "火", "土", "金", "本", "甲", "丁", "上", "室", "兌", "巫", "尤", "露"]);
@@ -205,8 +223,8 @@
     { rule_no: "第 3 條", severity: "大問題", owner_roles: "R05、R07", title: "同一年同一件事只有一個分數", summary: "按年份加事項核對全書所有分數表，同一格絕不出現兩個數字" },
     { rule_no: "第 4 條", severity: "大問題", owner_roles: "R05、R06、R07、R09", title: "全書只用一套分數門檻，建議符合門檻", summary: "統一 70 以上可推進、60–69 平穩維持、59 以下先守住不動；低於門檻禁寫可以動／可以搬／照步驟做" },
     { rule_no: "第 5 條", severity: "小問題", owner_roles: "R01、R06、R08", title: "沒有空白、沒寫完、同一句連寫兩次", summary: "未提供號碼整行拿掉，清除未寫完殘句與相鄰重複句" },
-    { rule_no: "第 6 條", severity: "大問題", owner_roles: "R06、R08", title: "正文品牌名寫「巷尾九間」", summary: "正文一律寫「巷尾九間」，嚴禁出現「巷尾第九間」" },
-    { rule_no: "第 7 條", severity: "大問題", owner_roles: "R04、R06、R08", title: "用語規範", summary: "禁寫改運、阿伯、一定會、保證、百分百、會倒、所求不易、勿強求、死亡、壽命、出意外、某年得某病" },
+    { rule_no: "第 6 條", severity: "大問題", owner_roles: "R06、R08", title: "正文品牌名寫「巷尾九間」", summary: "正文品牌一律寫「巷尾九間」，嚴禁誤植舊版多一「第」字之店名" },
+    { rule_no: "第 7 條", severity: "大問題", owner_roles: "R04、R06、R08", title: "用語規範", summary: "嚴禁宿命鐵口詞、誇大承諾詞、運勢改寫詞與不當長輩俗稱，並保留非定論收尾邊界" },
     { rule_no: "第 8 條", severity: "大問題", owner_roles: "R01、R02、R07、R09", title: "時間用台灣時間", summary: "全書單一時區使用台灣時間（UTC+8），嚴禁出現河內時間或雙時區" },
     { rule_no: "第 9 條", severity: "小問題", owner_roles: "R02、R03", title: "算式的答案跟寫出的日期一致", summary: "起運算式 X 年 X 月 X 天重算結果與起運日、十年換運日精確吻合" },
     { rule_no: "第 10 條", severity: "小問題", owner_roles: "R06、R08", title: "換運月份跟前後半年說法一致", summary: "依實際換運月份敘述（如 11 月換運寫 11 月以前／11 月以後，禁寫前半年／後半年）" },
@@ -214,7 +232,7 @@
     { rule_no: "第 12 條", severity: "小問題", owner_roles: "R02、R06、R08", title: "「最多」「最少」跟盤上數量一致", summary: "核對實際個數，兩個一樣多必須標明並列，不能說其中一個最多" },
     { rule_no: "第 13 條", severity: "大問題", owner_roles: "R07、R09", title: "書要做到預覽頁講過的內容", summary: "總頁數、成績單起始年與項目、下一段事項名、工具區份數表名、試讀章節頁碼逐項動態對齊" },
     { rule_no: "第 14 條", severity: "大問題", owner_roles: "R01、R05、R06、R07", title: "預測都在批命日之後", summary: "成績單從付款年起算連續十年，已過完年份獨立放核對欄並標明已過完；好日子皆在批命日後" },
-    { rule_no: "第 15 條", severity: "大問題", owner_roles: "R06、R08", title: "沒有 AI 或套版痕跡", summary: "禁簡體字、英文提示詞、正文 **、{{ }}、作為……、總結來說、作者本名（#標籤體例除外）" },
+    { rule_no: "第 15 條", severity: "大問題", owner_roles: "R06、R08", title: "沒有 AI 或套版痕跡", summary: "嚴禁簡化字、英文提示詞、Markdown 粗斜體星號、雙大括號佔位符、AI 套話與作者本名" },
     { rule_no: "第 16 條", severity: "小問題", owner_roles: "R06、R08、R09", title: "術語第一次出現要有白話", summary: "日主、財星、正官、七殺等首次出現必附白話解釋或註明見工具區小字典" },
   ];
 
@@ -292,10 +310,10 @@
   async function ensureCoreDataLoaded() {
     if (DB.loaded) return;
     const [qRaw, yRaw, nRaw, tRaw] = await Promise.all([
-      fetch("./data/qtbj_120.json").then((r) => r.json()),
-      fetch("./data/yijing_rules.json").then((r) => r.json()),
-      fetch("./data/naming_kb.json").then((r) => r.json()),
-      fetch("./data/tarot_library.json").then((r) => r.json()),
+      fetch("./data/qtbj_120.json?v=20261124k").then((r) => r.json()),
+      fetch("./data/yijing_rules.json?v=20261124k").then((r) => r.json()),
+      fetch("./data/naming_kb.json?v=20261124k").then((r) => r.json()),
+      fetch("./data/tarot_library.json?v=20261124k").then((r) => r.json()),
     ]);
     (qRaw.cards || []).forEach((c) => {
       DB.qtbj[`${c.day_stem}_${c.month_branch}`] = c;
@@ -312,7 +330,7 @@
   async function ensureUnihanLoaded() {
     if (DB.unihanLoaded) return;
     try {
-      DB.unihan = await fetch("./data/unihan_kangxi.json").then((r) => r.json());
+      DB.unihan = await fetch("./data/unihan_kangxi.json?v=20261124k").then((r) => r.json());
     } catch (_) {
       DB.unihan = {};
     }
@@ -662,27 +680,232 @@
     return 1;
   }
 
-  function composeCardPlain(q, intent, posIdx, posTitle, card, isUp, coreLine, kws) {
+  function formatTarotCardByMentor(q, intent, posIdx, posTitle, card, isUp, mentorId) {
+    const kws = (isUp ? card.upright : card.reversed) || [];
     const kwStr = kws.slice(0, 3).join("、");
-    const cname = `《${card.name_zh}》（${isUp ? "正位" : "逆位"}）`;
+    const baseLine = isUp ? card.fubo_upright : card.fubo_reversed;
+    const ori = isUp ? "正位" : "逆位";
+    const cname = `《${card.name_zh}》（${ori}）`;
+    const suit = String(card.id || "M00")[0];
+
+    if (mentorId === "rien") {
+      const suitRiskMap = {
+        M: isUp ? "局勢結構已定型，主導權清晰可判" : "大環境變數干擾，拍板窗口尚未對齊",
+        W: isUp ? "執行推進動能充足，適合搶佔先機" : "戰線拉太長導致資源空轉，須防無效衝刺",
+        C: isUp ? "合作信任成本低，人脈資源可轉化為助力" : "情緒摩擦正在墊高溝通成本，切忌心軟讓利",
+        S: isUp ? "邏輯邊界與議價條款分明，利於快刀斬亂麻" : "資訊不對稱與口頭誤導偏高，須嚴審暗坑",
+        P: isUp ? "實質回報與帳面籌碼紮實，投入產出比划算" : "沉沒成本偏高或回收期拉長，宜守緊停損線",
+      };
+      const lensNote = `籌碼盤點：${suitRiskMap[suit] || suitRiskMap.M}。此牌點出「${kwStr}」的損益訊號，重點在看清誰握有實質拍板權，不為模糊承諾買單。`;
+      const sharpLine = isUp
+        ? `局勢籌碼亮在「${kws[0] || "推進"}」：條件對你有利，直接鎖定驗收節點。`
+        : `風險紅燈落在「${kws[0] || "失衡"}」：隱性消耗浮現，先踩停損再談下一步。`;
+      let plain;
+      if (intent === "two_choice") {
+        if (posIdx === 1 || posIdx === 2) {
+          plain = `評估方案 A 的「${posTitle}」出現${cname}：這條路徑的執行損益落在「${kwStr}」。從策略面拆解，${baseLine} 衡量重點在於這筆轉換成本能否換回對等的主導權。`;
+        } else if (posIdx === 3 || posIdx === 4) {
+          plain = `評估方案 B 的「${posTitle}」出現${cname}：這條路徑的實際代價為「${kwStr}」。從風險報酬比來看，${baseLine} 請直接核對帳面資源與機會成本，不憑慣性留戀。`;
+        } else {
+          plain = `在「${posTitle}」抽出${cname}：你目前手上的決策底盤呈現「${kwStr}」。策略直斷：${baseLine}`;
+        }
+      } else if (intent === "love") {
+        plain = `從關係成本拆解「${posTitle}」的${cname}：目前雙方投入比呈現「${kwStr}」。${baseLine} 不看對方說了多少漂亮話，只看他實際端出多少時間與行動籌碼。`;
+      } else {
+        plain = `針對「${posTitle}」翻出${cname}，關鍵指標為「${kwStr}」。從決策損益直說：${baseLine}`;
+      }
+      return {
+        mentor_lens_title: "里恩・籌碼與停損眉批",
+        mentor_lens_note: lensNote,
+        sharp_one_liner: sharpLine,
+        plain_explanation: plain,
+      };
+    }
+
+    // 薇拉 vera（關係心理・對方潛台詞視角）
+    const suitPsychMap = {
+      M: isUp ? "內心深層課題正在鬆動，真實渴望已經浮上檯面" : "潛意識仍在抗拒改變，習慣用舊模式保護自己",
+      W: isUp ? "靠近與表達的熱度正在升溫，渴望被看見與回應" : "熱情背後藏著怕落空的不安，容易忽冷忽熱自我消耗",
+      C: isUp ? "情感流動柔軟真誠，心門願意為信任的人微開" : "把委屈往心裡吞，用冷淡外殼掩飾對安全感的渴求",
+      S: isUp ? "理智正在替情緒畫出安全邊界，不再盲目內耗" : "過度猜測與防衛機制拉滿，越在乎反而話說得越硬",
+      P: isUp ? "重視踏實陪伴與長久默契，在細節裡默默給出在乎" : "害怕付出沒有對等回音，正在暗中衡量退路與得失",
+    };
+    const lensNote = `潛台詞拆解：${suitPsychMap[suit] || suitPsychMap.M}。牌底映出「${kwStr}」的心理狀態，那些沒說出口的猶豫，其實都藏在互動高低位裡。`;
+    const sharpLine = isUp
+      ? `牌底映出「${kws[0] || "敞開"}」的心緒：防衛正在卸下，留一點溫和台階就能靠近。`
+      : `牌底藏著「${kws[0] || "防衛"}」的逞強：表面看似平靜，心裡其實卡著沒說破的顧慮。`;
+    let plain;
     if (intent === "love") {
-      if (posIdx === 1) return `在「${posTitle}」抽出${cname}：直接講，對方目前的心態偏向「${kwStr}」。${coreLine} 這代表他心裡不是完全沒感覺，而是還在衡量自己要付出多少成本。`;
-      if (posIdx === 2) return `在「${posTitle}」抽出${cname}：卡住你們的現實問題在於「${kwStr}」。${coreLine} 若沒有人先把話攤開講明白，雙方很容易繼續各自猜測。`;
+      if (posIdx === 1) {
+        plain = `在「${posTitle}」映出${cname}：輕聲掀開對方的潛台詞，他此刻心裡正處於「${kwStr}」的拉扯。${baseLine} 他並不是毫無波瀾，而是防衛機制讓他不敢先亮出脆弱。`;
+      } else if (posIdx === 2) {
+        plain = `在「${posTitle}」映出${cname}：橫在你們之間沒說破的結是「${kwStr}」。${baseLine} 當兩個人都在等對方先低頭，沉默就會把原本的心意磨成內耗。`;
+      } else {
+        plain = `在「${posTitle}」抽出${cname}：這段互動的心理氣場呈現「${kwStr}」。溫柔但誠實地說，${baseLine}`;
+      }
+    } else if (intent === "two_choice") {
+      if (posIdx === 1 || posIdx === 2) {
+        plain = `感受方案 A「${posTitle}」的${cname}：走進這個環境的心理舒展度偏向「${kwStr}」。${baseLine}`;
+      } else if (posIdx === 3 || posIdx === 4) {
+        plain = `感受方案 B「${posTitle}」的${cname}：留在這條路的真實情緒體感是「${kwStr}」。${baseLine}`;
+      } else {
+        plain = `在「${posTitle}」映出${cname}：你內心真正的聲音正停在「${kwStr}」。${baseLine}`;
+      }
+    } else {
+      plain = `在「${posTitle}」這張${cname}裡，背後的人際溫度與心理訊號指向「${kwStr}」。換句貼近你處境的話說：${baseLine}`;
     }
-    if (intent === "two_choice") {
-      if (posIdx === 1 || posIdx === 2) return `針對方案 A 的「${posTitle}」抽出${cname}：走這條路的實際體感是「${kwStr}」。${coreLine}`;
-      if (posIdx === 3 || posIdx === 4) return `針對方案 B 的「${posTitle}」抽出${cname}：走這條路的實際體感是「${kwStr}」。${coreLine}`;
-    }
-    return `在「${posTitle}」這個位置出現${cname}，對應到你問的事情，核心訊號就是「${kwStr}」。直白地說：${coreLine}`;
+    return {
+      mentor_lens_title: "薇拉・心理潛台詞眉批",
+      mentor_lens_note: lensNote,
+      sharp_one_liner: sharpLine,
+      plain_explanation: plain,
+    };
   }
 
-  function runTarotReading(question, mentorId = "vera", spreadOverride = "auto", selectedIndices = null, seedStr = "") {
+  function buildVeraTarotBundle(qClean, qMeta, spreadId, drawnCards, scores) {
+    let tag, verdict, timing, actions;
+    const firstC = drawnCards[0];
+    const lastC = drawnCards[drawnCards.length - 1];
+    if (spreadId === "two_choice_5" && scores.length === 5) {
+      const scoreA = scores[1] + scores[2] * 1.5;
+      const scoreB = scores[3] + scores[4] * 1.5;
+      const cARes = drawnCards[2];
+      const cBRes = drawnCards[4];
+      if (scoreA > scoreB + 0.5) {
+        tag = "優先選方案 A（心理舒展與契合度高）";
+        verdict = `針對你反覆權衡的二選一，牌面的心緒指向很清晰：選擇「方案 A」更能讓你找回內心的舒展感與被珍惜的舞台。你當下的底盤《${firstC.name_zh}》（${firstC.orientation}）透露你其實早就察覺現狀的窒息感，只是習慣性的安全感讓你捨不得放手；方案 A 收尾在《${cARes.name_zh}》（${cARes.orientation}），人際氣場坦率溫暖，而方案 B 落在《${cBRes.name_zh}》（${cBRes.orientation}），繼續委曲求全只會加深自我懷疑。`;
+      } else if (scoreB > scoreA + 0.5) {
+        tag = "優先選方案 B（情緒根基與默契較穩）";
+        verdict = `針對你猶豫的兩條路，牌面溫柔提醒你：現階段選擇「方案 B」更能安頓你的安全感與長遠節奏。方案 B 最終落在《${cBRes.name_zh}》（${cBRes.orientation}），人際支持與日常默契都更踏實；反觀方案 A 落在《${cARes.name_zh}》（${cARes.orientation}），表面新鮮卻伴隨高度情緒緊繃，不必為了逃避一時煩悶而跳進另一個消耗場。`;
+      } else {
+        tag = "兩邊氣場相近・先傾聽內心邊界";
+        verdict = `目前方案 A（《${cARes.name_zh}》）與方案 B（《${cBRes.name_zh}》）的外在條件旗鼓相當，真正卡住你的是底盤《${firstC.name_zh}》映出的討好習慣。無論選哪一邊，若沒有先把你最在乎的尊重與界線說出口，換了位置仍會重複同樣的委屈；哪一邊願意溫和接住你的真實需求，答案就在哪一邊。`;
+      }
+      timing = "心緒沉澱與明朗窗：給自己 7 至 14 天不帶自責的觀察留白，下旬的一次深度對話會讓你心裡徹底篤定。";
+      actions = [
+        `先接住《${firstC.name_zh}》背後的焦慮：拿張紙寫下你在這段選擇裡最怕失去的三件事，看清恐懼就不會被情緒帶著走。`,
+        "與關鍵對象溝通時練習溫和而堅定地表達感受，不猜測對方的臉色，觀察誰願意認真回應你的在乎。",
+        "做出決定後給自己兩週的適應緩衝期，好好向過去道別，不必回頭反覆檢討沒走的那條路。",
+      ];
+    } else {
+      const avg = scores.reduce((s, x) => s + x, 0) / Math.max(1, scores.length);
+      if (avg >= 0.8 && lastC.polarity_score >= 1) {
+        tag = "心意相通・關係與局勢回溫";
+        if (qMeta.intent === "love") {
+          verdict = `針對你心裡掛念的「${qClean}」，你可以先把懸著的心放下來：對方心裡是有你的位置的，而且這段關係正朝著卸下防備、重新靠近的方向流動（收尾落在《${lastC.name_zh}》${lastC.orientation}）。過去的停滯多半是因為雙方都在試探高低位，只要遞出一個輕巧不帶壓力的台階，溫暖的互動很快就會接上。`;
+        } else {
+          verdict = `針對你問的「${qClean}」，牌面映出相當順暢的支持氣場（結果落在《${lastC.name_zh}》${lastC.orientation}）。身邊合作對象的潛台詞偏向善意與認同，你過去默默累積的誠意已經被看見，只要放下過度緊繃的自我要求，順著目前的默契自然推進就能迎來好消息。`;
+        }
+        timing = "情感與默契升溫窗：未來 14 至 35 天內會有一次自然破冰或善意回應的契機，夜晚或週末的輕鬆聯繫最對頻。";
+        actions = [
+          `順著《${firstC.name_zh}》的柔和起點，用分享生活小事代替嚴肅追問，讓對方感覺靠近你是輕鬆沒有壓力的。`,
+          "把心裡期待的相處方式用正向肯定的語氣說出來，減少彎彎繞繞的試探與冷處理。",
+          `迎向《${lastC.name_zh}》的敞開能量，當對方釋出善意時大方接住，讓正向循環自然發酵。`,
+        ];
+      } else if (avg <= -0.6 || lastC.polarity_score <= -2) {
+        tag = "防衛拉滿・先收回重心止住內耗";
+        if (qMeta.intent === "love") {
+          verdict = `針對你問的「${qClean}」，我想溫柔但誠實地替你掀開底牌：目前對方的情緒防衛機制拉得很高（收尾落在《${lastC.name_zh}》${lastC.orientation}），心口不一與逃避責任的成分偏重。這時候你越是用力追問或委曲求全，關係高低位就越失衡；先把過度傾注的注意力收回來疼惜自己，才是唯一能讓他意識到落差的作法。`;
+        } else {
+          verdict = `針對你問的「${qClean}」，牌面《${lastC.name_zh}》（${lastC.orientation}）映出對方目前暗藏顧慮、話只說三分，直接硬推很容易讓你獨自承受情緒與人際摩擦。與其急著討一個勉強的答覆，不如先溫和退後半步，守住自己的心理安全邊界。`;
+        }
+        timing = "留白沉澱窗：接下來 3 至 5 週宜靜不宜追，給彼此一段不打擾的呼吸空間，滿一個月後再看他是否主動走近。";
+        actions = [
+          `看見《${firstC.name_zh}》提醒的內耗源頭：停止反覆翻看對話紀錄替對方的冷淡找藉口，把情緒主導權拿回自己手裡。`,
+          "這兩週練習「七分留白」原則：維持基本禮貌但不再主動討好或連環追問，觀察失去你的熱情後對方的真實反應。",
+          "安排一件能讓你專注發光的生活小目標，當你的重心穩住了，對的人事物才會重新被你吸引。",
+        ];
+      } else {
+        tag = "心結待解・把潛台詞攤開就能轉順";
+        verdict = `針對你問的「${qClean}」，牌面顯示這段局勢並非無解，而是卡在一層「雙方都在等對方先說實話」的微妙拉扯。起頭《${firstC.name_zh}》（${firstC.orientation}）代表彼此仍有在乎與連結，但收尾《${lastC.name_zh}》（${lastC.orientation}）點出溝通溫度還沒對齊；只要卸下帶刺的防備、把真實顧慮柔軟地攤開來聊，關係就能從緊繃走向舒緩。`;
+        timing = "破冰對話窗：未來 2 至 4 週內適合找一個不趕時間的場合輕聲把誤會聊開，跨過心結後下半月明顯回暖。";
+        actions = [
+          `先梳理《${firstC.name_zh}》映出的委屈點，分清楚哪些是事實、哪些是自己腦補的不安投射。`,
+          "溝通時少用質問句、多說自己的真實感受，給對方一個不傷面子也能說真話的安全空間。",
+          `記住《${lastC.name_zh}》的節奏提醒，維持三分溫柔留白與七分自我界線，慢一點反而走得更穩。`,
+        ];
+      }
+    }
+    const closingTip = `薇拉的關係留白練習：今晚睡前放下手機十分鐘，告訴自己「我不必靠過度用力去換取別人的確定」，當你安頓好自己的頻率，真誠的回應自然會靠近。`;
+    return { tag, verdict, timing, actions, closingTip };
+  }
+
+  function buildRienTarotBundle(qClean, qMeta, spreadId, drawnCards, scores) {
+    let tag, verdict, timing, actions;
+    const firstC = drawnCards[0];
+    const lastC = drawnCards[drawnCards.length - 1];
+    if (spreadId === "two_choice_5" && scores.length === 5) {
+      const scoreA = scores[1] + scores[2] * 1.5;
+      const scoreB = scores[3] + scores[4] * 1.5;
+      const cARes = drawnCards[2];
+      const cBRes = drawnCards[4];
+      if (scoreA > scoreB + 0.5) {
+        tag = "優先選方案 A（主導權與報酬比勝出）";
+        verdict = `直接給你二選一損益結論：果斷執行「方案 A」，方案 B 屬於慢性折舊局。你當下的底盤《${firstC.name_zh}》（${firstC.orientation}）顯示繼續觀望只會壓縮你的議價空間；方案 A 收尾在《${cARes.name_zh}》（${cARes.orientation}），前期雖有轉換磨合成本，但中後段能實質拿回資源分配權與帳面回報；方案 B 落在《${cBRes.name_zh}》（${cBRes.orientation}），表面零變動成本，實則承擔最大的機會成本流失。`;
+      } else if (scoreB > scoreA + 0.5) {
+        tag = "優先選方案 B（風險可控且回收踏實）";
+        verdict = `直接給你二選一損益結論：優先鎖定「方案 B」，暫緩高波動性的方案 A。方案 B 結果牌落在《${cBRes.name_zh}》（${cBRes.orientation}），現金流穩定度與履約確定性明顯優於對照組；反觀方案 A 收在《${cARes.name_zh}》（${cARes.orientation}），存在高度資訊不對稱與隱性驗收門檻，貿然切換跑道容易淪為替他人收拾爛攤子。`;
+      } else {
+        tag = "雙案報酬率持平・以白紙黑字條款定勝負";
+        verdict = `直接看盤面數據：方案 A（《${cARes.name_zh}》）與方案 B（《${cBRes.name_zh}》）預期勝率在伯仲之間，勝負手取決於基準牌《${firstC.name_zh}》點出的議價底線。現階段不憑感覺選邊，直接向雙方開出你的核心條件清單（權責範圍、交付期限與實質分潤），哪一方願意簽署具約束力的書面條款，籌碼就押哪一方。`;
+      }
+      timing = "決策拍板窗口：設定 7 至 14 天盡職調查期核實雙方底牌，第 15 天前完成簽署定案，切忌拖過月底消耗議價權。";
+      actions = [
+        `依據《${firstC.name_zh}》盤點你手上的不可替代籌碼，列出兩項不可退讓的硬指標（實質報酬與決策權限）。`,
+        "排除所有口頭畫餅與人情承諾，要求關鍵數字、考核標準與退場機制全數寫入正式文件。",
+        "拍板後立即切斷另一方案的沉沒成本干擾，集中首月全部核心資源打贏第一場立威戰役。",
+      ];
+    } else {
+      const avg = scores.reduce((s, x) => s + x, 0) / Math.max(1, scores.length);
+      if (avg >= 0.8 && lastC.polarity_score >= 1) {
+        tag = "勝率明確・果斷鎖定籌碼推進";
+        if (qMeta.intent === "love") {
+          verdict = `針對「${qClean}」，從雙方投入產出比直接判斷：這局勝率站在你這邊（結果牌《${lastC.name_zh}》${lastC.orientation}）。對方願意投入實質時間與行動成本，並非空口敷衍；現在正是順勢確認關係定位、把模糊默契升級為明確承諾的高勝率窗口。`;
+        } else {
+          verdict = `針對「${qClean}」，策略結論非常明確：風險可控且預期報酬正向（收尾牌《${lastC.name_zh}》${lastC.orientation}）。前期資源鋪墊已跨越損益平衡點，主導權握在你手上，接下來應加速推進節奏，把口頭意向直接轉化為合約與帳面戰果。`;
+        }
+        timing = "高勝率執行窗：未來 10 至 30 天為最佳收網期，建議於兩週內敲定關鍵條款與時間表。";
+        actions = [
+          `放大《${firstC.name_zh}》賦予的先發籌碼，本週內主動拋出你的合作框架與時間節點，掌握議程主導權。`,
+          "將執行目標拆解為可量化的雙週驗收指標，確保每一分資源投入都有對應產出。",
+          `順應《${lastC.name_zh}》的收成訊號，在條件最有利時完成書面確認，落袋為安。`,
+        ];
+      } else if (avg <= -0.6 || lastC.polarity_score <= -2) {
+        tag = "風險超標・立即啟動停損防線";
+        if (qMeta.intent === "love") {
+          verdict = `針對「${qClean}」，直接攤開殘酷帳面：這段互動目前處於嚴重的投入不對等虧損局（警示牌《${lastC.name_zh}》${lastC.orientation}）。對方僅享受情緒紅利卻迴避實質責任，你繼續追加時間只會墊高沉沒成本；立刻停止單方面付出、設定明確觀察死線，才是保住自尊與籌碼的唯一解。`;
+        } else {
+          verdict = `針對「${qClean}」，直接給風控結論：現階段不宜簽署不可逆承諾或追加本金（風險牌落在《${lastC.name_zh}》${lastC.orientation}）。盤面顯示資訊嚴重不對稱、隱性成本未揭露，硬推極容易替別人的失誤買單，先退回安全防線保住現金與核心籌碼。`;
+        }
+        timing = "風控停損觀察窗：設定嚴格的 14 至 28 天凍結觀察期，期間對方若未端出實質履約擔保，期滿立即轉向備案。";
+        actions = [
+          `正視《${firstC.name_zh}》揭露的結構破口，限期清查帳目明細、權責歸屬與對方過往履約紀錄。`,
+          "即刻凍結新增資金、人力或情緒籌碼投入，絕不因過去已付出的沉沒成本而繼續加碼。",
+          "同步啟動 B 計畫備用管道，確保手握隨時可抽身轉向的替代方案，不讓自己陷入被動綁架。",
+        ];
+      } else {
+        tag = "條件博弈局・分期驗收控管風險";
+        verdict = `針對「${qClean}」，盤面屬於典型的「帶條件博弈局」。起始牌《${firstC.name_zh}》（${firstC.orientation}）具備基本可行性，但收尾牌《${lastC.name_zh}》（${lastC.orientation}）暴露中段執行存在權責模糊或議價拉鋸；只要採取「分階段給籌碼、不見兔子不撒鷹」的風控打法，就能把勝率拉回安全線之上。`;
+        timing = "議價磨合窗口：接下來 14 至 21 天為條款攻防期，談妥階段驗收標準後，第 4 至 7 週可望穩步收割。";
+        actions = [
+          `先針對《${firstC.name_zh}》反映的模糊條款逐項要求書面定義，把醜話與違約邊界講在簽字之前。`,
+          "嚴格執行「里程碑分段投入」：對方完成第一階段可驗證成果，你再釋放下一階段資源。",
+          `對照《${lastC.name_zh}》預留百分之十五的風險緩衝金與備案時間，確保進可攻退可守。`,
+        ];
+      }
+    }
+    const closingTip = `里恩的十四天停損檢核指標：從今天起算第十四天，只核對一件事——對方是否拿出「可驗證的具體行動或書面保障」；有則推進，無則果斷轉移籌碼。`;
+    return { tag, verdict, timing, actions, closingTip };
+  }
+
+  function runTarotReading(question, mentorId = "vera", spreadOverride = "auto", selectedIndices = null, seedStr = "", lockedState = null) {
     const qClean = String(question || "請問我接下來三個月最需要注意的轉折與建議是什麼？").trim();
     const qMeta = classifyQuestionIntent(qClean);
     let spreadId = !spreadOverride || spreadOverride === "auto" ? qMeta.recommended_spread : spreadOverride;
     if (!SPREAD_DEFS[spreadId]) spreadId = "three_core";
     const spread = SPREAD_DEFS[spreadId];
-    const mentor = MENTORS[mentorId] || MENTORS.vera;
+    const resolvedMentorId = mentorId === "rien" ? "rien" : "vera";
+    const mentor = MENTORS[resolvedMentorId];
 
     // 洗牌
     let seedVal = seedStr ? parseInt(fnvHex16(seedStr).slice(0, 8), 16) : 0;
@@ -701,23 +924,27 @@
     }
 
     const count = spread.card_count;
-    const chosenSlots = Array.isArray(selectedIndices) && selectedIndices.length >= count
-      ? selectedIndices.slice(0, count).map((idx) => deck[Math.abs(idx) % deck.length])
-      : deck.slice(0, count);
+    const chosenSlots = lockedState && Array.isArray(lockedState.card_slots) && lockedState.card_slots.length === count
+      ? lockedState.card_slots.map((idx) => Math.abs(idx) % DB.tarotCards.length)
+      : (Array.isArray(selectedIndices) && selectedIndices.length >= count
+        ? selectedIndices.slice(0, count).map((idx) => deck[Math.abs(idx) % deck.length])
+        : deck.slice(0, count));
 
     const scores = [];
     const drawnCards = chosenSlots.map((cardIdx, posIdx) => {
       const c = DB.tarotCards[cardIdx];
-      const isUp = nextRand() >= 0.34;
+      const isUp = lockedState && Array.isArray(lockedState.orientations) && typeof lockedState.orientations[posIdx] === "boolean"
+        ? lockedState.orientations[posIdx]
+        : nextRand() >= 0.34;
       const sc = cardPolarityScore(c, isUp);
       scores.push(sc);
       const posTitle = spread.positions[posIdx];
-      const coreLine = isUp ? c.fubo_upright : c.fubo_reversed;
       const kws = isUp ? c.upright : c.reversed;
-      const plainInterp = composeCardPlain(qClean, qMeta.intent, posIdx, posTitle, c, isUp, coreLine, kws);
+      const formatted = formatTarotCardByMentor(qClean, qMeta.intent, posIdx, posTitle, c, isUp, resolvedMentorId);
       return {
         position_index: posIdx + 1,
         position_title: posTitle,
+        card_slot_index: cardIdx,
         card_id: c.id,
         name_zh: c.name_zh,
         name_en: c.name_en,
@@ -728,78 +955,16 @@
         is_upright: isUp,
         polarity_score: sc,
         keywords: kws.slice(0, 4),
-        sharp_one_liner: sanitizeText(coreLine),
-        plain_explanation: sanitizeText(plainInterp),
+        mentor_lens_title: sanitizeText(formatted.mentor_lens_title),
+        mentor_lens_note: sanitizeText(formatted.mentor_lens_note),
+        sharp_one_liner: sanitizeText(formatted.sharp_one_liner),
+        plain_explanation: sanitizeText(formatted.plain_explanation),
       };
     });
 
-    let verdict, tag, timing, actions;
-    if (spreadId === "two_choice_5" && scores.length === 5) {
-      const scoreA = scores[1] + scores[2] * 1.5;
-      const scoreB = scores[3] + scores[4] * 1.5;
-      const cARes = drawnCards[2];
-      const cBRes = drawnCards[4];
-      if (scoreA > scoreB + 0.5) {
-        tag = "優先選方案 A（勝算與後勁較穩）";
-        verdict = `直接回答你的二選一：現階段選「方案 A」明顯比方案 B 划算。因為方案 A 的結果牌落在《${cARes.name_zh}》（${cARes.orientation}），雖然前期要花力氣磨合，但後段能真正拿到主導權與實質成果；反觀方案 B 落在《${cBRes.name_zh}》（${cBRes.orientation}），表面省事卻暗藏後續消耗。`;
-      } else if (scoreB > scoreA + 0.5) {
-        tag = "優先選方案 B（風險較可控）";
-        verdict = `直接回答你的二選一：建議優先選「方案 B」。方案 B 的收尾落在《${cBRes.name_zh}》（${cBRes.orientation}），落地性與資源回收比方案 A 踏實；方案 A 結果為《${cARes.name_zh}》（${cARes.orientation}），目前變數較多，硬衝容易吃力不討好。`;
-      } else {
-        tag = "兩案條件相當・先談妥底線再拍板";
-        verdict = `直接回答你的二選一：目前兩條路分數非常接近（A 為《${cARes.name_zh}》、B 為《${cBRes.name_zh}》）。關鍵不在選哪邊，而在你手上的基準牌《${drawnCards[0].name_zh}》提醒你先把書面條件與停損線談清楚，誰願意給白紙黑字保障就選誰。`;
-      }
-      timing = "最佳拍板觀察窗：接下來 7 至 14 天內先核實雙方條件細節，月底前定案最有利。";
-      actions = [
-        `先把你最在意的兩個硬指標（現金回報與權責界線）寫成清單，對照《${drawnCards[0].name_zh}》提醒的自身底線。`,
-        "不要只聽口頭承諾，要求對方把交付時間或分潤比例寫進正式紀錄。",
-        "一旦選定其中一條路，前三週專心推進，不要邊走邊回頭猶豫。",
-      ];
-    } else {
-      const avg = scores.reduce((s, x) => s + x, 0) / Math.max(1, scores.length);
-      const firstC = drawnCards[0];
-      const lastC = drawnCards[drawnCards.length - 1];
-      if (avg >= 0.8 && lastC.polarity_score >= 1) {
-        tag = "正向可行・順勢推進";
-        if (qMeta.intent === "love") {
-          verdict = `針對你問的「${qClean}」，直接講結論：這段關係是有戲的，對方心裡對你有好感與在意，接下來的走向偏向升溫與拉近距離（收尾牌《${lastC.name_zh}》${lastC.orientation}）。只要避開過度試探，主動給一個自然的台階就能推進。`;
-        } else if (qMeta.intent === "career" || qMeta.intent === "wealth") {
-          verdict = `針對你問的「${qClean}」，直接講結論：這件事值得做，大方向是順風且看得到實質回報的（結果牌《${lastC.name_zh}》${lastC.orientation}）。你前期的準備已經到位，接下來重點是果斷執行、把條件落實成白紙黑字。`;
-        } else {
-          verdict = `針對你問的「${qClean}」，直接講結論：局勢站在你這邊，這件事成算高、阻力可控（核心走向落在《${lastC.name_zh}》${lastC.orientation}）。按照你原本規劃的步調穩穩推進即可。`;
-        }
-        timing = "關鍵推進窗：未來 14 至 45 天內會出現明確的正面推進信號，適合主動出擊。";
-        actions = [
-          `把握《${firstC.name_zh}》帶來的基礎優勢，這週內先把第一步具體動作做出來，不要只停在腦中沙盤推演。`,
-          "溝通時直接講清楚你的需求與時間表，越坦白越能贏得對方的尊重與配合。",
-          `朝《${lastC.name_zh}》指示的方向收網，把口頭共識轉為實際進度或帳面成果。`,
-        ];
-      } else if (avg <= -0.6 || lastC.polarity_score <= -2) {
-        tag = "暫緩踩煞車・先避暗坑";
-        if (qMeta.intent === "love") {
-          verdict = `針對你問的「${qClean}」，我不兜圈子直說：現階段對方心態防備或反覆不定（關鍵牌《${lastC.name_zh}》${lastC.orientation}），你越急著追問或討一個名分，對方越容易往後退。現在最聰明的做法是先收回過度付出的重心，觀察他的實際行動而非嘴上說詞。`;
-        } else if (qMeta.intent === "career" || qMeta.intent === "wealth") {
-          verdict = `針對你問的「${qClean}」，直接講結論：現階段不宜貿然投入或馬上簽字（警示牌落在《${lastC.name_zh}》${lastC.orientation}）。表面看有機會，但背後資訊不對稱或現金流回收比預期慢，先守住本金與現有籌碼才不會吃悶虧。`;
-        } else {
-          verdict = `針對你問的「${qClean}」，直接講結論：目前時機還不成熟，硬推容易卡關耗損（牌面呈現《${lastC.name_zh}》${lastC.orientation}）。先按兵不動把漏洞補起來，等局勢明朗再動手。`;
-        }
-        timing = "風險觀察窗：接下來 3 至 6 週屬於釐清真相期，建議滿一個月後再重新評估是否啟動。";
-        actions = [
-          `正視《${firstC.name_zh}》點出的源頭問題，先把帳目、合約條款或雙方底線查清楚。`,
-          "未來兩週內不追加額外金錢或情緒籌碼，設好明確的停損線。",
-          "把注意力拉回你自己能完全掌控的本業與日常節奏，等對方先亮出誠意。",
-        ];
-      } else {
-        tag = "有條件可成・先解卡點再收成";
-        verdict = `針對你問的「${qClean}」，直接講結論：這件事不是不能成，而是「帶條件過關」。起頭的《${firstC.name_zh}》（${firstC.orientation}）顯示底子還在，但收尾的《${lastC.name_zh}》（${lastC.orientation}）提醒中間有一個溝通或節奏上的卡點；只要你先把規則講在前面、不替別人背模糊責任，就能穩穩過關。`;
-        timing = "轉折觀察窗：接下來 2 至 4 週會有一波條件磨合，撐過磨合期後第 5 至 8 週漸入佳境。";
-        actions = [
-          `先處理《${firstC.name_zh}》反映的當下小卡點，把模糊地帶一條條列出來確認。`,
-          "採取「分階段投入」策略：看到對方完成第一階段承諾，你再給出下一階段資源。",
-          `牢記《${lastC.name_zh}》的提醒，保持彈性、留一成預備方案在手裡最穩妥。`,
-        ];
-      }
-    }
+    const bundle = resolvedMentorId === "rien"
+      ? buildRienTarotBundle(qClean, qMeta, spreadId, drawnCards, scores)
+      : buildVeraTarotBundle(qClean, qMeta, spreadId, drawnCards, scores);
 
     return {
       system: "tarot",
@@ -807,20 +972,143 @@
       intent_detected: qMeta,
       mentor,
       spread,
-      verdict_badge: tag,
-      direct_verdict: sanitizeText(verdict),
+      verdict_badge: sanitizeText(bundle.tag),
+      direct_verdict: sanitizeText(bundle.verdict),
       drawn_cards: drawnCards,
-      timing_window: sanitizeText(timing),
-      three_actions: actions.map(sanitizeText),
+      timing_window: sanitizeText(bundle.timing),
+      three_actions: bundle.actions.map(sanitizeText),
+      mentor_closing_tip: sanitizeText(bundle.closingTip),
       compliance_footer: "以上解析是提醒與建議，不是定論，亦不是投資或下注建議。",
       timestamp: formatTwNow(),
     };
   }
 
+  function computeMeihuaTiYong(upTri, dnTri, bUpTri, bDnTri, primaryMov) {
+    const isUpperTi = primaryMov <= 3;
+    const tiTri = isUpperTi ? upTri : dnTri;
+    const benYongTri = isUpperTi ? dnTri : upTri;
+    const bianYongTri = isUpperTi ? bDnTri : bUpTri;
+    const describeRel = (te, ye) => {
+      if (te === ye) return { label: `體用比和（體${te}與用${ye}同氣相助）`, score: 2 };
+      if (GEN[ye] === te) return { label: `用生體（用${ye}生扶體${te}，得外境順風相助）`, score: 3 };
+      if (KE[te] === ye) return { label: `體剋用（體${te}駕馭用${ye}，憑力可成但須親力推進）`, score: 1 };
+      if (GEN[te] === ye) return { label: `體生用（體${te}洩氣生用${ye}，前期付出心力與資金較多）`, score: -1 };
+      return { label: `用剋體（用${ye}受制於外境剋體${te}，逆風宜守不宜躁進）`, score: -2 };
+    };
+    const benRel = describeRel(tiTri[2], benYongTri[2]);
+    const bianRel = describeRel(tiTri[2], bianYongTri[2]);
+    return {
+      position: isUpperTi ? "上卦為體、下卦為用" : "下卦為體、上卦為用",
+      ti_trigram: `${tiTri[0]}(${tiTri[2]})`,
+      ben_yong_trigram: `${benYongTri[0]}(${benYongTri[2]})`,
+      bian_yong_trigram: `${bianYongTri[0]}(${bianYongTri[2]})`,
+      ben_relation: benRel.label,
+      bian_relation: bianRel.label,
+      ti_gua: tiTri[0],
+      ti_wx: tiTri[2],
+      yong_gua: benYongTri[0],
+      yong_wx: benYongTri[2],
+      bian_yong_gua: bianYongTri[0],
+      bian_yong_wx: bianYongTri[2],
+      relation: `本卦${benRel.label.split("（")[0]} → 變卦${bianRel.label.split("（")[0]}`,
+      ben_score: benRel.score,
+      bian_score: bianRel.score,
+    };
+  }
+
+  function buildFuboYijingBundle(ctx) {
+    const { qClean, benNajia, huNajia, bianNajia, benPlain, huPlain, bianPlain, shiLineObj, yingLineObj, ysTarget, syPlain, totalJudge, movingLines, linesDetail } = ctx;
+    let badge, verdict, timing, actions;
+    if (totalJudge >= 2) {
+      badge = "底氣充足・看準條文可拍板";
+      verdict = `照你問的「${qClean}」，我泡杯熱茶直接講重點：這樁事底子穩、帳面划算，能做。你搖出本卦《${benNajia.hexagram_name}》（${benPlain[2]}），中段互卦過渡《${huNajia.hexagram_name}》，收尾變卦走到《${bianNajia.hexagram_name}》（${bianPlain[2]}）。用老街做生意的白話講，代表你口袋底氣的世爻（${shiLineObj.line_label}${shiLineObj.six_kin}${shiLineObj.element}）跟關鍵用神（${ysTarget.six_kin}・${ysTarget.status_plain}）都站得住腳，而且${syPlain}；只要把白紙黑字的收據跟尾款條文釘牢，順順推就能落袋為安。`;
+      timing = "看帳拍板時間窗：接下來 7 至 30 天內氣場站在你這邊，中旬到月底前把合約細項與款項節點敲定最穩當。";
+      actions = [
+        `趁現在你方世爻底氣夠（${shiLineObj.status_plain}），把付款成數、交付驗收日跟違約責任一條條寫進正式合約，口頭講好聽話一概不算數。`,
+        `留意中段互卦《${huNajia.hexagram_name}》（${huPlain[2]}）的交接細節，就像買屋交屋前一定要親自試水電抓漏，小環節盯緊才不會少賺。`,
+        `順著變卦《${bianNajia.hexagram_name}》穩紮穩打收網，預留一成週轉銀彈在手邊當預備金，這局就能穩穩收進口袋。`,
+      ];
+    } else if (totalJudge <= -1) {
+      badge = "暗坑偏多・顧緊本錢先緩手";
+      verdict = `照你問的「${qClean}」，我不講場面話直說：現在掏錢或簽字太急，裡頭藏著暗坑，先踩煞車顧緊口袋本錢。本卦《${benNajia.hexagram_name}》（${benPlain[2]}）經中段互卦《${huNajia.hexagram_name}》轉入《${bianNajia.hexagram_name}》（${bianPlain[2]}）：你看代表對方的應爻（${yingLineObj.line_label}${yingLineObj.six_kin}${yingLineObj.element}）氣勢壓著你，${syPlain}，偏偏關鍵用神又處於「${ysTarget.status_plain}」。這就像地基還沒乾、屋頂還在滲水就急著砸錢裝潢，硬做下去後面補洞會讓你貼錢又心累。`;
+      timing = "看緊荷包觀察窗：未來 2 至 4 週內帳面與條件變數還大，至少等換過下一個農曆節氣月、對方拿出真憑實據再重談。";
+      actions = [
+        "這半個月先把口袋銀彈跟印章收緊，不簽保人、不付大額訂金，對方催得越急你越要慢下來查帳。",
+        `徹查中段互卦《${huNajia.hexagram_name}》暗藏的舊帳或屋況設備折舊，要求看過去半年的真實金流報表或權狀正本。`,
+        "留一手底牌以退為進：把你的底線價碼與保障條款攤在桌上，對方不肯讓步就轉頭看別家，守住老本就是贏。",
+      ];
+    } else {
+      badge = "先小人後君子・條款釘緊可過關";
+      verdict = `照你問的「${qClean}」，我直白講：這件事不是不能做，但屬於「前頭得先磨條件、帳算清楚才能賺到後面」的局。卦象從本卦《${benNajia.hexagram_name}》（${benPlain[2]}），穿過中段互卦《${huNajia.hexagram_name}》（${huPlain[2]}），最後走到變卦《${bianNajia.hexagram_name}》（${bianPlain[2]}）。目前${syPlain}，關鍵用神「${ysTarget.status_plain}」，代表餅是真的有，但修繕成本、分工或分潤比例還沒攤平；先把醜話講在前面，分期掏錢才不會吃悶虧。`;
+      timing = "磨合議價時間窗：前兩週先把合約漏洞與帳目核對清楚，第 3 至 6 週條件談攏後再正式投入資源最划算。";
+      actions = [
+        "合夥或簽約一律「先小人後君子」：誰管帳、誰出錢、萬一中途拆夥怎麼結算，白紙黑字寫清楚再動手。",
+        `盯緊中段互卦《${huNajia.hexagram_name}》提示的過渡磨合成本，把預備週轉金留足兩成，不要把口袋銀彈一次打光。`,
+        `照變卦《${bianNajia.hexagram_name}》（${bianPlain[2]}）的路數，採分期付款或分階段驗收，看到一分實績再付一分錢。`,
+      ];
+    }
+
+    const movingPlain = !movingLines.length
+      ? [`福伯茶桌眉批（六爻皆靜）：這盤沒有動爻翻盤，代表眼前的帳面條件與雙方底牌就是全部真相（世爻${shiLineObj.line_label}${shiLineObj.status_plain}）；不用指望對方突然大讓步，直接照現有合約划不划算來拍板。`]
+      : movingLines.map((ml) => {
+          const lo = linesDetail[ml - 1];
+          return `福伯茶桌斷第 ${ml} 爻（${lo.line_label}${lo.six_kin}・${lo.six_spirit}）發動：這爻由「${lo.najia}」化出「${lo.changed_to}」，正是整盤銀兩與權責換手的樞紐（${lo.plain_role_tag || "中段交涉關卡"}，目前${lo.status_plain}）；簽字前務必把這一環的收據、產權或責任歸屬核對清楚。`;
+        });
+
+    const closingTip = "福伯的茶桌防坑叮嚀：商場跟買賣不怕慢，只怕急著掏錢卻沒看清尾款條文；把兩成預備金留在自己戶頭裡，睡覺才踏實。";
+    return { badge, verdict, timing, actions, movingPlain, closingTip };
+  }
+
+  function buildMeiniangYijingBundle(ctx) {
+    const { qClean, benNajia, huNajia, bianNajia, benPlain, huPlain, bianPlain, tiYong, totalJudge, movingLines, linesDetail } = ctx;
+    const score = totalJudge + (tiYong.bian_score >= 1 ? 1 : (tiYong.bian_score <= -2 ? -1 : 0));
+    let badge, verdict, timing, actions;
+    if (score >= 2) {
+      badge = "氣機順水行舟・得時乘勢可成";
+      verdict = `觀你所問「${qClean}」，卦氣呈現「春風送帆、水到渠成」之象。起手本卦《${benNajia.hexagram_name}》（${benPlain[2]}）定下上半場清朗基調，中段互卦透出《${huNajia.hexagram_name}》（${huPlain[2]}）的醞釀蓄勢，終局變卦歸於《${bianNajia.hexagram_name}》（${bianPlain[2]}）。以梅花體用觀之，${tiYong.position}，由「${tiYong.ben_relation}」轉入「${tiYong.bian_relation}」，外境氣機主動生扶本體，順著眼前的節奏輕巧推進，事情自然迎刃而解。`;
+      timing = `節氣應期落點：近期 7 至 24 天內卦氣最旺（尤以交節前後及五行屬${tiYong.ti_trigram.slice(2, 3)}相生之日最得順風），宜把握上半月主動定局。`;
+      actions = [
+        `順應本卦《${benNajia.hexagram_name}》的起手勢，在氣機剛動的前十天主動遞出邀約或方案，借順風之力省去半數奔波。`,
+        `善用中段互卦《${huNajia.hexagram_name}》（${huPlain[2]}）的過渡涵養，與人交涉留三分雅量與餘地，人緣助力會隨之匯聚。`,
+        `迎向變卦《${bianNajia.hexagram_name}》收成之象，見好收帆、妥善定錨，讓順遂的氣韻轉為長久穩固的成果。`,
+      ];
+    } else if (score <= -1) {
+      badge = "卦氣逆風未熟・宜靜養待時而動";
+      verdict = `觀你所問「${qClean}」，卦氣給出的啟示是「急湍莫強渡，藏器待清風」。上半場本卦《${benNajia.hexagram_name}》（${benPlain[2]}）外境波折尚多，中段互卦《${huNajia.hexagram_name}》（${huPlain[2]}）暗流交錯，下半場變卦落於《${bianNajia.hexagram_name}》（${bianPlain[2]}）。細察體用消長（${tiYong.position}），走到「${tiYong.bian_relation}」，眼下強行催逼猶如逆水猛拉竹筏，徒耗心力而難見寸功；不如暫斂鋒芒，待節氣流轉再徐圖破冰。`;
+      timing = "節氣轉折應期：眼下三十天內仍處逆風涵養期，宜緩不宜急；待下一個節氣交接、生扶本體之氣透出時再行叩門最順。";
+      actions = [
+        `體悟本卦《${benNajia.hexagram_name}》的止步智慧，前兩週不爭一時口舌快慢，先將手邊未臻完善的環節靜心補齊。`,
+        `借鏡互卦《${huNajia.hexagram_name}》（${huPlain[2]}）的中段藏象，低調觀察局勢風向與人心向背，不輕易亮出全部底牌。`,
+        `守住「${tiYong.bian_relation.split("（")[0]}」的分寸邊界，減少無謂的外務消耗，把精氣神留給節氣轉順後的關鍵一擊。`,
+      ];
+    } else {
+      badge = "慢火細養之局・循序漸進方甘";
+      verdict = `觀你所問「${qClean}」，卦氣映出「細水慢養、先蓄後通」的三段節奏。起手本卦《${benNajia.hexagram_name}》（${benPlain[2]}）揭示起步尚需調勻呼吸，中段互卦藏著《${huNajia.hexagram_name}》（${huPlain[2]}）的打磨涵養之象，終局變卦轉入《${bianNajia.hexagram_name}》（${bianPlain[2]}）。從體用生剋細推（${tiYong.position}），初段「${tiYong.ben_relation}」而後段「${tiYong.bian_relation}」，意味此事非一蹴可幾的快局，急火猛催易生枝節，唯有順著中段火候一寸寸經營，下半場方見清泉自湧。`;
+      timing = "節氣推進應期：前十至十五天為《互卦》沉澱調校期，不宜催逼結果；待下旬節氣交接後氣機轉活，第 4 至 7 週漸入佳境。";
+      actions = [
+        `順應中段互卦《${huNajia.hexagram_name}》（${huPlain[2]}）的養氣節奏，先以小步試探校准方向，不必一開局就押上全部心力。`,
+        `調和「${tiYong.bian_relation.split("（")[0]}」的能量出入，為自己的時間與資源設下清朗分寸，避免在瑣碎拉鋸中透支熱忱。`,
+        `依循變卦《${bianNajia.hexagram_name}》（${bianPlain[2]}）深耕長線口碑與默契，待節氣水到渠成之時從容收網。`,
+      ];
+    }
+
+    const movingPlain = !movingLines.length
+      ? [`梅娘觀數眉批（六爻靜定）：本局氣機澄明未動，本卦《${benNajia.hexagram_name}》與中段互卦《${huNajia.hexagram_name}》即為當下定數（${tiYong.ben_relation}）；順著既有節奏安然處之，無須外求奇招。`]
+      : movingLines.map((ml) => {
+          const lo = linesDetail[ml - 1];
+          const stageHint = ml <= 2 ? "初段起念與根基處" : (ml <= 4 ? "中段互卦交會與人事進退處" : "後段收官與名分定局處");
+          return `梅娘觀第 ${ml} 爻（${lo.line_label}・${lo.six_spirit}）靈動：氣機於「${stageHint}」由${lo.yin_yang}轉變，牽動本卦《${benNajia.hexagram_name}》經互卦《${huNajia.hexagram_name}》化入《${bianNajia.hexagram_name}》（${tiYong.bian_relation}），此處正是拿捏快慢進退的轉折眼。`;
+        });
+
+    const closingTip = `梅娘的節氣進退籤語：萬物皆有其時，本卦《${benNajia.hexagram_name}》看起勢、互卦《${huNajia.hexagram_name}》看中段火候、變卦《${bianNajia.hexagram_name}》看歸宿；心定則氣順，不搶半拍反而步步生蓮。`;
+    return { badge, verdict, timing, actions, movingPlain, closingTip };
+  }
+
   function runYijingReading(question, method = "liuyao_coins", mentorId = "fubo", coinThrows = null, numbers = null) {
     const qClean = String(question || "請問目前這件事的成敗走向與我該採取的對策？").trim();
     const qMeta = classifyQuestionIntent(qClean);
-    const mentor = MENTORS[mentorId] || MENTORS.fubo;
+    const resolvedMentorId = mentorId === "meiniang" ? "meiniang" : "fubo";
+    const mentor = MENTORS[resolvedMentorId];
 
     const tw = new Date(Date.now() + 8 * 3600 * 1000);
     const solar = root.Solar.fromYmdHms(tw.getUTCFullYear(), tw.getUTCMonth() + 1, tw.getUTCDate(), tw.getUTCHours(), tw.getUTCMinutes(), tw.getUTCSeconds());
@@ -859,6 +1147,7 @@
       }
     }
 
+    // 由下而上（索引 0 = 初爻，索引 5 = 上爻）排定本卦、互卦、變卦
     const benBits = throws.map((v) => (v === 7 || v === 9 ? "1" : "0"));
     const bianBits = throws.map((v) => (v === 9 ? "0" : (v === 6 ? "1" : (v === 7 ? "1" : "0"))));
     const movingLines = [];
@@ -868,15 +1157,22 @@
 
     const dnTri = TRIGRAM_BITS_TO_NAME[benBits.slice(0, 3).join("")];
     const upTri = TRIGRAM_BITS_TO_NAME[benBits.slice(3, 6).join("")];
+    const huDnBits = benBits.slice(1, 4).join("");
+    const huUpBits = benBits.slice(2, 5).join("");
+    const huDnTri = TRIGRAM_BITS_TO_NAME[huDnBits];
+    const huUpTri = TRIGRAM_BITS_TO_NAME[huUpBits];
     const bDnTri = TRIGRAM_BITS_TO_NAME[bianBits.slice(0, 3).join("")];
     const bUpTri = TRIGRAM_BITS_TO_NAME[bianBits.slice(3, 6).join("")];
 
     const benNajia = DB.najiaByTrigrams[`${upTri[0]}_${dnTri[0]}`];
+    const huNajia = DB.najiaByTrigrams[`${huUpTri[0]}_${huDnTri[0]}`];
     const bianNajia = DB.najiaByTrigrams[`${bUpTri[0]}_${bDnTri[0]}`];
     const hex64 = DB.namingKb.yijing_64_hexagrams || {};
     const benPlainRaw = hex64[`${upTri[3]}_${dnTri[3]}`] || [benNajia.hexagram_name, "吉", "審時度勢、順理而行"];
+    const huPlainRaw = hex64[`${huUpTri[3]}_${huDnTri[3]}`] || [huNajia.hexagram_name, "吉", "中段醞釀、審慎過渡"];
     const bianPlainRaw = hex64[`${bUpTri[3]}_${bDnTri[3]}`] || [bianNajia.hexagram_name, "吉", "隨機應變、穩健收成"];
     const benPlain = [benPlainRaw[0], benPlainRaw[1], cleanHexMeaning(benPlainRaw[2])];
+    const huPlain = [huPlainRaw[0], huPlainRaw[1], cleanHexMeaning(huPlainRaw[2])];
     const bianPlain = [bianPlainRaw[0], bianPlainRaw[1], cleanHexMeaning(bianPlainRaw[2])];
 
     let spirits = ["青龍", "朱雀", "勾陳", "螣蛇", "白虎", "玄武"];
@@ -884,10 +1180,14 @@
       if (kStems.includes(dayStem)) spirits = DB.sixSpiritsMap[kStems];
     });
 
+    const primaryMov = movingLines.length ? movingLines[0] : 3;
+    const tiYong = computeMeihuaTiYong(upTri, dnTri, bUpTri, bDnTri, primaryMov);
+
     let shiLineObj = null;
     let yingLineObj = null;
     const yongshenObjs = [];
     const throwLabelMap = { 6: "老陰 ⚋ ×（動變陽）", 7: "少陽 ⚊（靜）", 8: "少陰 ⚋（靜）", 9: "老陽 ⚊ ○（動變陰）" };
+    const lineLabels = ["初爻", "二爻", "三爻", "四爻", "五爻", "上爻"];
 
     const linesDetail = throws.map((throwVal, idx) => {
       const njLine = benNajia.lines_bottom_to_top[idx];
@@ -913,10 +1213,24 @@
         powerScore -= 1;
         statusTags.push("受日沖暗動變化快");
       }
+      const statusPlain = statusTags.length ? statusTags.join("、") : "氣場平穩";
+      const changedStr = isMoving ? `${bNjLine.najia}(${bNjLine.six_kin}/${bNjLine.element})` : "";
+      const roleTag = njLine.shi_ying === "世" ? "代表你自己" : (njLine.shi_ying === "應" ? "代表對方／外部環境" : "");
+      const lensNote = isMoving
+        ? (resolvedMentorId === "meiniang"
+          ? `梅娘觀爻：${lineLabels[idx]}動而牽引卦氣，由${njLine.element}化${bNjLine.element}（${tiYong.bian_relation.split("（")[0]}），宜順勢拿捏進退時點。`
+          : `福伯斷爻：${lineLabels[idx]}${njLine.six_kin}動化${bNjLine.six_kin}（${statusPlain}），緊盯此處帳目與合約條文交接。`)
+        : (njLine.shi_ying
+          ? (resolvedMentorId === "meiniang"
+            ? `梅娘定位：${njLine.shi_ying}爻落於${lineLabels[idx]}（${statusPlain}）。`
+            : `福伯定位：${njLine.shi_ying}爻守在${lineLabels[idx]}${njLine.six_kin}（${statusPlain}）。`)
+          : "");
+
       const item = {
         line_number: idx + 1,
-        line_label: ["初爻", "二爻", "三爻", "四爻", "五爻", "上爻"][idx],
+        line_label: lineLabels[idx],
         throw_value: throwVal,
+        throw_val: throwVal,
         throw_label: throwLabelMap[throwVal],
         yin_yang: njLine.yin_yang,
         is_moving: isMoving,
@@ -925,15 +1239,31 @@
         six_kin: njLine.six_kin,
         shi_ying: njLine.shi_ying,
         six_spirit: spirits[idx],
-        changed_to: isMoving ? `${bNjLine.najia}(${bNjLine.six_kin}/${bNjLine.element})` : "",
+        changed_to: changedStr,
         power_score: powerScore,
-        plain_role_tag: njLine.shi_ying === "世" ? "代表你自己" : (njLine.shi_ying === "應" ? "代表對方／外部環境" : ""),
-        status_plain: statusTags.length ? statusTags.join("、") : "氣場平穩",
+        plain_role_tag: roleTag,
+        status_plain: statusPlain,
+        mentor_lens_note: sanitizeText(lensNote),
       };
       if (njLine.shi_ying === "世") shiLineObj = item;
       if (njLine.shi_ying === "應") yingLineObj = item;
       if (njLine.six_kin === qMeta.yongshen_kin) yongshenObjs.push(item);
       return item;
+    });
+
+    const huLinesPreview = (huDnBits + huUpBits).split("").map((b, idx) => {
+      const hNj = huNajia.lines_bottom_to_top[idx];
+      return {
+        line_number: idx + 1,
+        line_label: lineLabels[idx],
+        yin_yang: b === "1" ? "陽" : "陰",
+        is_moving: false,
+        najia: hNj.najia,
+        element: hNj.element,
+        six_kin: hNj.six_kin,
+        shi_ying: hNj.shi_ying,
+        six_spirit: spirits[idx],
+      };
     });
 
     const shiEl = shiLineObj.element;
@@ -949,10 +1279,10 @@
       syPlain = "主動權握在你自己手裡，只要你肯出力推進就能掌控局面，但過程要親力親為";
       syScore = 1;
     } else if (GEN[shiEl] === yingEl) {
-      syPlain = "目前是你單方面付出心血、時間或金錢去遷就對方較多，容易覺得有點累";
+      syPlain = "目前是你單方面掏心血、時間或週轉金去遷就對方較多，做起來容易覺得吃力";
       syScore = 0;
     } else {
-      syPlain = "外部條件或對方的態度正在給你壓力與限制，硬碰硬容易吃虧";
+      syPlain = "外部條件或對方的態度正在給你壓力與限制，硬碰硬容易吃悶虧";
       syScore = -2;
     }
 
@@ -961,42 +1291,26 @@
     const bianWt = bianPlain[1] === "大吉" ? 2 : (bianPlain[1] === "吉" ? 1 : -3);
     const totalJudge = syScore + ysTarget.power_score + benWt + bianWt;
 
-    let badge, verdict, timing, actions;
-    if (totalJudge >= 2) {
-      badge = "吉象明朗・可順勢成事";
-      verdict = `照你問的「${qClean}」，直接講結論：這件事能成，而且最後走向對你有利。你搖出的本卦是《${benNajia.hexagram_name}》（${benPlain[2]}），動變之後走到《${bianNajia.hexagram_name}》（${bianPlain[2]}）。用白話說：${syPlain}，而且代表這件事核心關鍵的能量（${ysTarget.status_plain}）底氣很足，放心照計畫推進就能看到成果。`;
-      timing = "應期與關鍵時間窗：近期 7 至 30 天內就會收到明確回音或實質進展，中旬與月底最順手。";
-      actions = [
-        "趁現在外部氣場願意配合你，主動把關鍵條件、時間表或心意明確提出來。",
-        `卦象從《${benNajia.hexagram_name}》轉向《${bianNajia.hexagram_name}》，代表前段穩紮穩打、後段順水推舟，切忌半途自己嚇自己。`,
-        "把重要承諾留下書面或對話紀錄，讓好運氣穩穩落袋。",
-      ];
-    } else if (totalJudge <= -1) {
-      badge = "阻力偏大・宜守不宜衝";
-      verdict = `照你問的「${qClean}」，我不講場面話直說：現階段這件事阻力很大，暫時不要硬衝。本卦落在《${benNajia.hexagram_name}》（${benPlain[2]}），變卦走到《${bianNajia.hexagram_name}》（${bianPlain[2]}）。白話原因很清楚：${syPlain}，加上核心關鍵點目前「${ysTarget.status_plain}」，現在急著砸錢、簽約或逼對方表態，很容易事倍功半。`;
-      timing = "風險觀察窗：未來 2 至 4 週內變數仍多，建議先緩一緩，等節氣轉換（約一個月後）再重新評估。";
-      actions = [
-        "先把你手上的本金、底牌與情緒收穩，這兩週內不要做出不可逆的重大承諾。",
-        "針對對方話裡沒講清楚的細節多查證一輪，不聽口頭畫餅，只看實際拿得出來的證據。",
-        "以退為進：你越不急，反而越能看清對方的真實底線，避開暗坑就是賺到。",
-      ];
-    } else {
-      badge = "先磨後合・調整做法可過關";
-      verdict = `照你問的「${qClean}」，直接講結論：這件事屬於「先卡後通、有條件能成」。你起出《${benNajia.hexagram_name}》（${benPlain[2]}）轉《${bianNajia.hexagram_name}》（${bianPlain[2]}）。白話來說：${syPlain}；事情本身不是死局，只是目前節奏還沒完全對齊，只要你願意換個更務實的談法、分階段推進，後段就能轉順。`;
-      timing = "轉折觀察窗：前兩週屬於溝通磨合期，第 3 至 6 週會出現讓你順勢破局的契機。";
-      actions = [
-        "不要想一次到位解決全部問題，把目標拆成兩小步，先求第一階段落地。",
-        `順應《${bianNajia.hexagram_name}》「${bianPlain[2]}」的提醒，在細節上保持彈性，但在核心利益上守住底線。`,
-        "找一位懂行的前輩或第三方幫你把關條件，能少走很多冤枉路。",
-      ];
-    }
-
-    const movingPlain = !movingLines.length
-      ? ["本次六爻皆靜（無動爻）：代表事情短期內不會突然大翻盤，現況就是最真實的答案，按穩健常理判斷即可。"]
-      : movingLines.map((ml) => {
-          const lo = linesDetail[ml - 1];
-          return `第 ${ml} 爻（${lo.line_label}・${lo.six_spirit}）發動：代表事情正在從「${benPlain[2]}」往「${bianPlain[2]}」轉變，${lo.plain_role_tag || "中段環節"}是這次成敗最關鍵的轉折點（${lo.status_plain}）。`;
-        });
+    const bundleCtx = {
+      qClean,
+      benNajia,
+      huNajia,
+      bianNajia,
+      benPlain,
+      huPlain,
+      bianPlain,
+      shiLineObj,
+      yingLineObj,
+      ysTarget,
+      syPlain,
+      tiYong,
+      totalJudge,
+      movingLines,
+      linesDetail,
+    };
+    const bundle = resolvedMentorId === "meiniang"
+      ? buildMeiniangYijingBundle(bundleCtx)
+      : buildFuboYijingBundle(bundleCtx);
 
     return {
       system: "yijing",
@@ -1006,16 +1320,47 @@
       intent_detected: qMeta,
       mentor,
       casting_pillars: { month_gz: monthGz, day_gz: dayGz },
-      verdict_badge: badge,
-      direct_verdict: sanitizeText(verdict),
-      ben_hexagram: { name: benNajia.hexagram_name, palace: benNajia.palace, upper: upTri[0], lower: dnTri[0], rating: benPlain[1], plain_meaning: benPlain[2] },
-      bian_hexagram: { name: bianNajia.hexagram_name, palace: bianNajia.palace, upper: bUpTri[0], lower: bDnTri[0], rating: bianPlain[1], plain_meaning: bianPlain[2] },
+      verdict_badge: sanitizeText(bundle.badge),
+      direct_verdict: sanitizeText(bundle.verdict),
+      ben_hexagram: {
+        name: benNajia.hexagram_name,
+        palace: benNajia.palace,
+        upper: upTri[0],
+        lower: dnTri[0],
+        bits_bottom_to_top: benBits.join(""),
+        rating: benPlain[1],
+        plain_meaning: benPlain[2],
+        shi_line: shiLineObj ? shiLineObj.line_number : 6,
+        ying_line: yingLineObj ? yingLineObj.line_number : 3,
+      },
+      hu_hexagram: {
+        name: huNajia.hexagram_name,
+        palace: huNajia.palace,
+        upper: huUpTri[0],
+        lower: huDnTri[0],
+        bits_bottom_to_top: huDnBits + huUpBits,
+        rating: huPlain[1],
+        plain_meaning: huPlain[2],
+        composition_note: "下互取本卦二三四爻・上互取本卦三四五爻",
+        lines_bottom_to_top: huLinesPreview,
+      },
+      bian_hexagram: {
+        name: bianNajia.hexagram_name,
+        palace: bianNajia.palace,
+        upper: bUpTri[0],
+        lower: bDnTri[0],
+        bits_bottom_to_top: bianBits.join(""),
+        rating: bianPlain[1],
+        plain_meaning: bianPlain[2],
+      },
+      meihua_ti_yong: tiYong,
       shi_ying_plain: sanitizeText(syPlain),
       moving_lines: movingLines,
-      moving_plain_notes: movingPlain.map(sanitizeText),
+      moving_plain_notes: bundle.movingPlain.map(sanitizeText),
       lines_bottom_to_top: linesDetail,
-      timing_window: sanitizeText(timing),
-      three_actions: actions.map(sanitizeText),
+      timing_window: sanitizeText(bundle.timing),
+      three_actions: bundle.actions.map(sanitizeText),
+      mentor_closing_tip: sanitizeText(bundle.closingTip),
       compliance_footer: "以上解析是提醒與建議，不是定論，亦不是投資或下注建議。",
       timestamp: formatTwNow(),
     };
@@ -1037,27 +1382,189 @@
     return r > 1 ? r : 81;
   }
 
-  function getCharInfo(ch) {
-    const chars = DB.namingKb.kangxi_char_db || {};
-    if (chars[ch]) return chars[ch];
-    if (DB.unihan && DB.unihan[ch]) {
-      const [st, wx, rad] = DB.unihan[ch];
-      return {
+  // 常見破音姓氏正音表（A02 真值鎖定規格）
+  const SURNAME_POLYPHONE_OVERRIDES = {
+    "單": { pinyin: "shan", tone: 4 },
+    "曾": { pinyin: "zeng", tone: 1 },
+    "區": { pinyin: "ou", tone: 1 },
+    "任": { pinyin: "ren", tone: 2 },
+    "華": { pinyin: "hua", tone: 4 },
+    "解": { pinyin: "xie", tone: 4 },
+    "查": { pinyin: "zha", tone: 1 },
+    "仇": { pinyin: "qiu", tone: 2 },
+    "朴": { pinyin: "piao", tone: 2 },
+    "蓋": { pinyin: "ge", tone: 3 },
+    "樂": { pinyin: "yue", tone: 4 },
+    "過": { pinyin: "guo", tone: 1 },
+    "員": { pinyin: "yun", tone: 4 },
+    "燕": { pinyin: "yan", tone: 1 },
+    "尉": { pinyin: "yu", tone: 4 },
+  };
+
+  const COMPOUND_SURNAME_OVERRIDES = {
+    "萬俟": [{ pinyin: "mo", tone: 4 }, { pinyin: "qi", tone: 2 }],
+    "澹臺": [{ pinyin: "tan", tone: 2 }, { pinyin: "tai", tone: 2 }],
+    "尉遲": [{ pinyin: "yu", tone: 4 }, { pinyin: "chi", tone: 2 }],
+    "長孫": [{ pinyin: "zhang", tone: 3 }, { pinyin: "sun", tone: 1 }],
+    "單于": [{ pinyin: "chan", tone: 2 }, { pinyin: "yu", tone: 2 }],
+  };
+
+  const INITIAL_TO_WUYIN = {
+    g: "角木", k: "角木", h: "角木",
+    z: "徵火", c: "徵火", s: "徵火", d: "徵火", t: "徵火", n: "徵火", l: "徵火",
+    j: "商金", q: "商金", x: "商金", r: "商金",
+    b: "羽水", p: "羽水", m: "羽水", f: "羽水",
+    a: "宮土", o: "宮土", e: "宮土", y: "宮土", w: "宮土",
+  };
+
+  function deriveWuyinByPinyin(py) {
+    const init = String(py || "").trim().toLowerCase().slice(0, 1);
+    return INITIAL_TO_WUYIN[init] || "宮土";
+  }
+
+  function resolveCommercialPolyphone(ch, contextWord) {
+    const w = String(contextWord || "");
+    if (!w) return null;
+    if (ch === "行") {
+      if (/(商行|行館|銀行|金行|茶行|車行|洋行|藥行|米行|布行|書行|琴行|木行|漁行|果行|報關行|拍賣行|發行)/.test(w)
+        || (w.endsWith("行") && !/(旅行|通行|知行|品行|德行|飛行|航行|隨行|同行|執行|修行|言行|風行)/.test(w))) {
+        return { pinyin: "hang", tone: 2 };
+      }
+      return { pinyin: "xing", tone: 2 };
+    }
+    if (ch === "樂") {
+      if (/(愛樂|禮樂|器樂|弦樂|音樂|國樂|交響樂|雅樂)/.test(w)) {
+        return { pinyin: "yue", tone: 4 };
+      }
+      return { pinyin: "le", tone: 4 };
+    }
+    if (ch === "間") {
+      if (/(無間|相間|離間|間諜|間斷|間隙)/.test(w)) {
+        return { pinyin: "jian", tone: 4 };
+      }
+      return { pinyin: "jian", tone: 1 };
+    }
+    if (ch === "長") {
+      if (/(成長|百夫長|院長|社長|會長|店鋪長|執行長|董事長|家長|年長)/.test(w)) {
+        return { pinyin: "zhang", tone: 3 };
+      }
+      return { pinyin: "chang", tone: 2 };
+    }
+    if (ch === "重") {
+      if (/(重陽|九重|雙重|三重|重慶|重逢|重新|重疊)/.test(w)) {
+        return { pinyin: "chong", tone: 2 };
+      }
+      return { pinyin: "zhong", tone: 4 };
+    }
+    if (ch === "盛") {
+      if (/(盛滿|盛飯|盛器)/.test(w)) {
+        return { pinyin: "cheng", tone: 2 };
+      }
+      return { pinyin: "sheng", tone: 4 };
+    }
+    if (ch === "乾") {
+      if (/(乾燥|乾貨|乾糧|乾洗|餅乾)/.test(w)) {
+        return { pinyin: "gan", tone: 1 };
+      }
+      return { pinyin: "qian", tone: 2 };
+    }
+    return null;
+  }
+
+  function detectDuplicateSyllable(pinyins, tones) {
+    // 僅當出現真實同音字（同拼音＋同聲調）或連續兩字同無調音節（如「珊珊」「晶晶」）才判疊音
+    const seenWithTone = new Set();
+    for (let i = 0; i < pinyins.length; i++) {
+      const p = pinyins[i];
+      const t = tones[i];
+      if (!p) continue;
+      const key = `${p}${t}`;
+      if (seenWithTone.has(key)) return true;
+      seenWithTone.add(key);
+      if (i > 0 && p === pinyins[i - 1]) return true;
+    }
+    return false;
+  }
+
+  function buildPhoneticAudit(charObjs) {
+    const pinyins = charObjs.map((c) => c.pinyin);
+    const tones = charObjs.map((c) => c.tone);
+    const toneNameMap = { 1: "陰平(一聲)", 2: "陽平(二聲)", 3: "上聲(三聲)", 4: "去聲(四聲)", 5: "輕聲" };
+    return {
+      pinyins,
+      syllables_with_tone: charObjs.map((c) => `${c.pinyin}${c.tone}`),
+      tones,
+      tone_labels: tones.map((t) => toneNameMap[t] || "平聲"),
+      ping_ze_pattern: tones.map((t) => (t === 1 || t === 2 ? "平" : "仄")).join(""),
+      duplicate_syllable_detected: detectDuplicateSyllable(pinyins, tones),
+      all_same_tone_veto_triggered: tones.length >= 3 && new Set(tones).size === 1,
+    };
+  }
+
+  function getCharInfo(ch, isSurname = false, contextWord = "") {
+    const chars = (DB.namingKb && DB.namingKb.kangxi_char_db) || {};
+    const uniTuple = DB.unihan && DB.unihan[ch];
+    let baseObj = null;
+
+    if (chars[ch]) {
+      baseObj = Object.assign({}, chars[ch]);
+      if (Array.isArray(uniTuple) && uniTuple.length >= 5 && uniTuple[3]) {
+        baseObj.pinyin = String(uniTuple[3]).toLowerCase();
+        baseObj.tone = Number(uniTuple[4]) || baseObj.tone;
+      }
+    } else if (Array.isArray(uniTuple) && uniTuple.length >= 5) {
+      const [st, wx, rad, py, tn] = uniTuple;
+      const cleanPy = String(py).toLowerCase();
+      const cleanTn = Number(tn);
+      baseObj = {
         char: ch,
         kangxi_strokes: st,
         wuxing: wx,
         sub_wuxing: "",
-        pinyin: "yi",
-        tone: 2,
-        wuyin: "宮土",
+        pinyin: cleanPy,
+        tone: cleanTn,
+        wuyin: deriveWuyinByPinyin(cleanPy),
         radicals: [rad],
         structure: "傳統正體結構",
         meaning: `康熙正統 ${st} 畫（部首：${rad}，歸屬${wx}行）`,
         tags: [],
-        eng_initial: "C",
+        eng_initial: cleanPy.slice(0, 1).toUpperCase(),
       };
     }
-    return null;
+
+    if (!baseObj) return null;
+
+    if (isSurname) {
+      if (contextWord && COMPOUND_SURNAME_OVERRIDES[contextWord]) {
+        const idx = Array.from(contextWord).indexOf(ch);
+        if (idx !== -1 && COMPOUND_SURNAME_OVERRIDES[contextWord][idx]) {
+          baseObj.pinyin = COMPOUND_SURNAME_OVERRIDES[contextWord][idx].pinyin;
+          baseObj.tone = COMPOUND_SURNAME_OVERRIDES[contextWord][idx].tone;
+        }
+      } else if (SURNAME_POLYPHONE_OVERRIDES[ch]) {
+        baseObj.pinyin = SURNAME_POLYPHONE_OVERRIDES[ch].pinyin;
+        baseObj.tone = SURNAME_POLYPHONE_OVERRIDES[ch].tone;
+      }
+    } else if (contextWord) {
+      const comm = resolveCommercialPolyphone(ch, contextWord);
+      if (comm) {
+        baseObj.pinyin = comm.pinyin;
+        baseObj.tone = comm.tone;
+      }
+    }
+
+    baseObj.wuyin = deriveWuyinByPinyin(baseObj.pinyin);
+    baseObj.eng_initial = String(baseObj.pinyin || "").slice(0, 1).toUpperCase() || baseObj.eng_initial;
+    if (Array.isArray(uniTuple) && uniTuple.length >= 5) {
+      baseObj.unihan_verified = {
+        kangxi_strokes: uniTuple[0],
+        wuxing: uniTuple[1],
+        radical: uniTuple[2],
+        pinyin: baseObj.pinyin,
+        tone: baseObj.tone,
+      };
+    }
+    return baseObj;
   }
 
   function surnameStroke(ch) {
@@ -1181,13 +1688,13 @@
 
     const sObjs = [];
     for (const ch of Array.from(surname)) {
-      const ci = getCharInfo(ch);
+      const ci = getCharInfo(ch, true, surname);
       if (!ci) return { name: full, valid: false, vetoes: [`非中文字元：${ch}`], total_score: 0, plain_diagnosis: [`含非中文字元：${ch}`] };
       sObjs.push(ci);
     }
     const gObjs = [];
     for (const ch of Array.from(given)) {
-      const ci = getCharInfo(ch);
+      const ci = getCharInfo(ch, false, given);
       if (!ci) return { name: full, valid: false, vetoes: [`非中文字元：${ch}`], total_score: 0, plain_diagnosis: [`含非中文字元：${ch}`] };
       gObjs.push(ci);
     }
@@ -1329,10 +1836,11 @@
     s4 = Math.min(15.0, s4);
 
     let s5 = 4.5;
-    const allTones = sObjs.map((c) => c.tone).concat(gObjs.map((c) => c.tone));
+    const phoneticAudit = buildPhoneticAudit(sObjs.concat(gObjs));
+    const allTones = phoneticAudit.tones;
     const gTones = gObjs.map((c) => c.tone);
     const gPinyins = gObjs.map((c) => c.pinyin);
-    if (allTones.length >= 3 && new Set(allTones).size === 1) {
+    if (phoneticAudit.all_same_tone_veto_triggered) {
       vetoes.push("連名帶姓三字同一聲調，唸起來平板拗口缺乏朝氣");
       pathologyPlain.push("連名帶姓同聲調，氣流平直缺乏轉折");
     } else if (gTones.every((t) => t === 3)) {
@@ -1364,6 +1872,7 @@
       total_score: totalScore,
       vetoes,
       plain_diagnosis: pathologyPlain,
+      phonetic_audit: phoneticAudit,
       chars: sObjs.map((c) => ({
         char: c.char,
         role: "姓氏",
@@ -1423,8 +1932,7 @@
     const motherYear = params.mother_year ? clampInt(params.mother_year, 1994, 1920, 2025) : null;
 
     const charsDb = DB.namingKb.kangxi_char_db || {};
-    const needUnihan = Array.from(surname + currentFullName + fixedChar).some((ch) => !charsDb[ch]);
-    if (needUnihan) await ensureUnihanLoaded();
+    await ensureUnihanLoaded();
 
     const bazi = computeZeroErrorBazi(year, month, day, hour, minute, gender, city);
     const primaryWx = bazi.recommended_primary_wx;
@@ -1435,7 +1943,10 @@
 
     let currentDiagnosis = null;
     if (currentFullName && Array.from(currentFullName).length >= 2) {
-      const curSur = currentFullName.startsWith(surname) ? surname : Array.from(currentFullName)[0];
+      const twoPrefix = Array.from(currentFullName).slice(0, 2).join("");
+      const curSur = currentFullName.startsWith(surname)
+        ? surname
+        : (COMPOUND_SURNAME_OVERRIDES[twoPrefix] ? twoPrefix : Array.from(currentFullName)[0]);
       const curGiv = currentFullName.slice(curSur.length);
       currentDiagnosis = evaluatePersonalName(curSur, curGiv, primaryWx, avoidWx, yearBranch, gender, fatherBr, motherBr, false);
     }
@@ -1546,7 +2057,7 @@
 
     const charObjs = [];
     for (const c of Array.from(name)) {
-      const ci = getCharInfo(c);
+      const ci = getCharInfo(c, false, name);
       if (!ci) return { name, valid: false, vetoes: [`非中文字元：${c}`], total_score: 0, plain_diagnosis: [`含非中文字元：${c}`] };
       if (tabooSet.has(c)) {
         const msg = `『${c}』帶江湖凶煞或爭議字眼，易招稅務／銀行風控專案審查`;
@@ -1671,11 +2182,21 @@
     s4 += hexRes.ti_yong_score >= 15 ? 5.0 : 3.8;
     s4 = Math.min(15.0, s4);
 
-    const tones = charObjs.map((c) => c.tone);
-    const pinyins = charObjs.map((c) => c.pinyin);
+    const phoneticAudit = buildPhoneticAudit(charObjs);
+    const tones = phoneticAudit.tones;
     let s5 = 4.5;
-    if (tones.every((t) => t === 3) || tones.every((t) => t === 4) || new Set(pinyins).size < pinyins.length) {
-      vetoes.push("商號聲調全三聲低抑、全四聲過衝或疊音");
+    if (tones.every((t) => t === 3)) {
+      const msg = "商號聲調全三聲連讀，音氣較為低抑";
+      vetoes.push(msg);
+      plainDiag.push(msg);
+    } else if (tones.every((t) => t === 4)) {
+      const msg = "商號聲調全四聲連讀，語氣過於剛硬急促";
+      vetoes.push(msg);
+      plainDiag.push(msg);
+    } else if (phoneticAudit.duplicate_syllable_detected) {
+      const msg = "商號含同音字或連續疊音，辨識度易混淆";
+      vetoes.push(msg);
+      plainDiag.push(msg);
     } else {
       s5 += tones.some((t) => t === 1 || t === 2) && tones.some((t) => t === 3 || t === 4) ? 3.5 : 2.0;
     }
@@ -1710,6 +2231,7 @@
       total_score: totalScore,
       vetoes,
       plain_diagnosis: plainDiag,
+      phonetic_audit: phoneticAudit,
       chars: charObjs.map((c) => ({
         char: c.char,
         kangxi_strokes: c.kangxi_strokes,
@@ -1756,9 +2278,7 @@
     const existingBrand = String(params.existing_brand || "").trim().slice(0, 12);
 
     const charsDb = DB.namingKb.kangxi_char_db || {};
-    if (existingBrand && Array.from(existingBrand).some((c) => !charsDb[c])) {
-      await ensureUnihanLoaded();
-    }
+    await ensureUnihanLoaded();
 
     const bazi = computeZeroErrorBazi(year, month, day, hour, minute, gender, city);
     const industries = DB.namingKb.industry_15_matrix || {};
@@ -1970,9 +2490,13 @@
         String(body.question || "").slice(0, 500),
         String(body.mentor_id || "vera").slice(0, 24),
         String(body.spread_id || "auto").slice(0, 32),
-        Array.isArray(body.selected_indices) ? body.selected_indices : null
+        Array.isArray(body.selected_indices) ? body.selected_indices : null,
+        String(body.seed || ""),
+        body.locked_state && typeof body.locked_state === "object" ? body.locked_state : null
       );
-      appendJournal("秘境塔羅", res.question, res.direct_verdict);
+      if (!body.skip_journal) {
+        appendJournal("秘境塔羅", res.question, res.direct_verdict);
+      }
       return { ok: true, data: res };
     }
 
@@ -1984,7 +2508,9 @@
         Array.isArray(body.coin_throws) ? body.coin_throws : null,
         Array.isArray(body.numbers) ? body.numbers : null
       );
-      appendJournal("太極易經", res.question, res.direct_verdict);
+      if (!body.skip_journal) {
+        appendJournal("太極易經", res.question, res.direct_verdict);
+      }
       return { ok: true, data: res };
     }
 
@@ -2017,5 +2543,24 @@
   root.XuanshuStandalone = {
     handleRequest,
     getTrialStatus,
+    _internal: {
+      DB,
+      MENTORS,
+      TRIGRAM_BITS_TO_NAME,
+      NUM_TO_TRIGRAM_BITS,
+      SURNAME_POLYPHONE_OVERRIDES,
+      ensureCoreDataLoaded,
+      ensureUnihanLoaded,
+      getCharInfo,
+      detectDuplicateSyllable,
+      buildPhoneticAudit,
+      evaluatePersonalName,
+      evaluateCompanyName,
+      recommendPersonalNames,
+      recommendCompanyNames,
+      runTarotReading,
+      runYijingReading,
+      computeZeroErrorBazi,
+    },
   };
 })(typeof window !== "undefined" ? window : globalThis);
