@@ -35,7 +35,7 @@
       meiniang: {
         name: "梅娘",
         title: "澄心書院・梅花易數名師",
-        avatar: "./assets/mentors/meiniang.webp",
+        avatar: "./assets/mentors/meiniang.webp?v=20261124h",
         opener: "萬事起心即有數，卦氣已經把眼前的順逆節奏映出來了。",
       },
       fubo: {
@@ -1362,8 +1362,33 @@
       }
       await copyInviteToClipboard();
     });
+    const portraitModal = document.getElementById("mentorPortraitModal");
+    const closePortraitModal = () => {
+      if (portraitModal) portraitModal.classList.add("hidden");
+    };
+    const openPortraitModal = () => {
+      if (!portraitModal) return;
+      const heroImg = document.getElementById("heroMentorImg");
+      document.getElementById("mentorPortraitFullImg").src = heroImg.src;
+      document.getElementById("mentorPortraitFullImg").alt = heroImg.alt;
+      document.getElementById("mentorPortraitRole").textContent = document.getElementById("heroMentorTitle").textContent;
+      document.getElementById("mentorPortraitName").textContent = document.getElementById("heroMentorName").textContent;
+      document.getElementById("mentorPortraitQuote").textContent = document.getElementById("heroMentorQuote").textContent;
+      portraitModal.classList.remove("hidden");
+    };
+    document.getElementById("heroMentorImg").addEventListener("click", openPortraitModal);
+    document.getElementById("closeMentorPortraitBtn").addEventListener("click", closePortraitModal);
+    if (portraitModal) {
+      portraitModal.addEventListener("click", (e) => {
+        if (e.target === portraitModal) closePortraitModal();
+      });
+    }
+
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeM();
+      if (e.key === "Escape") {
+        closeM();
+        closePortraitModal();
+      }
     });
 
     // 預先載入大廳四之示範核驗結果（不重複寫入紀錄簿），切換過去即刻可見完整排盤與SOP鏈

@@ -406,9 +406,44 @@ html[data-theme="light"] .sanctuary-photo {
   height: 84px;
   border-radius: 50%;
   object-fit: cover;
+  object-position: center 24%;
   border: 2px solid var(--gold-solid);
   flex-shrink: 0;
   background: var(--bg-surface-3);
+  cursor: zoom-in;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.mentor-spotlight img:hover {
+  transform: scale(1.04);
+  box-shadow: 0 0 0 3px var(--gold-soft);
+}
+
+.mentor-portrait-card {
+  max-width: 480px;
+}
+
+.mentor-portrait-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+}
+
+.mentor-portrait-body img {
+  width: 100%;
+  max-width: 400px;
+  aspect-ratio: 1 / 1;
+  height: auto;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--gold-solid);
+  object-fit: cover;
+  background: var(--bg-surface-3);
+}
+
+.mentor-portrait-caption {
+  max-width: 380px;
 }
 
 .mentor-badge {
@@ -516,6 +551,7 @@ html[data-theme="light"] .sanctuary-photo {
   height: 44px;
   border-radius: 50%;
   object-fit: cover;
+  object-position: center 24%;
   border: 1px solid var(--gold-solid);
   flex-shrink: 0;
 }

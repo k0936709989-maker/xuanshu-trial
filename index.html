@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./styles.css?v=20261124g" />
+  <link rel="stylesheet" href="./styles.css?v=20261124h" />
 </head>
 <body>
   <a href="#mainContent" class="skip-link">跳至主要內容</a>
@@ -86,7 +86,7 @@
         </p>
       </div>
       <div class="mentor-spotlight" id="heroMentorCard">
-        <img id="heroMentorImg" src="./assets/mentors/vera.webp" alt="駐館導師薇拉肖像" width="88" height="88" />
+        <img id="heroMentorImg" src="./assets/mentors/vera.webp" alt="駐館導師薇拉肖像" width="88" height="88" title="點擊賞覽導師完整立繪" />
         <div class="mentor-spotlight-text">
           <div class="mentor-badge" id="heroMentorTitle">星夜秘境・首席塔羅導師</div>
           <div class="mentor-name" id="heroMentorName">薇拉</div>
@@ -211,7 +211,7 @@
               </div>
             </button>
             <button type="button" class="mentor-chip" data-mentor="meiniang">
-              <img src="./assets/mentors/meiniang.webp" alt="梅娘" width="42" height="42" />
+              <img src="./assets/mentors/meiniang.webp?v=20261124h" alt="梅娘" width="42" height="42" />
               <div>
                 <strong>梅娘</strong>
                 <span>梅花時機快慢</span>
@@ -551,6 +551,24 @@
     </div>
   </div>
 
+  <!-- 導師完整立繪賞覽對話框 -->
+  <div class="modal-backdrop hidden" id="mentorPortraitModal" role="dialog" aria-modal="true" aria-labelledby="mentorPortraitTitle">
+    <div class="modal-card mentor-portrait-card">
+      <div class="modal-head">
+        <h2 id="mentorPortraitTitle">駐館導師立繪賞覽</h2>
+        <button type="button" class="modal-close" id="closeMentorPortraitBtn" aria-label="關閉立繪視窗">關閉</button>
+      </div>
+      <div class="modal-body mentor-portrait-body">
+        <img id="mentorPortraitFullImg" src="./assets/mentors/meiniang.webp?v=20261124h" alt="駐館導師完整立繪" width="520" height="520" />
+        <div class="mentor-portrait-caption">
+          <div class="mentor-badge" id="mentorPortraitRole">澄心書院・梅花易數名師</div>
+          <div class="mentor-name" id="mentorPortraitName">梅娘</div>
+          <p class="mentor-quote" id="mentorPortraitQuote">萬事起心即有數，卦氣已經把眼前的順逆節奏映出來了。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- 七日試用期屆滿自動鎖定遮罩 -->
   <div class="trial-expired-overlay hidden" id="trialExpiredOverlay" role="alertdialog" aria-modal="true" aria-labelledby="expiredTitle">
     <div class="modal-card">
@@ -572,7 +590,7 @@
   </script>
   <script src="./assets/qrcode.js" defer></script>
   <script src="./assets/lunar.js" defer></script>
-  <script src="./assets/standalone_engine.js?v=20261124g" defer></script>
-  <script src="./app.js?v=20261124g" defer></script>
+  <script src="./assets/standalone_engine.js?v=20261124h" defer></script>
+  <script src="./app.js?v=20261124h" defer></script>
 </body>
 </html>

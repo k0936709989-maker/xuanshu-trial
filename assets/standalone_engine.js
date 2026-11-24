@@ -88,7 +88,7 @@
       id: "meiniang",
       name: "梅娘",
       title: "澄心書院・梅花易數名師",
-      avatar: "./assets/mentors/meiniang.webp",
+      avatar: "./assets/mentors/meiniang.webp?v=20261124h",
       specialty: "時機快慢、事情成敗走向、人際進退分寸",
       opener: "萬事起心即有數，卦氣已經把眼前的順逆節奏映出來了。",
     },
