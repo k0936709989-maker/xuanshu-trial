@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./styles.css?v=20261124k" />
+  <link rel="stylesheet" href="./styles.css?v=20261125b" />
 </head>
 <body>
   <a href="#mainContent" class="skip-link">跳至主要內容</a>
@@ -128,10 +128,10 @@
           >我們冷戰兩週了，他心裡還有我嗎？接下來一個月會主動聯絡嗎？</textarea>
 
           <div class="quick-prompts" aria-label="常見問事範例">
+            <button type="button" class="prompt-pill" data-q="佛寺的麥克風線與花都被剪掉，是外人所為還是熟人所為。">查事追人：外人還是熟人</button>
             <button type="button" class="prompt-pill" data-q="我們冷戰兩週了，他心裡還有我嗎？">感情：他心裡還有我嗎</button>
             <button type="button" class="prompt-pill" data-q="我該離職去新公司還是留在原本部門？">二選一：離職還是留任</button>
             <button type="button" class="prompt-pill" data-q="對方提的這個合作案現在能不能簽？有沒有暗坑？">事業：合作案能不能簽</button>
-            <button type="button" class="prompt-pill" data-q="最近三個月我的正偏財運勢如何？哪裡容易漏財？">財運：近期三個月財運</button>
           </div>
 
           <!-- 漸進式揭露：進階牌陣預設收折，避免選項過多困擾客人 -->
@@ -141,6 +141,7 @@
               <label for="tarotSpreadSelect" class="field-label">指定牌陣模式</label>
               <select id="tarotSpreadSelect" class="select-input">
                 <option value="auto" selected>智慧辨識自動配陣（推薦）</option>
+                <option value="truth_investigation_5">追查真相・內外歸屬五牌陣（5 張）</option>
                 <option value="single_verdict">一劍定音・單牌直斷陣（1 張）</option>
                 <option value="three_core">因果破局・三牌核心陣（3 張）</option>
                 <option value="love_mirror_4">雙心映照・感情四牌陣（4 張）</option>
@@ -229,15 +230,16 @@
           >這份合夥開餐廳的合約現在能不能簽？有沒有隱藏風險？</textarea>
 
           <div class="quick-prompts" aria-label="易經問事快捷範例">
+            <button type="button" class="prompt-pill yj-pill" data-q="佛寺的麥克風線與花都被剪掉，是外人所為還是熟人所為。" data-nums="815、158">查事追人：815、158 外人或熟人</button>
             <button type="button" class="prompt-pill yj-pill" data-q="這份合夥開餐廳的合約現在能不能簽？">合夥簽約吉凶</button>
             <button type="button" class="prompt-pill yj-pill" data-q="這筆借出去的款項今年底前收得回來嗎？">欠款能否收回</button>
-            <button type="button" class="prompt-pill yj-pill" data-q="下半年換跑道自己接案創業時機成不成熟？">創業轉職時機</button>
+            <button type="button" class="prompt-pill yj-pill" data-q="我該離職去新公司還是留在原本部門？">二選一：離職或留任</button>
           </div>
 
-          <div class="step-label">STEP 03 · 選擇起卦儀式</div>
+          <div class="step-label">STEP 03 · 選擇起卦儀式（支援多組靈動數三法合參）</div>
           <div class="segmented-row" id="yijingMethodTabs">
             <button type="button" class="seg-btn active" data-method="liuyao_coins">三枚古銅錢六擲（京房六爻）</button>
-            <button type="button" class="seg-btn" data-method="meihua_numbers">報三數靈動起卦（梅花易數）</button>
+            <button type="button" class="seg-btn" data-method="meihua_numbers">報數三法合參（梅花＋六爻＋數易）</button>
           </div>
 
           <!-- 銅錢親手擲爻小儀式盤 -->
@@ -254,8 +256,12 @@
             </div>
           </div>
 
-          <!-- 梅花三數輸入區 -->
+          <!-- 梅花與數字易經輸入區 -->
           <div id="meihuaNumBox" class="meihua-panel hidden">
+            <div style="margin-bottom:10px">
+              <label for="mhQuickNums" class="field-label">單組或多組靈動數字（如：815、158，留空則用下方三數）</label>
+              <input type="text" id="mhQuickNums" class="text-input mono-num" placeholder="例如：815、158（自動啟動梅花＋六爻＋數字易經三法合參）" value="" />
+            </div>
             <div class="three-num-grid">
               <div>
                 <label for="mhNum1" class="field-label">第一數（上卦）</label>
@@ -270,7 +276,7 @@
                 <input type="number" id="mhNum3" class="text-input mono-num" value="15" min="1" max="999" />
               </div>
             </div>
-            <button type="button" class="btn-gold-primary full-w" id="castMeihuaBtn">以數起卦・立即白話解斷</button>
+            <button type="button" class="btn-gold-primary full-w" id="castMeihuaBtn">三法合參起卦・立即針對問題直斷</button>
           </div>
         </aside>
 
@@ -590,7 +596,7 @@
   </script>
   <script src="./assets/qrcode.js" defer></script>
   <script src="./assets/lunar.js" defer></script>
-  <script src="./assets/standalone_engine.js?v=20261124k" defer></script>
-  <script src="./app.js?v=20261124k" defer></script>
+  <script src="./assets/standalone_engine.js?v=20261125b" defer></script>
+  <script src="./app.js?v=20261125b" defer></script>
 </body>
 </html>

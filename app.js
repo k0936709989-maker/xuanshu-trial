@@ -432,6 +432,36 @@
     return "good";
   }
 
+  function renderSummaryTableHtml(rows, captionText = "綜合研判對照表") {
+    if (!Array.isArray(rows) || !rows.length) return "";
+    const trs = rows
+      .map(
+        (r) => `
+          <tr>
+            <td class="sj-aspect">${esc(r.aspect)}</td>
+            <td class="sj-tendency">${esc(r.tendency)}</td>
+            <td class="sj-basis">${esc(r.basis)}</td>
+          </tr>`
+      )
+      .join("");
+    return `
+      <div class="action-box">
+        <h3>${esc(captionText)}</h3>
+        <div class="summary-judge-wrap">
+          <table class="summary-judge-table">
+            <thead>
+              <tr>
+                <th>研判面向</th>
+                <th>結論傾向</th>
+                <th>卦牌依據說明</th>
+              </tr>
+            </thead>
+            <tbody>${trs}</tbody>
+          </table>
+        </div>
+      </div>`;
+  }
+
   /* ==================== 大廳一：塔羅互動與渲染 ==================== */
   function renderTarotResult(data) {
     const box = document.getElementById("tarotResultContainer");
@@ -467,9 +497,17 @@
     const closingHtml = data.mentor_closing_tip
       ? `<div class="mentor-closing-banner">${esc(data.mentor_closing_tip)}</div>`
       : "";
+    const parentNoteHtml = data.parent_question
+      ? `<div class="followup-origin-tag">同牌陣追問｜鎖定原題：「${esc(data.parent_question)}」之同一副底牌直斷</div>`
+      : "";
+    const summaryTableHtml = renderSummaryTableHtml(data.summary_table, "針對問題・綜合研判對照表");
+    const followupPills = (data.followup_suggestions || [])
+      .map((fq) => `<button type="button" class="followup-pill-btn tarot-fq-pill" data-fq="${esc(fq)}">${esc(fq)}</button>`)
+      .join("");
 
     box.innerHTML = `
       <div class="verdict-hero-card">
+        ${parentNoteHtml}
         <div class="verdict-top-meta">
           <span class="status-pill ${bCls}">${esc(data.verdict_badge)}</span>
           <span class="spread-caption">導師：${esc(data.mentor.name)}（${esc(data.mentor.chip_tag || data.mentor.title)}）｜ 配陣：${esc(data.spread.name)}</span>
@@ -477,6 +515,8 @@
         <h2>照你問的，${esc(data.mentor.name)}直球結論</h2>
         <p class="verdict-direct-text">${esc(data.direct_verdict)}</p>
       </div>
+
+      ${summaryTableHtml}
 
       <div class="drawn-cards-grid">${cardsHtml}</div>
 
@@ -489,9 +529,47 @@
         <h3>你接下來最該做的三件事</h3>
         <ol class="action-list">${actionsHtml}</ol>
         ${closingHtml}
+      </div>
+
+      <div class="followup-bar-box">
+        <h3>同牌陣繼續追問（鎖定本局牌面直接回答細節）</h3>
+        <div class="followup-pills-row">${followupPills}</div>
+        <div class="followup-input-row">
+          <input type="text" id="tarotFollowupInput" class="text-input" placeholder="針對同一件事繼續追問，例如：男的還是女的？或：大約什麼時段？" />
+          <button type="button" class="btn-gold-primary" id="tarotFollowupBtn">同盤直球追問</button>
+        </div>
         <p class="compliance-note">${esc(data.compliance_footer)}</p>
       </div>
     `;
+
+    box.querySelectorAll(".tarot-fq-pill").forEach((btn) => {
+      btn.addEventListener("click", () => runTarotFollowup(btn.dataset.fq));
+    });
+    const fqBtn = document.getElementById("tarotFollowupBtn");
+    const fqInput = document.getElementById("tarotFollowupInput");
+    if (fqBtn && fqInput) {
+      fqBtn.addEventListener("click", () => {
+        if (fqInput.value.trim()) runTarotFollowup(fqInput.value.trim());
+      });
+      fqInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" && fqInput.value.trim()) {
+          e.preventDefault();
+          runTarotFollowup(fqInput.value.trim());
+        }
+      });
+    }
+  }
+
+  function runTarotFollowup(followupText) {
+    if (!state.lastTarotContext || !followupText) return;
+    const baseQ = state.lastTarotContext.base_question || state.lastTarotContext.question;
+    executeTarotReading(null, {
+      question: followupText,
+      base_question: baseQ,
+      parent_question: baseQ,
+      spread_id: state.lastTarotContext.spread_id,
+      locked_state: state.lastTarotContext.locked_state,
+    });
   }
 
   function scrollResultOnMobile(containerId) {
@@ -515,16 +593,20 @@
 
     const res = await apiPost("/api/tarot", {
       question: q,
+      parent_question: lockedContext && lockedContext.parent_question ? lockedContext.parent_question : "",
       mentor_id: state.tarotMentor,
       spread_id: spreadId,
       selected_indices: pickedIndices,
       locked_state: lockedContext ? lockedContext.locked_state : null,
-      skip_journal: Boolean(lockedContext),
+      skip_journal: Boolean(lockedContext && !lockedContext.parent_question),
     });
     if (res.ok) {
       document.getElementById("tarotFanStage").classList.add("hidden");
+      const rootBaseQ = lockedContext && lockedContext.base_question ? lockedContext.base_question : res.data.question;
       state.lastTarotContext = {
         question: res.data.question,
+        base_question: rootBaseQ,
+        parent_question: res.data.parent_question || "",
         spread_id: res.data.spread.id,
         locked_state: {
           card_slots: res.data.drawn_cards.map((c) => c.card_slot_index),
@@ -532,9 +614,7 @@
         },
       };
       renderTarotResult(res.data);
-      if (!lockedContext) {
-        scrollResultOnMobile("tarotResultContainer");
-      }
+      scrollResultOnMobile("tarotResultContainer");
     }
   }
 
@@ -644,9 +724,9 @@
     let needed = 3;
     if (spreadSel === "single_verdict") needed = 1;
     else if (spreadSel === "love_mirror_4") needed = 4;
-    else if (spreadSel === "two_choice_5") needed = 5;
+    else if (spreadSel === "two_choice_5" || spreadSel === "truth_investigation_5") needed = 5;
     else if (spreadSel === "auto") {
-      if (q.includes("還是") || q.includes("哪個")) needed = 5;
+      if (/(外人|熟人|內鬼|誰做|誰拿|誰偷|誰剪|所為|被剪|被偷|失竊|破壞|還是|哪個)/.test(q)) needed = 5;
       else if (/(喜歡|愛|心裡|復合|冷戰|感情)/.test(q)) needed = 4;
       else needed = 3;
     }
@@ -760,16 +840,49 @@
     const closingHtml = data.mentor_closing_tip
       ? `<div class="mentor-closing-banner">${esc(data.mentor_closing_tip)}</div>`
       : "";
+    const parentNoteHtml = data.parent_question
+      ? `<div class="followup-origin-tag">同卦盤追問｜鎖定原題：「${esc(data.parent_question)}」${data.raw_numbers_text ? `（靈動數：${esc(data.raw_numbers_text)}）` : ""}之同一卦盤推演</div>`
+      : "";
+    const auxRibbonHtml = Array.isArray(data.auxiliary_hexagrams) && data.auxiliary_hexagrams.length >= 2
+      ? `<div class="aux-hex-ribbon">雙數組交叉互證：${data.auxiliary_hexagrams
+          .map((ax, idx) => `<span>${idx === 0 ? "主數" : "輔數"}【${esc(ax.raw)}】《${esc(ax.ben_name)}》第${ax.mov}爻動 →《${esc(ax.bian_name)}》（${esc(ax.relation)}）</span>`)
+          .join(" ✕ ")}</div>`
+      : "";
+    const multiMethodHtml = Array.isArray(data.multi_method_sections) && data.multi_method_sections.length
+      ? `<div class="action-box">
+          <h3>三法合參針對問題深度拆解</h3>
+          <div class="multi-method-grid">
+            ${data.multi_method_sections
+              .map(
+                (sec) => `
+                <div class="method-explain-card">
+                  <h4>${esc(sec.title)}</h4>
+                  <p class="plain-body">${esc(sec.body)}</p>
+                </div>`
+              )
+              .join("")}
+          </div>
+        </div>`
+      : "";
+    const summaryTableHtml = renderSummaryTableHtml(data.summary_table, "綜合研判對照表");
+    const followupPills = (data.followup_suggestions || [])
+      .map((fq) => `<button type="button" class="followup-pill-btn yj-fq-pill" data-fq="${esc(fq)}">${esc(fq)}</button>`)
+      .join("");
 
     box.innerHTML = `
       <div class="verdict-hero-card">
+        ${parentNoteHtml}
         <div class="verdict-top-meta">
           <span class="status-pill ${bCls}">${esc(data.verdict_badge)}</span>
           <span class="spread-caption">宗師：${esc(data.mentor.name)}（${esc(data.mentor.chip_tag || data.mentor.title)}）｜ ${esc(data.method_label)} ｜ ${esc(data.casting_pillars.month_gz)}月 ${esc(data.casting_pillars.day_gz)}日</span>
         </div>
         <h2>照你問的，${esc(data.mentor.name)}直球結論</h2>
         <p class="verdict-direct-text">${esc(data.direct_verdict)}</p>
+        ${auxRibbonHtml}
       </div>
+
+      ${summaryTableHtml}
+      ${multiMethodHtml}
 
       <div class="hexagram-flow-ribbon" aria-label="本卦互卦變卦三段演進">
         <span class="flow-step">本卦《${esc(data.ben_hexagram.name)}》</span>
@@ -811,7 +924,7 @@
       </div>
 
       <div class="action-box">
-        <h3>應期時間點與三步具體對策</h3>
+        <h3>應期時間點與三步實務處理建議</h3>
         <p class="plain-body" style="margin-bottom:10px">${esc(data.timing_window)}</p>
         <ol class="action-list">${actHtml}</ol>
         ${closingHtml}
@@ -828,41 +941,89 @@
             </table>
           </div>
         </details>
+      </div>
+
+      <div class="followup-bar-box">
+        <h3>同卦盤繼續追問（不重搖卦・針對同一盤直接問細節）</h3>
+        <div class="followup-pills-row">${followupPills}</div>
+        <div class="followup-input-row">
+          <input type="text" id="yijingFollowupInput" class="text-input" placeholder="直接輸入追問，例如：男的還是女的？或：監視器往哪裡查？" />
+          <button type="button" class="btn-gold-primary" id="yijingFollowupBtn">同盤直球追問</button>
+        </div>
         <p class="compliance-note">${esc(data.compliance_footer)}</p>
       </div>
     `;
+
+    box.querySelectorAll(".yj-fq-pill").forEach((btn) => {
+      btn.addEventListener("click", () => runYijingFollowup(btn.dataset.fq));
+    });
+    const fqBtn = document.getElementById("yijingFollowupBtn");
+    const fqInput = document.getElementById("yijingFollowupInput");
+    if (fqBtn && fqInput) {
+      fqBtn.addEventListener("click", () => {
+        if (fqInput.value.trim()) runYijingFollowup(fqInput.value.trim());
+      });
+      fqInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" && fqInput.value.trim()) {
+          e.preventDefault();
+          runYijingFollowup(fqInput.value.trim());
+        }
+      });
+    }
+  }
+
+  function runYijingFollowup(followupText) {
+    if (!state.lastYijingContext || !followupText) return;
+    const baseQ = state.lastYijingContext.base_question || state.lastYijingContext.question;
+    submitYijing(null, null, {
+      question: followupText,
+      base_question: baseQ,
+      parent_question: baseQ,
+      method: state.lastYijingContext.method,
+      coin_throws: state.lastYijingContext.coin_throws,
+      numbers: state.lastYijingContext.numbers,
+      raw_numbers_text: state.lastYijingContext.raw_numbers_text || "",
+    });
   }
 
   async function submitYijing(throwsArr = null, numsArr = null, lockedContext = null) {
     const q = lockedContext ? lockedContext.question : document.getElementById("yijingQuestionInput").value.trim();
+    const quickNumsEl = document.getElementById("mhQuickNums");
+    const rawNumStr = lockedContext
+      ? (lockedContext.raw_numbers_text || "")
+      : (state.yijingMethod === "meihua_numbers" && quickNumsEl ? quickNumsEl.value.trim() : "");
     const methodUsed = lockedContext ? lockedContext.method : state.yijingMethod;
     const box = document.getElementById("yijingResultContainer");
     if (!lockedContext) {
-      box.innerHTML = `<div class="ritual-empty-state"><h2>正在排定納甲世應、互卦與月建日辰...</h2></div>`;
+      box.innerHTML = `<div class="ritual-empty-state"><h2>正在排定梅花體用、納甲世應與數字易經磁場...</h2></div>`;
     }
 
     const res = await apiPost("/api/yijing", {
       question: q,
+      parent_question: lockedContext && lockedContext.parent_question ? lockedContext.parent_question : "",
+      raw_numbers_text: rawNumStr,
       method: methodUsed,
       mentor_id: state.yijingMentor,
       coin_throws: lockedContext ? lockedContext.coin_throws : throwsArr,
       numbers: lockedContext ? lockedContext.numbers : numsArr,
-      skip_journal: Boolean(lockedContext),
+      skip_journal: Boolean(lockedContext && !lockedContext.parent_question),
     });
     if (res.ok) {
       state.coinThrows = [];
+      const rootBaseQ = lockedContext && lockedContext.base_question ? lockedContext.base_question : res.data.question;
       state.lastYijingContext = {
         question: res.data.question,
+        base_question: rootBaseQ,
+        parent_question: res.data.parent_question || "",
         method: res.data.method,
         coin_throws: res.data.lines_bottom_to_top.map((l) => l.throw_value ?? l.throw_val),
-        numbers: methodUsed === "meihua_numbers" ? (lockedContext ? lockedContext.numbers : numsArr) : null,
+        numbers: res.data.method === "meihua_numbers" ? (lockedContext ? lockedContext.numbers : numsArr) : null,
+        raw_numbers_text: res.data.raw_numbers_text || rawNumStr || "",
       };
       document.getElementById("throwOnceBtn").textContent = "逐爻親擲（第 1 爻）";
-      document.getElementById("coinThrowsProgress").textContent = "已完成六擲起卦（可隨時重新逐爻親擲）";
+      document.getElementById("coinThrowsProgress").textContent = "已完成起卦（可隨時重新起卦或於下方同盤追問）";
       renderYijingResult(res.data);
-      if (!lockedContext) {
-        scrollResultOnMobile("yijingResultContainer");
-      }
+      scrollResultOnMobile("yijingResultContainer");
     }
   }
 
@@ -1349,6 +1510,14 @@
     document.querySelectorAll(".yj-pill").forEach((p) => {
       p.addEventListener("click", () => {
         document.getElementById("yijingQuestionInput").value = p.dataset.q;
+        const quickEl = document.getElementById("mhQuickNums");
+        if (p.dataset.nums) {
+          const mhBtn = document.querySelector('#yijingMethodTabs .seg-btn[data-method="meihua_numbers"]');
+          if (mhBtn) mhBtn.click();
+          if (quickEl) quickEl.value = p.dataset.nums;
+        } else if (quickEl) {
+          quickEl.value = "";
+        }
       });
     });
 
