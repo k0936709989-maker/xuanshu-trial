@@ -85,7 +85,7 @@
       .replace(/"/g, "&quot;");
   }
 
-  const TRIAL_END_MS = Date.parse("2026-11-30T23:59:59+08:00");
+  const TRIAL_END_MS = Date.parse("2026-12-03T23:59:59+08:00");
 
   function handleTrialExpiredUI(reasonText) {
     const overlay = document.getElementById("trialExpiredOverlay");
@@ -110,7 +110,7 @@
       remSec = -1;
     }
     if (remSec <= 0 || (policy && policy.trial_active === false)) {
-      handleTrialExpiredUI("本連結為專屬一週免驗證碼體驗版（有效期間：2026 年 11 月 24 日至 2026 年 11 月 30 日 23:59 台灣時間，共七日）。試用期限已結束，如需開通正式商業授權版請聯繫專屬專案負責人。");
+      handleTrialExpiredUI("本連結為專屬一週免驗證碼體驗版（有效期間：2026 年 11 月 26 日至 2026 年 12 月 3 日 23:59 台灣時間，共七日）。試用期限已結束，如需開通正式商業授權版請聯繫專屬專案負責人。");
       return;
     }
     const days = Math.floor(remSec / 86400);
@@ -121,7 +121,7 @@
     }
     const detail = document.getElementById("trialCountdownDetail");
     if (detail) {
-      detail.textContent = `免驗證碼點開即用｜試用期間：2026-11-24 至 2026-11-30 23:59（台灣時間，共七日），目前剩餘 ${days} 天 ${hours} 小時，屆滿自動關閉試用權限。`;
+      detail.textContent = `免驗證碼點開即用｜試用期間：2026-11-26 至 2026-12-03 23:59（台灣時間，共七日），目前剩餘 ${days} 天 ${hours} 小時，屆滿自動關閉試用權限。`;
     }
   }
 
@@ -137,7 +137,7 @@
 
   function populateShareModal() {
     const shareUrl = getCleanShareUrl();
-    const inviteMsg = `《玄樞閣》七日免驗證碼手機試用版（點開即可直接試用塔羅直斷、易經六爻、八術姓名學與雙窗17條SOP，效期一週至 2026-11-30 23:59）：\n${shareUrl}`;
+    const inviteMsg = `《玄樞閣》七日免驗證碼手機試用版（點開即可直接試用塔羅直斷、易經六爻、八術姓名學與雙窗17條SOP，效期一週至 2026-12-03 23:59）：\n${shareUrl}`;
     const box = document.getElementById("shareInviteText");
     if (box) box.value = inviteMsg;
 
@@ -723,10 +723,12 @@
     const q = document.getElementById("tarotQuestionInput").value;
     let needed = 3;
     if (spreadSel === "single_verdict") needed = 1;
-    else if (spreadSel === "love_mirror_4") needed = 4;
+    else if (spreadSel === "love_mirror_4" || spreadSel === "lost_item_compass_4") needed = 4;
     else if (spreadSel === "two_choice_5" || spreadSel === "truth_investigation_5") needed = 5;
     else if (spreadSel === "auto") {
-      if (/(外人|熟人|內鬼|誰做|誰拿|誰偷|誰剪|所為|被剪|被偷|失竊|破壞|還是|哪個)/.test(q)) needed = 5;
+      if (/(外人|熟人|內鬼|誰做|誰拿|誰偷|誰剪|所為|被剪|被偷|失竊|破壞)/.test(q)) needed = 5;
+      else if (/(貓|狗|毛孩|寵物|走失|遺失|弄丟|不見了|找得回來|找不到)/.test(q)) needed = 4;
+      else if (/(還是|哪個)/.test(q)) needed = 5;
       else if (/(喜歡|愛|心裡|復合|冷戰|感情)/.test(q)) needed = 4;
       else needed = 3;
     }
